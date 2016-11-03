@@ -1,0 +1,14 @@
+C:\Users\Hesa\Desktop\EB_Project\AutoBuy\AutoShop\bin\Release\AutoShop.exe.config
+C:\Users\Hesa\Desktop\EB_Project\AutoBuy\AutoShop\bin\Release\AutoShop.exe
+C:\Users\Hesa\Desktop\EB_Project\AutoBuy\AutoShop\bin\Release\AutoShop.pdb
+C:\Users\Hesa\Desktop\EB_Project\AutoBuy\AutoShop\bin\Release\EloBuddy.dll
+C:\Users\Hesa\Desktop\EB_Project\AutoBuy\AutoShop\bin\Release\EloBuddy.SDK.dll
+C:\Users\Hesa\Desktop\EB_Project\AutoBuy\AutoShop\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\Hesa\Desktop\EB_Project\AutoBuy\AutoShop\bin\Release\SharpDX.dll
+C:\Users\Hesa\Desktop\EB_Project\AutoBuy\AutoShop\bin\Release\Newtonsoft.Json.dll
+C:\Users\Hesa\Desktop\EB_Project\AutoBuy\AutoShop\obj\Release\AutoShop.exe
+C:\Users\Hesa\Desktop\EB_Project\AutoBuy\AutoShop\obj\Release\AutoShop.pdb
+C:\Users\Hesa\Desktop\EB_Project\AutoBuy\AutoShop\obj\Release\AutoShop.Properties.Resources.resources
+C:\Users\Hesa\Desktop\EB_Project\AutoBuy\AutoShop\obj\Release\AutoShop.csproj.GenerateResource.Cache
+C:\Users\Hesa\Desktop\EB_Project\AutoBuy\AutoShop\bin\Release\EloBuddy.Sandbox.dll
+C:\Users\Hesa\Desktop\EB_Project\AutoBuy\AutoShop\obj\Release\AutoShop.csprojResolveAssemblyReference.cache

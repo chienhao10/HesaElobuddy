@@ -1,0 +1,891 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{119D15C8-90A4-4B3B-A9C4-E866730094B3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutoShopGUI</RootNamespace>
+    <AssemblyName>AutoShopGUI</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=12.7.0.1, Culture=neutral, PublicKeyToken=417583d16d08abed, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar2, Version=12.7.0.1, Culture=neutral, PublicKeyToken=417583d16d08abed" />
+    <Reference Include="DevComponents.Instrumentation, Version=12.7.0.1, Culture=neutral, PublicKeyToken=417583d16d08abed" />
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\EloBuddy\System\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Build.cs" />
+    <Compile Include="Controllers\BuildController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListExtensions.cs" />
+    <Compile Include="LoLItem.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringDistance.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\item.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1001.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1004.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1006.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1011.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1018.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1026.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1027.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1028.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1029.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1031.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1033.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1036.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1037.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1038.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1039.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1041.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1042.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1043.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1051.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1052.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1053.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1054.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1055.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1056.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1057.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1058.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1082.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1083.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1300.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1301.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1302.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1303.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1305.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1306.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1307.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1308.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1310.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1311.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1312.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1313.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1315.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1316.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1317.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1318.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1320.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1321.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1322.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1323.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1325.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1326.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1327.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1328.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1330.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1331.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1332.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1333.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1400.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1401.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1402.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1403.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1408.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1409.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1410.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1411.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1412.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1413.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1414.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1415.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2003.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2009.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2010.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2015.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2031.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2032.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2033.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2043.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2045.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2047.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2049.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2050.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2051.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2052.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2053.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2054.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2138.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2139.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2140.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2301.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2302.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2303.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3001.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3003.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3004.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3006.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3007.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3008.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3009.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3010.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3020.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3022.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3024.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3025.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3026.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3027.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3028.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3029.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3031.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3033.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3034.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3035.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3036.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3040.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3041.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3042.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3043.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3044.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3046.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3047.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3048.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3050.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3052.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3053.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3056.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3057.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3060.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3065.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3067.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3068.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3069.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3070.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3071.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3072.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3073.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3074.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3075.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3077.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3078.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3082.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3083.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3084.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3085.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3086.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3087.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3089.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3090.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3091.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3092.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3094.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3096.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3097.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3098.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3100.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3101.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3102.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3104.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3105.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3108.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3110.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3111.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3112.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3113.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3114.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3115.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3116.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3117.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3122.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3123.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3124.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3133.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3134.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3135.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3136.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3137.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3139.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3140.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3142.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3143.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3144.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3145.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3146.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3147.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3151.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3152.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3153.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3155.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3156.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3157.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3158.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3165.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3170.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3174.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3181.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3184.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3185.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3187.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3190.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3191.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3196.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3197.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3198.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3200.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3211.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3222.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3240.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3241.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3242.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3243.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3285.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3301.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3302.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3303.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3340.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3341.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3345.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3348.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3361.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3362.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3363.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3364.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3401.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3460.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3461.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3504.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3508.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3512.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3599.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3671.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3672.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3673.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3674.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3706.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3711.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3715.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3742.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3748.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3751.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3800.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3801.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3812.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3901.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3902.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3903.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3930.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3931.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3932.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericADC.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericJungleAD.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericJungleADTank.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericJungleAP.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericJungleAPTank.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericMidAD.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericMidAP.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericSupportADTank.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericSupportAPBurst.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericSupportAPHeal.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericSupportAPTank.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericTopAD.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericTopADTank.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericTopAP.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericTopAPTank.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
