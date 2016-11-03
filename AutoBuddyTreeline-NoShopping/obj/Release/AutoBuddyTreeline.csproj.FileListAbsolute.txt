@@ -1,0 +1,2 @@
+C:\Users\Hesa\Desktop\eZ\AutoBuddyTreeline-master\AutoBuddyTreeline\obj\Release\AutoBuddy.Properties.Resources.resources
+C:\Users\Hesa\Desktop\eZ\AutoBuddyTreeline-master\AutoBuddyTreeline\obj\Release\AutoBuddyTreeline.csproj.GenerateResource.Cache
