@@ -1,0 +1,4 @@
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\bin\Release\AutoBuddy.exe.config
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\obj\Debug\AutoBuddy_BETA_Fixed.csprojResolveAssemblyReference.cache
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\obj\Debug\AutoBuddy.Properties.Resources.resources
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\obj\Debug\AutoBuddy_BETA_Fixed.csproj.GenerateResource.Cache

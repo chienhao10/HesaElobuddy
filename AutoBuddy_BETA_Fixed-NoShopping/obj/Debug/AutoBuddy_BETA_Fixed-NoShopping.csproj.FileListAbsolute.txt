@@ -1,0 +1,14 @@
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\bin\Release\AutoBuddy_NoShopping.exe.config
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\bin\Release\AutoBuddy_NoShopping.exe
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\bin\Release\AutoBuddy_NoShopping.pdb
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\bin\Release\EloBuddy.dll
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\bin\Release\EloBuddy.Sandbox.dll
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\bin\Release\EloBuddy.SDK.dll
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\bin\Release\Newtonsoft.Json.dll
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\bin\Release\SharpDX.dll
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\bin\Release\SharpDX.XInput.dll
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\obj\Debug\AutoBuddy.Properties.Resources.resources
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\obj\Debug\AutoBuddy_BETA_Fixed-NoShopping.csproj.GenerateResource.Cache
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\obj\Debug\AutoBuddy_NoShopping.exe
+C:\Users\Hesa\Documents\HesaElobuddy\AutoBuddy_BETA_Fixed-NoShopping\obj\Debug\AutoBuddy_NoShopping.pdb

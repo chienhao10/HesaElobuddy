@@ -1,0 +1,16 @@
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Release\AutoShopGUI.exe.config
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Release\AutoShopGUI.exe
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Release\AutoShopGUI.pdb
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Release\DevComponents.DotNetBar.SuperGrid.dll
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Release\DevComponents.DotNetBar2.dll
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Release\DevComponents.Instrumentation.dll
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Release\Newtonsoft.Json.dll
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Release\DevComponents.DotNetBar.SuperGrid.xml
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Release\DevComponents.DotNetBar2.xml
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Release\DevComponents.Instrumentation.xml
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Release\AutoShopGUI.csprojResolveAssemblyReference.cache
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Release\AutoShopGUI.Form1.resources
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Release\AutoShopGUI.Properties.Resources.resources
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Release\AutoShopGUI.csproj.GenerateResource.Cache
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Release\AutoShopGUI.exe
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Release\AutoShopGUI.pdb
