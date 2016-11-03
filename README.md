@@ -12,3 +12,6 @@ It must be stored in "User\AppData\Roaming\Elobuddy\AutoShop\"
 #AutoShopGUI
 This software allow you to create build profile outside the game and specify the buy/sell order.
 You can edit the generics build and your custom profile using this software.
+
+#AutoBuddyTreeline-NoShipping
+Just an edited version of AutoBuddyTreeline to prevent conflict with buying items ( Which actually was not working properly. )
