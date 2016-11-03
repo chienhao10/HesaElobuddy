@@ -16,3 +16,6 @@ You can edit the generics build and your custom profile using this software.
 
 #AutoBuddyTreeline-NoShipping
 Just an edited version of AutoBuddyTreeline to prevent conflict with buying items ( Which actually was not working properly. )
+
+#AutoBuddy_BETA_Fixed-NoShopping
+Just an edited version of AutoBuddy_BETA_Fixed to prevent conflict with buying items ( Which actually was not working properly. )
