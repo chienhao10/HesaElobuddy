@@ -1,10 +1,12 @@
 ﻿using EloBuddy;
+using System;
 
 namespace AutoShop.Controllers
 {
     public static class PotionController
     {
         static int count = 0;
+        static int randomNumber = new Random().Next(75, 125);
         public static void BuyOrSellPotions()
         {
             if (BuildController.CurrentBuild == null || !BuildController.CurrentBuild.UseHPotion) return;
@@ -13,9 +15,12 @@ namespace AutoShop.Controllers
                 //Buy Healing Potions
                 if (ItemController.HPotionCount() >= BuildController.CurrentBuild.MaxHPotionCount) return;
                 if(count == 0)
+                {
                     ItemController.BuyHPotion();
+                    randomNumber = new Random().Next(75, 125);
+                }
                 count++;
-                if (count >= 100) count = 0;
+                if (count >= randomNumber) count = 0;
             }
             else
             {

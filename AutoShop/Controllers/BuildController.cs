@@ -2,6 +2,7 @@
 using EloBuddy.Sandbox;
 using EloBuddy.SDK;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 
 namespace AutoShop.Controllers
@@ -363,13 +364,14 @@ namespace AutoShop.Controllers
             }
         }
         static int count = 50;
+        static int randomNumber = new Random().Next(25, 50);
         public static void BuyOrSellItems()
         {
             if (CurrentBuild == null) return;
             count++;
-
-            if (count < 50) return;
+            if (count < randomNumber) return;
             count = 0;
+            randomNumber = new Random().Next(25, 50);
             //
             if (CurrentBuild.Items.Count == 0) return;
             
