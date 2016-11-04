@@ -43,6 +43,7 @@ namespace AutoShop.Controllers
                     }
                     else
                     {
+						Chat.Print("Loaded profile:" + fullpath);
                         BuildPath = fullpath;
                         LoadedBuildName = buildName.Split('.')[0];
                         CurrentBuild = build;
