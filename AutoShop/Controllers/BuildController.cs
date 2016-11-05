@@ -115,10 +115,10 @@ namespace AutoShop.Controllers
                         return "GenericJungleAD.txt";
                     break;
                     //AD Tank
-                    case "dr. mundo":
-                    case "lee sin":
-                    case "master yi":
-                    case "jarvan iv":
+                    case "drmundo":
+                    case "leesin":
+                    case "masteryi":
+                    case "jarvaniv":
                     case "olaf":
                     case "vi":
                     case "volibear":

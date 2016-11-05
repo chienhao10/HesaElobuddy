@@ -29,8 +29,6 @@ namespace AutoShop
             ShopMenu.AddGroupLabel("AutoShop allow you to buy items from your custom build when you visit the shop.");
             ShopMenu.AddLabel("Any and all suggestions are welcome.");
             ShopMenu.AddSeparator(400);
-            ShopMenu.AddGroupLabel("Use '/b itemname' command to add an item to this list.");
-            ShopMenu.AddGroupLabel("Use '/s itemname' command to sell an item from this list.");
         }
 
         private static void InitializeEvents()

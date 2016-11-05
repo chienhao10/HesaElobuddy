@@ -1,0 +1,51 @@
+﻿[Maps]
+The following map should be supported:
+	- Summoners Rift
+	- Aram
+	- Twisted Treeline
+
+[Lane]
+
+[Movements]
+
+[Jukes]
+Enter bush, wait until enemy is in stun range, stun and move away.
+Move toward a bush, flash into another bush and move away or recall.
+
+[Disrespect]
+Use Ctrl+6 after juking or killing enemies in a 1v2 or higher.
+Spam laugh emote if Ctrl+6 isnt available.
+
+[Warding]
+Support use sweepers to destroy wards in common spots.
+Use ward/sightstone
+Play safe when no vision ( Do not go past limits)
+Use ward during fight when an enemy enters a bush
+Use pink ward at common locations
+Keep pink ward vs vayne, twitch, etc...
+Use pink during fights vs vayne, twitch, etc...
+
+[Work as a team]
+If team engage baron, lets reach them.
+If laning phase is over, follow the team.
+If we have pushed very far and we cant push anymore because enemies are alive and we dont know where they are, roam in other lanes.
+
+
+[Laning Phase]
+If the mid is missing, play safe.
+If the jungler is not visible and we have no ward, assume the jungler is waiting in the bush and play safe.
+If we fall behind play safe.
+Focus on minions are punish everytime the enemy try to cs.
+If we outrange the enemy keep harassing him.
+If we are adc and the enemy support stay in front of us, just focus on farming.
+
+[Ganks]
+If enemy is going toward us from the jungle, back under tower... if is low hp try to run as far as we can... if the enemy is ganking from behind the tower, try to make plays arround the tower.
+
+[Pings]
+Ping missing everytime an enemy leave our lane or recall.
+Ping danger everytime an enemy become visible in the jungle/river.
+
+[Recalls]
+
+[Items]
