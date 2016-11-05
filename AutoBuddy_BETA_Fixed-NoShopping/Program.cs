@@ -76,7 +76,7 @@ namespace AutoBuddy
             Chat.Print("ErrorCode=" + (errorFinder++));
             PropertyInfo property2 = typeof(CheckBox).GetProperty("Size");
             Chat.Print("ErrorCode=" + (errorFinder++));
-            property2.GetSetMethod(true).Invoke(c, new object[] { new Vector2(500, 20) });
+            //property2.GetSetMethod(true).Invoke(c, new object[] { new Vector2(500, 20) });
             Chat.Print("ErrorCode=" + (errorFinder++));
             menu.Add("mid", c);
             Chat.Print("ErrorCode=" + (errorFinder++));
@@ -117,7 +117,7 @@ namespace AutoBuddy
             menu.Add("disableAutoBuddy", new CheckBox("Disable AutoBuddy Movement. F5 to apply.", false));
             menu.AddSeparator(5);
             CheckBox autoclose = new CheckBox("Auto close lol when the game ends. F5 to apply", false);
-            property2.GetSetMethod(true).Invoke(autoclose, new object[] { new Vector2(500, 20) });
+            //property2.GetSetMethod(true).Invoke(autoclose, new object[] { new Vector2(500, 20) });
             menu.Add("autoclose", autoclose);
             menu.AddSeparator(5);
             menu.Add("oldWalk", new CheckBox("Use old orbwalking. F5 to apply", false));
