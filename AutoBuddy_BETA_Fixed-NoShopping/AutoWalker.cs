@@ -53,7 +53,9 @@ namespace AutoBuddy
 
             GameID = DateTime.Now.Ticks + ""+RandomString(10);
             Chat.Print("Steps=" + (errorFinder++));
-            newPF = MainMenu.GetMenu("AB").Get<CheckBox>("newPF").CurrentValue;
+
+
+            //newPF = MainMenu.GetMenu("AB").Get<CheckBox>("newPF").CurrentValue;
             Chat.Print("Steps=" + (errorFinder++));
             NavGraph =new NavGraph(Path.Combine(SandboxConfig.DataDirectory, "AutoBuddy"));
             Chat.Print("Steps=" + (errorFinder++));
