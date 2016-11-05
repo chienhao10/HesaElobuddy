@@ -67,7 +67,7 @@ namespace AutoBuddy
             //Start();
 
             menu = MainMenu.AddMenu("AUTOBUDDY", "AB");
-            /*
+
             menu.Add("sep1", new Separator(1));
             CheckBox c =
                 new CheckBox("Call mid, will leave if other player stays on mid(only auto lane)", true);
@@ -115,7 +115,7 @@ namespace AutoBuddy
             menu.Add("oldWalk", new CheckBox("Use old orbwalking. F5 to apply", false));
             menu.Add("debuginfo", new CheckBox("Draw debug info. F5 to apply", true));
             menu.Add("l1", new Label("By Christian Brutal Sniper - Maintained by TheYasuoMain"));
-            menu.Add("l2", new Label("Version: " + ABVersion));*/
+            menu.Add("l2", new Label("Version: " + ABVersion));
         }
 
         static void newpf_OnValueChange(ValueBase<bool> sender, ValueBase<bool>.ValueChangeArgs args)
