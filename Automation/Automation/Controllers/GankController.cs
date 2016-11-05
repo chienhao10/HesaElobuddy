@@ -1,6 +1,6 @@
 ﻿namespace Automation.Controllers
 {
-    public static class WardController
+    public static class GankController
     {
         public static void Tick()
         {

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Automation.Controllers
 {
-    class PhaseController
+    public static class PhaseController
     {
+        public static void Tick()
+        {
+
+        }
     }
 }

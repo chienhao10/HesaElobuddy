@@ -20,5 +20,9 @@ namespace Automation.Controllers
         {
 
         }
+        public static void Tick()
+        {
+
+        }
     }
 }

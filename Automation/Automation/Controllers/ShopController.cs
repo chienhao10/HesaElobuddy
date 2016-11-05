@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Automation.Controllers
+﻿namespace Automation.Controllers
 {
-    class ShopController
+    public static class ShopController
     {
+        public static void Tick()
+        {
+
+        }
     }
 }

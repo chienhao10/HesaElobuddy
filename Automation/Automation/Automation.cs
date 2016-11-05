@@ -1,4 +1,5 @@
-﻿using EloBuddy;
+﻿using Automation.Controllers;
+using EloBuddy;
 using EloBuddy.SDK.Menu;
 using System;
 
@@ -29,12 +30,19 @@ namespace Automation
 
         private static void OnTick(EventArgs args)
         {
-
+            ShopController.Tick();
+            PhaseController.Tick();
+            LaneController.Tick();
+            GankController.Tick();
+            TeleportController.Tick();
+            MovementController.Tick();
+            WardController.Tick();
+            RecallController.Tick();
         }
 
         private static void Drawings(EventArgs args)
         {
-
+            DrawingController.Draw();
         }
     }
 }

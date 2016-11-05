@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Automation.Controllers
+﻿namespace Automation.Controllers
 {
-    class MapController
+    public static class MapController
     {
+
     }
 }
