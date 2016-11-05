@@ -66,7 +66,7 @@ namespace AutoBuddy
 
             //Start();
 
-            menu = MainMenu.AddMenu("AUTOBUDDY", "AB");
+            menu = MainMenu.AddMenu("AUTOBUDDY", "AB1");
 
             menu.Add("sep1", new Separator(1));
             CheckBox c =
