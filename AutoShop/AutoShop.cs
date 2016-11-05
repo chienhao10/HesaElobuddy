@@ -49,8 +49,6 @@ namespace AutoShop
             {
                 //Build
                 BuildController.BuyOrSellItems();
-                //Potions
-                PotionController.BuyOrSellPotions();
             }
             isDelayed = false;
             //}, 100);
