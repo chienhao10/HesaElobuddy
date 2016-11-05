@@ -39,12 +39,21 @@ Focus on minions are punish everytime the enemy try to cs.
 If we outrange the enemy keep harassing him.
 If we are adc and the enemy support stay in front of us, just focus on farming.
 
+[Towers]
+Always push the tower with the less HP ( Beside nexus )
+Always kill melee minions before tower.
+
 [Ganks]
 If enemy is going toward us from the jungle, back under tower... if is low hp try to run as far as we can... if the enemy is ganking from behind the tower, try to make plays arround the tower.
 
 [Pings]
 Ping missing everytime an enemy leave our lane or recall.
 Ping danger everytime an enemy become visible in the jungle/river.
+
+[Teleport]
+Use teleport early to go back to lane.
+Use teleport to go in the enemy back and get an easy kill.
+Use teleport from top or mid to bot to gank.
 
 [Recalls]
 
