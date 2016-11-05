@@ -35,7 +35,7 @@ If we have pushed very far and we cant push anymore because enemies are alive an
 If the mid is missing, play safe.
 If the jungler is not visible and we have no ward, assume the jungler is waiting in the bush and play safe.
 If we fall behind play safe.
-Focus on minions are punish everytime the enemy try to cs.
+Focus on minions and punish everytime the enemy try to cs.
 If we outrange the enemy keep harassing him.
 If we are adc and the enemy support stay in front of us, just focus on farming.
 

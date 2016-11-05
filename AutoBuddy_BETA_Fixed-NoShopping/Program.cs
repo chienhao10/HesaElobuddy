@@ -43,7 +43,7 @@ namespace AutoBuddy
             Loading.OnLoadingComplete += Loading_OnLoadingComplete;
         }
 
-        private static void Loading_OnLoadingComplete(EventArgs args)
+        public static void Loading_OnLoadingComplete(EventArgs args)
         {
             //AutoBlack Spear
             if (myHero.Hero == Champion.Kalista)

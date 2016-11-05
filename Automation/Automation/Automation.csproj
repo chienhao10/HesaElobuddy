@@ -56,16 +56,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Automation.cs" />
+    <Compile Include="Controllers\DrawingController.cs" />
+    <Compile Include="Controllers\GankController.cs" />
     <Compile Include="Controllers\LaneController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\MovementController.cs" />
     <Compile Include="Controllers\PhaseController.cs" />
     <Compile Include="Controllers\RecallController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\TeleportController.cs" />
     <Compile Include="Controllers\WardController.cs" />
     <Compile Include="Enums\Lane.cs" />
     <Compile Include="Enums\Map.cs" />
+    <Compile Include="Enums\Phase.cs" />
+    <Compile Include="Enums\Role.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
