@@ -67,7 +67,7 @@ namespace AutoBuddy
                 new CheckBox("Call bot, will leave if other player stays on bot (only auto lane)", true);
 
             PropertyInfo property2 = typeof(CheckBox).GetProperty("Size");
-            property2.GetSetMethod(true).Invoke(c, new object[] { new Vector2(500, 20) });
+            //property2.GetSetMethod(true).Invoke(c, new object[] { new Vector2(500, 20) });
             menu.Add("bot", c);
 
             Slider sliderLanes = menu.Add("lane", new Slider(" ", 1, 1, 2));
