@@ -26,31 +26,34 @@ namespace AutoBuddy
         public static Spell.Active Ghost, Barrier, Heal, Recall;
         public static Spell.Skillshot Flash;
         public static Spell.Targeted Teleport, Ignite, Smite, Exhaust;
-        public static Obj_HQ MyNexus;
-        public static Obj_HQ EneMyNexus;
-        public static AIHeroClient p;
-        public static Obj_AI_Turret EnemyLazer;
+        public static readonly Obj_HQ MyNexus;
+        public static readonly Obj_HQ EneMyNexus;
+        public static readonly AIHeroClient p;
+        public static readonly Obj_AI_Turret EnemyLazer;
         private static string sameChat;
         private static int Time = 0;
         private static int TimeStuck = 0;
         private static Orbwalker.ActiveModes activeMode = Orbwalker.ActiveModes.None;
         private static InventorySlot seraphs;
         private static int hpSlot;
-        private static ColorBGRA color;
+        private static readonly ColorBGRA color;
         private static List<Vector3> PfNodes;
-        private static NavGraph NavGraph;
+        private static readonly NavGraph NavGraph;
         private static bool oldWalk;
 
         public static bool ABDebug = false;
         public static bool newPF;
         public static EventHandler EndGame;
+        
 
-        public static void Initialize()
+        static AutoWalker()
         {
-            GameID = DateTime.Now.Ticks + "" + RandomString(10);
+            int errorFinder = 0;
+            Chat.Print("Steps=" + (errorFinder++));
+            GameID = DateTime.Now.Ticks + ""+RandomString(10);
             newPF = MainMenu.GetMenu("AB").Get<CheckBox>("newPF").CurrentValue;
-            NavGraph = new NavGraph(Path.Combine(SandboxConfig.DataDirectory, "AutoBuddy"));
-            PfNodes = new List<Vector3>();
+            NavGraph=new NavGraph(Path.Combine(SandboxConfig.DataDirectory, "AutoBuddy"));
+            PfNodes=new List<Vector3>();
             color = new ColorBGRA(79, 219, 50, 255);
             MyNexus = ObjectManager.Get<Obj_HQ>().First(n => n.IsAlly);
             EneMyNexus = ObjectManager.Get<Obj_HQ>().First(n => n.IsEnemy);
@@ -59,15 +62,20 @@ namespace AutoBuddy
             initSummonerSpells();
 
             Target = ObjectManager.Player.Position;
+
+            Chat.Print("Made it through the orbwalker...");
+
             Orbwalker.DisableMovement = false;
 
             Orbwalker.DisableAttacking = false;
             Game.OnUpdate += Game_OnUpdate;
+            Chat.Print("Steps="+ (errorFinder++));
 
             if (!MainMenu.GetMenu("AB").Get<CheckBox>("disableAutoBuddy").CurrentValue)
             {
                 Orbwalker.OverrideOrbwalkPosition = () => Target;
             }
+            Chat.Print("Steps=" + (errorFinder++));
             if (Orbwalker.HoldRadius > 130 || Orbwalker.HoldRadius < 80)
             {
                 Chat.Print("=================WARNING=================", Color.Red);
@@ -75,20 +83,19 @@ namespace AutoBuddy
                 Chat.Print("Please set hold radius through menu=>Orbwalker");
                 Chat.Print("Recommended values: Hold radius: 80-130, Delay between movements: 100-250");
             }
+            Chat.Print("Steps=" + (errorFinder++));
             if (MainMenu.GetMenu("AB").Get<CheckBox>("debuginfo").CurrentValue)
                 Drawing.OnDraw += Drawing_OnDraw;
-
+            
             Core.DelayAction(OnEndGame, 20000);
             updateItems();
             oldOrbwalk();
             Game.OnTick += OnTick;
             Chat.OnMessage += Chat_OnMessage;
             Drawing.OnDraw += Drawing_OnDraw;
-        }
 
-        static AutoWalker()
-        {
-            Initialize();
+            Chat.Print("Steps=" + (errorFinder++));
+
         }
 
 

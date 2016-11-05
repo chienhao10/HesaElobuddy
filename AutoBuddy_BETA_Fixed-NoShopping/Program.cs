@@ -257,9 +257,7 @@ namespace AutoBuddy
                     myChamp = new Nidalee();
                     break;
             }
-
-            AutoWalker.Initialize();
-
+            
             CustomLvlSeq cl = new CustomLvlSeq(menu, AutoWalker.p, Path.Combine(SandboxConfig.DataDirectory
             , "AutoBuddy\\Skills"));
             
