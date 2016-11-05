@@ -55,7 +55,7 @@ namespace AutoBuddy
             Chat.Print("Steps=" + (errorFinder++));
 
 
-            newPF = MainMenu.GetMenu("AB1").Get<CheckBox>("newPF").CurrentValue;
+            newPF = MainMenu.GetMenu("AB").Get<CheckBox>("newPF").CurrentValue;
             Chat.Print("Steps=" + (errorFinder++));
             NavGraph =new NavGraph(Path.Combine(SandboxConfig.DataDirectory, "AutoBuddy"));
             Chat.Print("Steps=" + (errorFinder++));

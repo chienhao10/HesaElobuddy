@@ -66,15 +66,15 @@ namespace AutoBuddy
 
             //Start();
 
-            menu = MainMenu.AddMenu("AUTOBUDDY", "AB1");
+            menu = MainMenu.AddMenu("AUTOBUDDY", "AB");
 
             menu.Add("sep1", new Separator(1));
-            CheckBox c =
-                new CheckBox("Call mid, will leave if other player stays on mid(only auto lane)", true);
+            CheckBox c = new CheckBox("Call mid, will leave if other player stays on mid(only auto lane)", true);
             PropertyInfo property2 = typeof(CheckBox).GetProperty("Size");
             property2.GetSetMethod(true).Invoke(c, new object[] { new Vector2(500, 20) });
             menu.Add("mid", c);
             Slider s = menu.Add("lane", new Slider(" ", 1, 1, 4));
+
             string[] lanes =
             {
                 "", "Selected lane: Auto", "Selected lane: Top", "Selected lane: Mid",
@@ -116,6 +116,7 @@ namespace AutoBuddy
             menu.Add("debuginfo", new CheckBox("Draw debug info. F5 to apply", true));
             menu.Add("l1", new Label("By Christian Brutal Sniper - Maintained by TheYasuoMain"));
             menu.Add("l2", new Label("Version: " + ABVersion));
+            Chat.Print("AutoBuddy Menu Created.");
         }
 
         static void newpf_OnValueChange(ValueBase<bool> sender, ValueBase<bool>.ValueChangeArgs args)
