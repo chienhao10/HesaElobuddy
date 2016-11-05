@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Reflection;
 using AutoBuddy.Humanizers;
@@ -8,7 +7,6 @@ using AutoBuddy.MainLogics;
 using AutoBuddy.MyChampLogic;
 using AutoBuddy.Utilities;
 using AutoBuddy.Utilities.AutoLvl;
-using AutoBuddy.Utilities.AutoShop;
 using EloBuddy;
 using EloBuddy.Sandbox;
 using EloBuddy.SDK;
@@ -65,6 +63,9 @@ namespace AutoBuddy
             Chat.Print("Loaded Version: " + ABVersion, System.Drawing.Color.LimeGreen);
             Chat.Print("AutoBuddy: Starting in 5 seconds.");
             Core.DelayAction(Start, 5000);
+
+            //Start();
+
             menu = MainMenu.AddMenu("AUTOBUDDY", "AB");
             menu.Add("sep1", new Separator(1));
             CheckBox c =
@@ -170,6 +171,7 @@ namespace AutoBuddy
 
         private static void Start()
         {
+            Chat.Print("Autobuddy Started!");
             RandGen.Start();
             bool generic = false;
             switch (ObjectManager.Player.Hero)
