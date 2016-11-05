@@ -58,6 +58,9 @@ namespace AutoShop.Controllers
             var genericBuild = GetGenericBuildByChampion();
             var specialPath = SandboxConfig.DataDirectory + "AutoShop\\";
             var fullpath = Path.Combine(specialPath + genericBuild);
+
+            if (!Directory.Exists(specialPath)) Directory.CreateDirectory(specialPath);
+
             if (!File.Exists(fullpath))
             {
                 using (StreamWriter writer = new StreamWriter(fullpath))
