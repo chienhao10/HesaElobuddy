@@ -56,5 +56,9 @@ Use teleport to go in the enemy back and get an easy kill.
 Use teleport from top or mid to bot to gank.
 
 [Recalls]
+If we are a support and our adc isnt in a fight, lets recall.
+If we are low health lets recall.
+If we just recalled a minute ago try to play safe for a bit and then recall
+If we have enough gold to buy an 'core' item, lets recall.
 
 [Items]
