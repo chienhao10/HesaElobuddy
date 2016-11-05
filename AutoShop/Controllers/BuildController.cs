@@ -373,71 +373,74 @@ namespace AutoShop.Controllers
             count = 0;
             randomNumber = new Random().Next(25, 50);
             //
-            if (CurrentBuild.Items.Count == 0) return;
-            
-            var buildItem = CurrentBuild.Items[0];
-            if(buildItem != null)
+            if (CurrentBuild.Items.Count != 0)
             {
-                if(buildItem.Sell)
+                var buildItem = CurrentBuild.Items[0];
+                if (buildItem != null)
                 {
-                    ItemController.SellItemId(buildItem.Id);
-                    Chat.Print("Sold item: " + buildItem.Name);
-                    CurrentBuild.Items.Remove(buildItem);
-                }else
-                {
-                    if (Item.HasItem(buildItem.Id, ObjectManager.Player))
+                    if (buildItem.Sell)
                     {
-                        lock (CurrentBuild.Items)
-                        {
-                            Chat.Print("Already had item: " + buildItem.Name);
-                            Chat.Print("Removing item:" + CurrentBuild.Items[0].Name);
-                            CurrentBuild.Items.RemoveAt(0);
-                            Chat.Print("Items to buy count: " + CurrentBuild.Items.Count);
-                        }
+                        ItemController.SellItemId(buildItem.Id);
+                        Chat.Print("Sold item: " + buildItem.Name);
+                        CurrentBuild.Items.Remove(buildItem);
                     }
                     else
                     {
-                        if (hasEnoughGold(buildItem))
+                        if (Item.HasItem(buildItem.Id, ObjectManager.Player))
                         {
-                            ItemController.BuyItemId(buildItem.Id);
-                            Chat.Print("Bought item: " + buildItem.Name);
                             lock (CurrentBuild.Items)
                             {
+                                Chat.Print("Already had item: " + buildItem.Name);
                                 Chat.Print("Removing item:" + CurrentBuild.Items[0].Name);
                                 CurrentBuild.Items.RemoveAt(0);
                                 Chat.Print("Items to buy count: " + CurrentBuild.Items.Count);
                             }
-                        }else
+                        }
+                        else
                         {
-                            if (buildItem.BuildFrom.Count != 0)
+                            if (hasEnoughGold(buildItem))
                             {
-                                var itemToBuy = buildItem.BuildFrom[0];
-                                if (itemToBuy.BuildFrom.Count != 0)
+                                ItemController.BuyItemId(buildItem.Id);
+                                Chat.Print("Bought item: " + buildItem.Name);
+                                lock (CurrentBuild.Items)
                                 {
-                                    var tmp = itemToBuy.BuildFrom[0];
-                                    if (hasEnoughGold(tmp))
-                                    {
-                                        lock (itemToBuy.BuildFrom)
-                                        {
-                                            Chat.Print("Removed sub sub item:: " + tmp.Name);
-                                            itemToBuy.BuildFrom.RemoveAt(0);
-                                        }
-                                        //Buy tmp
-                                        ItemController.BuyItemId(tmp.Id);
-                                        Chat.Print("Bought sub sub item: " + tmp.Name);
-                                    }
+                                    Chat.Print("Removing item:" + CurrentBuild.Items[0].Name);
+                                    CurrentBuild.Items.RemoveAt(0);
+                                    Chat.Print("Items to buy count: " + CurrentBuild.Items.Count);
                                 }
-                                else
+                            }
+                            else
+                            {
+                                if (buildItem.BuildFrom.Count != 0)
                                 {
-                                    if (hasEnoughGold(itemToBuy))
+                                    var itemToBuy = buildItem.BuildFrom[0];
+                                    if (itemToBuy.BuildFrom.Count != 0)
                                     {
-                                        lock (itemToBuy.BuildFrom)
+                                        var tmp = itemToBuy.BuildFrom[0];
+                                        if (hasEnoughGold(tmp))
                                         {
-                                            Chat.Print("Removed sub item: " + itemToBuy.Name);
-                                            buildItem.BuildFrom.RemoveAt(0);
+                                            lock (itemToBuy.BuildFrom)
+                                            {
+                                                Chat.Print("Removed sub sub item:: " + tmp.Name);
+                                                itemToBuy.BuildFrom.RemoveAt(0);
+                                            }
+                                            //Buy tmp
+                                            ItemController.BuyItemId(tmp.Id);
+                                            Chat.Print("Bought sub sub item: " + tmp.Name);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (hasEnoughGold(itemToBuy))
+                                        {
+                                            lock (itemToBuy.BuildFrom)
+                                            {
+                                                Chat.Print("Removed sub item: " + itemToBuy.Name);
+                                                buildItem.BuildFrom.RemoveAt(0);
 
-                                            ItemController.BuyItemId(itemToBuy.Id);
-                                            Chat.Print("Bought sub item: " + itemToBuy.Name);
+                                                ItemController.BuyItemId(itemToBuy.Id);
+                                                Chat.Print("Bought sub item: " + itemToBuy.Name);
+                                            }
                                         }
                                     }
                                 }
@@ -446,6 +449,7 @@ namespace AutoShop.Controllers
                     }
                 }
             }
+            PotionController.BuyOrSellPotions();
         }
 
         static bool hasEnoughGold(BuildItem item)
