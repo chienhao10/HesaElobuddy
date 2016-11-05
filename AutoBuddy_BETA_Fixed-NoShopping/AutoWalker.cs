@@ -74,6 +74,8 @@ namespace AutoBuddy
             initSummonerSpells();
             Chat.Print("Steps=" + (errorFinder++));
 
+            Chat.Print("Selecting target position.");
+
             Target = ObjectManager.Player.Position;
 
             Chat.Print("Made it through the orbwalker...");
