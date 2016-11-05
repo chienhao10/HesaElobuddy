@@ -61,10 +61,10 @@ namespace AutoBuddy
 
             Chat.Print("AutoBuddy:", System.Drawing.Color.White);
             Chat.Print("Loaded Version: " + ABVersion, System.Drawing.Color.LimeGreen);
-            Chat.Print("AutoBuddy: Starting in 5 seconds.");
-            Core.DelayAction(Start, 5000);
+            //Chat.Print("AutoBuddy: Starting in 5 seconds.");
+            //Core.DelayAction(Start, 5000);
 
-            //Start();
+            Start();
 
             menu = MainMenu.AddMenu("AUTOBUDDY", "AB");
             menu.Add("sep1", new Separator(1));
