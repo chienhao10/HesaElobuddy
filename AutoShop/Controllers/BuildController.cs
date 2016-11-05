@@ -131,7 +131,7 @@ namespace AutoShop.Controllers
                     case "skarner":
                     case "tahm kench":
                     case "shyvana":
-                    case "rek'sai":
+                    case "reksai":
                     case "rammus":
                     case "nautilus":
                     case "yorick":
@@ -139,7 +139,7 @@ namespace AutoShop.Controllers
                     break;
                     //AP Tank
                     case "amumu":
-                    case "cho'gath":
+                    case "chogath":
                     case "gragas":
                     case "malphite":
                     case "maokai":
@@ -157,7 +157,7 @@ namespace AutoShop.Controllers
                     case "braum":
                     case "leona":
                     case "nautilus":
-                    case "tahm kench":
+                    case "tahmkench":
                         return "GenericSupportADTank.txt";
                     break;
                     //AP Tank
@@ -200,9 +200,9 @@ namespace AutoShop.Controllers
                     case "jinx":
                     case "kalista":
                     case "kindred":
-                    case "kog'maw":
+                    case "kogmaw":
                     case "lucian":
-                    case "miss fortune":
+                    case "missfortune":
                     case "sivir":
                     case "tristana":
                     case "twitch":
@@ -220,7 +220,7 @@ namespace AutoShop.Controllers
                     case "kled":
                     case "quinn":
                     case "riven":
-                    case "kha'zix":
+                    case "khazix":
                     case "nocturne":
                     case "rengar":
                     case "shaco":
@@ -248,13 +248,13 @@ namespace AutoShop.Controllers
                     case "olaf":
                     case "pantheon":
                     case "shyvana":
-                    case "rek'sai":
-                    case "tahm kench":
+                    case "reksai":
+                    case "tahmkench":
                     case "vi":
                     case "volibear":
                     case "warwick":
                     case "wukong":
-                    case "xin zhao":
+                    case "xinzhao":
                     case "yorick":
                         return "GenericTopADTank.txt";
                     break;
@@ -266,7 +266,7 @@ namespace AutoShop.Controllers
                         return "GenericTopAP.txt";
                     break;
                     //Top AP Tank
-                    case "cho'gath":
+                    case "chogath":
                     case "malphite":
                     case "maokai":
                     case "mordekaiser":
@@ -286,7 +286,7 @@ namespace AutoShop.Controllers
                     case "akali":
                     case "anivia":
                     case "annie":
-                    case "aurelion sol":
+                    case "aurelionsol":
                     case "azir":
                     case "bard":
                     case "blitzcrank":
@@ -323,7 +323,7 @@ namespace AutoShop.Controllers
                     case "syndra":
                     case "taliyah":
                     case "veigar":
-                    case "vel'koz":
+                    case "velkoz":
                     case "viktor":
                     case "xerath":
                     case "ziggs":
