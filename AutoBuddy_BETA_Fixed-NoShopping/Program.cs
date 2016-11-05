@@ -63,25 +63,22 @@ namespace AutoBuddy
             Chat.Print("Loaded Version: " + ABVersion, System.Drawing.Color.LimeGreen);
             Chat.Print("AutoBuddy: Starting in 5 seconds.");
             Core.DelayAction(Start, 5000);
-
-            int errorFinder = 0;
-            Chat.Print("ErrorCode=" + (errorFinder++));
-
+            
             menu = MainMenu.AddMenu("AUTOBUDDY", "AB");
-            Chat.Print("ErrorCode=" + (errorFinder++));
+            
 
             menu.Add("sep1", new Separator(1));
-            Chat.Print("ErrorCode=" + (errorFinder++));
+            
             CheckBox c = new CheckBox("Call mid, will leave if other player stays on mid(only auto lane)", true);
-            Chat.Print("ErrorCode=" + (errorFinder++));
+            
             PropertyInfo property2 = typeof(CheckBox).GetProperty("Size");
-            Chat.Print("ErrorCode=" + (errorFinder++));
+            
             //property2.GetSetMethod(true).Invoke(c, new object[] { new Vector2(500, 20) });
-            Chat.Print("ErrorCode=" + (errorFinder++));
+            
             menu.Add("mid", c);
-            Chat.Print("ErrorCode=" + (errorFinder++));
+            
             Slider s = menu.Add("lane", new Slider(" ", 1, 1, 4));
-            Chat.Print("ErrorCode=" + (errorFinder++));
+            
 
             string[] lanes =
             {

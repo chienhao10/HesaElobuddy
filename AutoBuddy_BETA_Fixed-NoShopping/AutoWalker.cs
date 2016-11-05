@@ -48,31 +48,26 @@ namespace AutoBuddy
 
         static AutoWalker()
         {
-            int errorFinder = 0;
-            Chat.Print("Steps=" + (errorFinder++));
-
             GameID = DateTime.Now.Ticks + ""+RandomString(10);
-            Chat.Print("Steps=" + (errorFinder++));
-
-
+            
             newPF = MainMenu.GetMenu("AB").Get<CheckBox>("newPF").CurrentValue;
-            Chat.Print("Steps=" + (errorFinder++));
+            
             NavGraph =new NavGraph(Path.Combine(SandboxConfig.DataDirectory, "AutoBuddy"));
-            Chat.Print("Steps=" + (errorFinder++));
+            
             PfNodes =new List<Vector3>();
-            Chat.Print("Steps=" + (errorFinder++));
+            
             color = new ColorBGRA(79, 219, 50, 255);
-            Chat.Print("Steps=" + (errorFinder++));
+            
             MyNexus = ObjectManager.Get<Obj_HQ>().First(n => n.IsAlly);
-            Chat.Print("Steps=" + (errorFinder++));
+            
             EneMyNexus = ObjectManager.Get<Obj_HQ>().First(n => n.IsEnemy);
-            Chat.Print("Steps=" + (errorFinder++));
+            
             EnemyLazer = ObjectManager.Get<Obj_AI_Turret>().FirstOrDefault(tur => !tur.IsAlly && tur.GetLane() == Lane.Spawn);
-            Chat.Print("Steps=" + (errorFinder++));
+            
             p = ObjectManager.Player;
-            Chat.Print("Steps=" + (errorFinder++));
+            
             initSummonerSpells();
-            Chat.Print("Steps=" + (errorFinder++));
+            
 
             Chat.Print("Selecting target position.");
 
@@ -84,13 +79,12 @@ namespace AutoBuddy
 
             Orbwalker.DisableAttacking = false;
             Game.OnUpdate += Game_OnUpdate;
-            Chat.Print("Steps="+ (errorFinder++));
 
             if (!MainMenu.GetMenu("AB").Get<CheckBox>("disableAutoBuddy").CurrentValue)
             {
                 Orbwalker.OverrideOrbwalkPosition = () => Target;
             }
-            Chat.Print("Steps=" + (errorFinder++));
+            
             if (Orbwalker.HoldRadius > 130 || Orbwalker.HoldRadius < 80)
             {
                 Chat.Print("=================WARNING=================", Color.Red);
@@ -98,7 +92,7 @@ namespace AutoBuddy
                 Chat.Print("Please set hold radius through menu=>Orbwalker");
                 Chat.Print("Recommended values: Hold radius: 80-130, Delay between movements: 100-250");
             }
-            Chat.Print("Steps=" + (errorFinder++));
+            
             if (MainMenu.GetMenu("AB").Get<CheckBox>("debuginfo").CurrentValue)
                 Drawing.OnDraw += Drawing_OnDraw;
             
@@ -108,9 +102,6 @@ namespace AutoBuddy
             Game.OnTick += OnTick;
             Chat.OnMessage += Chat_OnMessage;
             Drawing.OnDraw += Drawing_OnDraw;
-
-            Chat.Print("Steps=" + (errorFinder++));
-
         }
 
 
