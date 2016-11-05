@@ -229,7 +229,7 @@ namespace AutoShop.Controllers
                     break;
                     //Top AD Tank
                     case "darius":
-                    case "dr. mundo":
+                    case "drmundo":
                     case "garen":
                     case "gnar":
                     case "illaoi":
@@ -243,7 +243,7 @@ namespace AutoShop.Controllers
                     case "tryndamere":
                     case "jarvan iv":
                     case "hecarim":
-                    case "lee sin":
+                    case "leesin":
                     case "nautilus":
                     case "olaf":
                     case "pantheon":
