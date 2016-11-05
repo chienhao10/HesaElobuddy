@@ -178,7 +178,7 @@ namespace AutoBuddy
 
         private static void Start()
         {
-            Chat.Print("Autobuddy Started!");
+            Chat.Print("Autobuddy: Started!");
             RandGen.Start();
             bool generic = false;
             switch (ObjectManager.Player.Hero)
