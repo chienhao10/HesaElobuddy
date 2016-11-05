@@ -257,18 +257,21 @@ namespace AutoBuddy
                     myChamp = new Nidalee();
                     break;
             }
+
+            AutoWalker.Initialize();
+
             CustomLvlSeq cl = new CustomLvlSeq(menu, AutoWalker.p, Path.Combine(SandboxConfig.DataDirectory
             , "AutoBuddy\\Skills"));
             
             Logic = new LogicSelector(myChamp, menu);
             new Disrespekt();
-            /*Telemetry.SendEvent("GameStart", new Dictionary<string, string>()
+            Telemetry.SendEvent("GameStart", new Dictionary<string, string>()
             {
                 {"GameChamp", AutoWalker.p.ChampionName},
                 {"GameType", BrutalExtensions.GetGameType()},
                 {"GameRegion", Game.Region},
                 {"GameID", ""+AutoWalker.GameID},
-            });*/
+            });
         }
 
         private static void createFS()
