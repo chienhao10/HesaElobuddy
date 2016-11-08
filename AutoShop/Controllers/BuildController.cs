@@ -277,6 +277,7 @@ namespace AutoShop.Controllers
                     case "singed":
                     case "sejuani":
                     case "vladimir":
+                    case "amumu":
                         return "GenericTopAPTank.txt";
                     break;
                     //Mid AD

@@ -8,7 +8,6 @@ C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Release\Newtonsoft.Json.dll
 C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Release\DevComponents.DotNetBar.SuperGrid.xml
 C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Release\DevComponents.DotNetBar2.xml
 C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Release\DevComponents.Instrumentation.xml
-C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Release\AutoShopGUI.csprojResolveAssemblyReference.cache
 C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Release\AutoShopGUI.Form1.resources
 C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Release\AutoShopGUI.Properties.Resources.resources
 C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Release\AutoShopGUI.csproj.GenerateResource.Cache
