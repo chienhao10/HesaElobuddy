@@ -69,13 +69,10 @@ namespace ezBot
             Tools.TitleMessage("ezBot - Auto Queue for LOL: " + Program.LoLVersion.Substring(0, 4));
             Tools.TitleMessage("Made by Tryller updated by Hesa.");
             Tools.TitleMessage("Version: " + EzBotVersion);
+            Tools.ConsoleMessage("Skype: wisahesa", ConsoleColor.Magenta);
 
-            Tools.ConsoleMessage("Hey guys Elobuddy admins are big liars, they want to take control of this bots.", ConsoleColor.Cyan);
-            Tools.ConsoleMessage("I uploaded the source code on github now EVERYBODY can see that it his not \"fishy\" as they like to say.", ConsoleColor.Cyan);
-            Tools.ConsoleMessage("It CANT harm your computer.", ConsoleColor.Cyan);
-            Tools.ConsoleMessage("It doesnt save any of your informations anywhere.", ConsoleColor.Cyan);
-            Tools.ConsoleMessage("They banned my IPS and Elobuddy accounts.", ConsoleColor.Cyan);
-            Tools.ConsoleMessage("And they even want you to make you think that ezBot is detected so you dont use it but this is a BIG BIG lie once again....﻿", ConsoleColor.Cyan);
+            Tools.ConsoleMessage("Hey guys Elobuddy had problems with Elobuddy admins but now its fixed, We can all thanks Definetly Not Kappa.", ConsoleColor.Cyan);
+            Tools.ConsoleMessage("I uploaded the source code on github now EVERYBODY can see that it his not \"fishy\".", ConsoleColor.Cyan);
 
             if (!IsUserAdministrator())
             {
