@@ -163,7 +163,7 @@ namespace ezBot
                     Tools.ConsoleMessage(PGLC.Game.GameStateString, ConsoleColor.Gray);
                     PGLC = null;
                 }
-
+                #region LobbyStatus
                 if(message is LobbyStatus)
                 {
                     Lobby = message as LobbyStatus;
@@ -185,6 +185,9 @@ namespace ezBot
                         Tools.ConsoleMessage(string.Format("{0}/{1} player(s) accepted, waiting till everybody accepted.", Lobby.Members.Count -1, GetFriendsToInvite().Count), ConsoleColor.Cyan);
                     }
                 }
+                #endregion
+
+                #region GameDTO
                 if (message is GameDTO)
                 {
                     GameDTO gameDTO = message as GameDTO;
@@ -205,244 +208,273 @@ namespace ezBot
                             }
                             break;
                             case "CHAMP_SELECT":
-                            this.firstTimeInCustom = true;
-                            this.firstTimeInQueuePop = true;
-                            if (this.firstTimeInLobby)
                             {
-                                if(pickAtTurn == 0)
+                                this.firstTimeInCustom = true;
+                                this.firstTimeInQueuePop = true;
+                                if (this.firstTimeInLobby)
                                 {
-                                    Tools.ConsoleMessage("You are in champion select.", ConsoleColor.White);
+                                    if (pickAtTurn == 0)
+                                    {
+                                        Tools.ConsoleMessage("You are in champion select.", ConsoleColor.White);
 
-                                    try
-                                    {
-                                        await connection.SetClientReceivedGameMessage(gameDTO.Id, "CHAMP_SELECT_CLIENT");
-                                    }
-                                    catch (InvocationException ex)
-                                    {
-                                        Tools.Log(ex.StackTrace);
-                                        Tools.ConsoleMessage("Fault Code: " + ex.FaultCode + " Fault String" + ex.FaultString + " Fault Detail:" + ex.FaultDetail + "Root Cause:" + ex.RootCause, ConsoleColor.White);
-                                    }
-
-                                    pickAtTurn = new Random().Next(1, 2);
-                                    turn = 0;
-                                    return;
-                                }else if(turn != pickAtTurn)
-                                {
-                                    turn++;
-                                    return;
-                                }
-                                this.firstTimeInLobby = false;
-                                
-                                if (this.queueType != "ARAM" && this.queueType != "ARAM_UNRANKED_1x1" && this.queueType != "ARAM_UNRANKED_2x2" && (this.queueType != "ARAM_UNRANKED_3x3" && this.queueType != "ARAM_UNRANKED_5x5") && this.queueType != "ARAM_UNRANKED_6x6")
-                                {
-                                    List<ChampionDTO> ChampList = new List<ChampionDTO>(this.AvailableChampions);
-                                    if (this.loginPacket.ClientSystemStates.freeToPlayChampionsForNewPlayersMaxLevel >= this.loginPacket.AllSummonerData.SummonerLevel.Level)
-                                    {
-                                        foreach (ChampionDTO championDto in ChampList)
+                                        try
                                         {
-                                            championDto.FreeToPlay = ((IEnumerable<int>)this.loginPacket.ClientSystemStates.freeToPlayChampionIdList).Contains<int>(championDto.ChampionId);
+                                            await connection.SetClientReceivedGameMessage(gameDTO.Id, "CHAMP_SELECT_CLIENT");
+                                        }
+                                        catch (InvocationException ex)
+                                        {
+                                            Tools.Log(ex.StackTrace);
+                                            Tools.ConsoleMessage("Fault Code: " + ex.FaultCode + " Fault String" + ex.FaultString + " Fault Detail:" + ex.FaultDetail + "Root Cause:" + ex.RootCause, ConsoleColor.White);
+                                        }
+                                        if (!m_isLeader || !Program.queueWithFriends)
+                                        {
+                                            pickAtTurn = new Random().Next(1, 3);
+                                            turn = 0;
+                                            return;
                                         }
                                     }
-                                    int selectedChampionId = 22;
-                                    string championName = "Ashe";
-                                    string[] strArray = new string[5]
+                                    else if (turn < pickAtTurn)
                                     {
-                                        Program.firstChampionPick,
-                                        Program.secondChampionPick,
-                                        Program.thirdChampionPick,
-                                        Program.fourthChampionPick,
-                                        Program.fifthChampionPick
-                                    };
+                                        turn++;
+                                        return;
+                                    }
+                                    this.firstTimeInLobby = false;
+                                    #region Not Aram
+                                    if (this.queueType != "ARAM" && this.queueType != "ARAM_UNRANKED_1x1" && this.queueType != "ARAM_UNRANKED_2x2" && (this.queueType != "ARAM_UNRANKED_3x3" && this.queueType != "ARAM_UNRANKED_5x5") && this.queueType != "ARAM_UNRANKED_6x6")
+                                    {
+                                        List<ChampionDTO> ChampList = new List<ChampionDTO>(this.AvailableChampions);
 
-                                    if (Program.randomChampionPick)
-                                    {
-                                        List<string> champList = new List<string>();
-                                        champList.AddRange(strArray);
-                                        bool found = false;
-                                        while (!found && champList.Count != 0)
+                                        if (this.loginPacket.ClientSystemStates.freeToPlayChampionsForNewPlayersMaxLevel >= this.loginPacket.AllSummonerData.SummonerLevel.Level)
                                         {
-                                            var index = new Random().Next(0, champList.Count - 1);
-                                            var championString = champList[index];
-                                            champList.RemoveAt(index);
-
-
-                                            int championId = Enums.GetChampion(championString);
-                                            ChampionDTO champDto = ChampList.FirstOrDefault(c => c.ChampionId == championId);
-                                            //TEMP FIX use Active instead of FreeToPlay...
-                                            if (champDto != null && (champDto.Owned || champDto.Active && !gameDTO.PlayerChampionSelections.Any(c => c.ChampionId == championId)))
+                                            foreach (ChampionDTO championDto in ChampList)
                                             {
-                                                selectedChampionId = championId;
-                                                championName = champDto.DisplayName;
-                                                if (string.IsNullOrEmpty(championName)) championName = championString;
-                                                break;
+                                                var freeToPlay = ((IEnumerable<int>)this.loginPacket.ClientSystemStates.freeToPlayChampionForNewPlayersIdList).Contains(championDto.ChampionId);
+                                                if(freeToPlay)
+                                                {
+                                                    championDto.FreeToPlay = true;
+                                                }
                                             }
-                                            champDto = null;
-                                            championString = null;
                                         }
-                                    }
-                                    else
-                                    {
-                                        for (int index = 0; index < strArray.Length; ++index)
+                                        else
                                         {
-                                            string championString = strArray[index];
-                                            int championId = Enums.GetChampion(championString);
-                                            ChampionDTO champDto = ChampList.FirstOrDefault(c => c.ChampionId == championId);
-                                            if (champDto != null && (champDto.Owned || champDto.Active && !gameDTO.PlayerChampionSelections.Any(c => c.ChampionId == championId)))
+                                            foreach (ChampionDTO championDto in ChampList)
                                             {
-                                                selectedChampionId = championId;
-                                                championName = champDto.DisplayName;
-                                                if (string.IsNullOrEmpty(championName)) championName = championString;
-                                                break;
+                                                var freeToPlay = ((IEnumerable<int>)this.loginPacket.ClientSystemStates.freeToPlayChampionIdList).Contains(championDto.ChampionId);
+                                                if (freeToPlay)
+                                                {
+                                                    championDto.FreeToPlay = true;
+                                                }
                                             }
-                                            champDto = null;
-                                            championString = null;
                                         }
-                                    }
-
-                                    strArray = null;
-                                    try
-                                    {
-                                        await connection.SelectChampion(selectedChampionId);
-                                    }
-                                    catch (InvocationException ex)
-                                    {
-                                        Tools.Log(ex.StackTrace);
-                                        Console.WriteLine(ex.StackTrace);
-                                    }
-                                    Tools.ConsoleMessage("Selected Champion: " + championName, ConsoleColor.DarkYellow);
-                                    await Task.Delay(new Random().Next(1, 9) * new Random().Next(800, 1000));
-                                    await connection.ChampionSelectCompleted();
-                                    Tools.ConsoleMessage("Waiting for other players to lockin.", ConsoleColor.White);
-
-                                    //Select Summoners Spell
-                                    int spellOneId;
-                                    int spellTwoId;
-                                    if (!Program.randomSpell)
-                                    {
-                                        spellOneId = Enums.GetSpell(Program.spell1);
-                                        spellTwoId = Enums.GetSpell(Program.spell2);
-                                    }
-                                    else
-                                    {
-                                        Random random = new Random();
-                                        List<int> list = new List<int>()
+                                        int selectedChampionId = 22;
+                                        string championName = "Ashe";
+                                        string[] strArray = new string[5]
                                         {
-                                            13,
-                                            6,
-                                            7,
-                                            10,
-                                            1,
-                                            11,
-                                            21,
-                                            12,
-                                            3,
-                                            14,
-                                            2,
-                                            4
+                                            Program.firstChampionPick,
+                                            Program.secondChampionPick,
+                                            Program.thirdChampionPick,
+                                            Program.fourthChampionPick,
+                                            Program.fifthChampionPick
                                         };
-                                        int index = random.Next(list.Count);
-                                        int index2 = random.Next(list.Count);
-                                        int num = list[index];
-                                        int num2 = list[index2];
-                                        if (num == num2)
+                                        if (Program.randomChampionPick)
                                         {
-                                            int index3 = random.Next(list.Count);
-                                            num2 = list[index3];
-                                        }
-                                        spellOneId = Convert.ToInt32(num);
-                                        spellTwoId = Convert.ToInt32(num2);
-                                        random = null;
-                                        list = null;
-                                    }
-                                    await Task.Delay(new Random().Next(1, 9) * new Random().Next(800, 1000));
-                                    try
-                                    {
-                                        await connection.SelectSpells(spellOneId, spellTwoId);
-                                    }
-                                    catch (Exception e)
-                                    {
-                                    }
-                                    ChampList = null;
-                                    championName = null;
-                                }
-                                if (this.queueType == "ARAM" || this.queueType == "ARAM_UNRANKED_1x1" || this.queueType == "ARAM_UNRANKED_2x2" || (this.queueType == "ARAM_UNRANKED_3x3" || this.queueType == "ARAM_UNRANKED_5x5") || this.queueType == "ARAM_UNRANKED_6x6")
-                                {
-                                    var champion = gameDTO.PlayerChampionSelections.FirstOrDefault(x => x.SummonerInternalName.ToLower() == sumName.ToLower().Replace(" ", ""));
-                                    if (champion != null)
-                                    {
-                                        var championName = Enums.GetChampionById(champion.ChampionId);
-                                        if (!string.IsNullOrEmpty(championName))
-                                        {
-                                            Tools.ConsoleMessage("Selected Champion: " + UcFirst(championName.ToLower()), ConsoleColor.DarkYellow);
-                                        }
-                                    }
+                                            List<string> champList = new List<string>();
+                                            champList.AddRange(strArray);
+                                            bool found = false;
+                                            while (!found && champList.Count != 0)
+                                            {
+                                                var index = new Random().Next(0, champList.Count - 1);
+                                                var championString = champList[index];
+                                                champList.RemoveAt(index);
 
-                                    int spellOneId2;
-                                    int spellTwoId2;
-                                    if (!Program.randomSpell)
-                                    {
-                                        spellOneId2 = Enums.GetSpell(Program.spell1);
-                                        spellTwoId2 = Enums.GetSpell(Program.spell2);
-                                    }
-                                    else
-                                    {
-                                        Random random2 = new Random();
-                                        List<int> list2 = new List<int>()
-                                        {
-                                            13,
-                                            6,
-                                            7,
-                                            10,
-                                            1,
-                                            11,
-                                            21,
-                                            12,
-                                            3,
-                                            14,
-                                            2,
-                                            4
-                                        };
-                                        int index4 = random2.Next(list2.Count);
-                                        int index5 = random2.Next(list2.Count);
-                                        int num3 = list2[index4];
-                                        int num4 = list2[index5];
-                                        if (num3 == num4)
-                                        {
-                                            int index6 = random2.Next(list2.Count);
-                                            num4 = list2[index6];
+
+                                                int championId = Enums.GetChampion(championString);
+                                                ChampionDTO champDto = ChampList.FirstOrDefault(c => c.ChampionId == championId);
+                                                //TEMP FIX use Active instead of FreeToPlay...
+                                                if (champDto != null && (champDto.Owned || champDto.FreeToPlay && !gameDTO.PlayerChampionSelections.Any(c => c.ChampionId == championId)))
+                                                {
+                                                    selectedChampionId = championId;
+                                                    championName = UcFirst(Enums.GetChampionById(selectedChampionId));
+                                                    if (string.IsNullOrEmpty(championName)) championName = UcFirst(championString);
+                                                    found = true;
+                                                    break;
+                                                }
+                                                champDto = null;
+                                                championString = null;
+                                            }
                                         }
-                                        spellOneId2 = Convert.ToInt32(num3);
-                                        spellTwoId2 = Convert.ToInt32(num4);
-                                        random2 = null;
-                                        list2 = null;
-                                    }
-                                    await Task.Delay(new Random().Next(1, 9) * new Random().Next(800, 1000));
-                                    await connection.SelectSpells(spellOneId2, spellTwoId2);
-                                    await Task.Delay(new Random().Next(1, 9) * new Random().Next(800, 1000));
-                                    try
-                                    {
+                                        else
+                                        {
+                                            for (int index = 0; index < strArray.Length; ++index)
+                                            {
+                                                string championString = strArray[index];
+                                                int championId = Enums.GetChampion(championString);
+                                                ChampionDTO champDto = ChampList.FirstOrDefault(c => c.ChampionId == championId);
+                                                if (champDto != null && (champDto.Owned || champDto.FreeToPlay && !gameDTO.PlayerChampionSelections.Any(c => c.ChampionId == championId)))
+                                                {
+                                                    selectedChampionId = championId;
+                                                    championName = UcFirst(Enums.GetChampionById(selectedChampionId));
+                                                    if (string.IsNullOrEmpty(championName)) championName = UcFirst(championString);
+                                                    break;
+                                                }
+                                                champDto = null;
+                                                championString = null;
+                                            }
+                                        }
+
+                                        strArray = null;
+                                        try
+                                        {
+                                            await connection.SelectChampion(selectedChampionId);
+                                        }
+                                        catch (InvocationException ex)
+                                        {
+                                            Tools.Log(ex.StackTrace);
+                                            Tools.ConsoleMessage(string.Format("Champion '{0}' is not owned, is not free to play or has already been choosen.", championName), ConsoleColor.Red);
+                                            Console.WriteLine(ex.StackTrace);
+                                        }
+                                        Tools.ConsoleMessage("Selected Champion: " + championName, ConsoleColor.DarkYellow);
+                                        await Task.Delay(new Random().Next(1, 9) * new Random().Next(800, 1000));
                                         await connection.ChampionSelectCompleted();
-                                    }
-                                    catch(Exception ex)
-                                    {
+                                        Tools.ConsoleMessage("Waiting for other players to lockin.", ConsoleColor.White);
 
+                                        //Select Summoners Spell
+                                        int spellOneId;
+                                        int spellTwoId;
+                                        if (!Program.randomSpell)
+                                        {
+                                            spellOneId = Enums.GetSpell(Program.spell1);
+                                            spellTwoId = Enums.GetSpell(Program.spell2);
+                                        }
+                                        else
+                                        {
+                                            Random random = new Random();
+                                            List<int> list = new List<int>()
+                                        {
+                                            13,
+                                            6,
+                                            7,
+                                            10,
+                                            1,
+                                            11,
+                                            21,
+                                            12,
+                                            3,
+                                            14,
+                                            2,
+                                            4
+                                        };
+                                            int index = random.Next(list.Count);
+                                            int index2 = random.Next(list.Count);
+                                            int num = list[index];
+                                            int num2 = list[index2];
+                                            if (num == num2)
+                                            {
+                                                int index3 = random.Next(list.Count);
+                                                num2 = list[index3];
+                                            }
+                                            spellOneId = Convert.ToInt32(num);
+                                            spellTwoId = Convert.ToInt32(num2);
+                                            random = null;
+                                            list = null;
+                                        }
+                                        await Task.Delay(new Random().Next(1, 9) * new Random().Next(800, 1000));
+                                        try
+                                        {
+                                            await connection.SelectSpells(spellOneId, spellTwoId);
+                                        }
+                                        catch (Exception e)
+                                        {
+                                        }
+                                        ChampList = null;
+                                        championName = null;
                                     }
-                                    Tools.ConsoleMessage("Waiting for other players to lockin.", ConsoleColor.White);
+                                    #endregion
+                                    #region ARAM
+                                    if (this.queueType == "ARAM" || this.queueType == "ARAM_UNRANKED_1x1" || this.queueType == "ARAM_UNRANKED_2x2" || (this.queueType == "ARAM_UNRANKED_3x3" || this.queueType == "ARAM_UNRANKED_5x5") || this.queueType == "ARAM_UNRANKED_6x6")
+                                    {
+                                        var champion = gameDTO.PlayerChampionSelections.FirstOrDefault(x => x.SummonerInternalName.ToLower() == sumName.ToLower().Replace(" ", ""));
+                                        if (champion != null)
+                                        {
+                                            var championName = Enums.GetChampionById(champion.ChampionId);
+                                            if (!string.IsNullOrEmpty(championName))
+                                            {
+                                                Tools.ConsoleMessage("Selected Champion: " + UcFirst(championName.ToLower()), ConsoleColor.DarkYellow);
+                                            }
+                                        }
+
+                                        int spellOneId2;
+                                        int spellTwoId2;
+                                        if (!Program.randomSpell)
+                                        {
+                                            spellOneId2 = Enums.GetSpell(Program.spell1);
+                                            spellTwoId2 = Enums.GetSpell(Program.spell2);
+                                        }
+                                        else
+                                        {
+                                            Random random2 = new Random();
+                                            List<int> list2 = new List<int>()
+                                        {
+                                            13,
+                                            6,
+                                            7,
+                                            10,
+                                            1,
+                                            11,
+                                            21,
+                                            12,
+                                            3,
+                                            14,
+                                            2,
+                                            4
+                                        };
+                                            int index4 = random2.Next(list2.Count);
+                                            int index5 = random2.Next(list2.Count);
+                                            int num3 = list2[index4];
+                                            int num4 = list2[index5];
+                                            if (num3 == num4)
+                                            {
+                                                int index6 = random2.Next(list2.Count);
+                                                num4 = list2[index6];
+                                            }
+                                            spellOneId2 = Convert.ToInt32(num3);
+                                            spellTwoId2 = Convert.ToInt32(num4);
+                                            random2 = null;
+                                            list2 = null;
+                                        }
+                                        await Task.Delay(new Random().Next(1, 9) * new Random().Next(800, 1000));
+                                        await connection.SelectSpells(spellOneId2, spellTwoId2);
+                                        await Task.Delay(new Random().Next(1, 9) * new Random().Next(800, 1000));
+                                        try
+                                        {
+                                            await connection.ChampionSelectCompleted();
+                                        }
+                                        catch (Exception ex)
+                                        {
+
+                                        }
+                                        Tools.ConsoleMessage("Waiting for other players to lockin.", ConsoleColor.White);
+                                    }
+                                    #endregion
                                 }
                             }
                             break;
                             case "POST_CHAMP_SELECT":
+                            {
                                 firstTimeInLobby = false;
                                 if (firstTimeInPostChampSelect)
                                 {
                                     firstTimeInPostChampSelect = false;
                                     Tools.ConsoleMessage("Waiting champ select timer to reach 0", ConsoleColor.White);
                                 }
+                            }
                             break;
                             case "PRE_CHAMP_SELECT":
                             break;
                             case "START_REQUESTED":
+                            {
                                 ShouldBeInGame = true;
+                            }
                             break;
                             case "GAME_START_CLIENT":
                             break;
@@ -451,17 +483,20 @@ namespace ezBot
                             case "IN_PROGRESS":
                             break;
                             case "IN_QUEUE":
+                            {
                                 Tools.ConsoleMessage("You are in queue.", ConsoleColor.White);
+                            }
                             break;
                             case "POST_GAME":
                             break;
                             case "TERMINATED":
+                            {
                                 pickAtTurn = 0;
-                                Tools.ConsoleMessage("Re-queued: " + this.queueType+" as " + this.sumName + ".", ConsoleColor.Cyan);
+                                Tools.ConsoleMessage("Re-queued: " + this.queueType + " as " + this.sumName + ".", ConsoleColor.Cyan);
                                 firstTimeInQueuePop = true;
                                 firstTimeInPostChampSelect = true;
                                 //ShouldBeInGame = false;
-                                if(!Program.queueWithFriends)
+                                if (!Program.queueWithFriends)
                                 {
                                     if (!IsInQueue)
                                     {
@@ -474,11 +509,12 @@ namespace ezBot
                                 }
                                 else
                                 {
-                                    if(m_isLeader)
+                                    if (m_isLeader)
                                     {
                                         sendGameInvites();
                                     }
                                 }
+                            }
                             break;
                             case "TERMINATED_IN_ERROR":
                             break;
@@ -540,6 +576,8 @@ namespace ezBot
                     gameDTO = null;
                     gameState = null;
                 }
+                #endregion
+                #region PlayerCredentials
                 else if (message is PlayerCredentialsDto)
                 {
                     try
@@ -584,12 +622,29 @@ namespace ezBot
                         //
                     }
                 }
+                #endregion
                 else
                 {
                     if (message is GameNotification || message is SearchingForMatchNotification)
+                    {
                         return;
+                    }
                     if (message is EndOfGameStats)
                     {
+                        var match = message as EndOfGameStats;
+                        if (match.GameId != default(double))
+                        {
+                            var games = await this.connection.GetRecentGames(this.loginPacket.AllSummonerData.Summoner.AccountId);
+                            if(games != null)
+                            {
+                                var game = games.GameStatistics.Last();
+                                var stat = game.Statistics.FirstOrDefault(x => x.StatType == "WIN");
+                                if(stat != null)
+                                {
+                                    Program.AddGame(stat.Value == 1);
+                                }
+                            }
+                        }
                         ShouldBeInGame = false;
                         GameStartedAt = null;
                         if (exeProcess == null)

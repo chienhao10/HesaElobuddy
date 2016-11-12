@@ -345,5 +345,16 @@ namespace ezBot
             }
             textReader.Close();
         }
+
+        private static int victory = 0;
+        private static int defeat = 0;
+        
+        public static void AddGame(bool won)
+        {
+            if (won) victory++;
+            else defeat++;
+            Console.Title = string.Format("ezBot - {0} Total - {1} Victory - {2} Defeat", victory + defeat, victory, defeat);
+        }
+
     }
 }
