@@ -52,7 +52,7 @@ namespace AutoUpdater
             try
             {
                 WebClient webClient = new WebClient();
-                return webClient.DownloadString("http://ezbot.curssor.com/version.txt");
+                return webClient.DownloadString("https://raw.githubusercontent.com/hesa2020/HesaElobuddy/master/eZ_Source/version.txt");
             }catch(Exception ex)
             {
             }
@@ -66,7 +66,7 @@ namespace AutoUpdater
                 var tempFileName = Environment.CurrentDirectory + @"\update.temp";
                 using (WebClient webClient = new WebClient())
                 {
-                    webClient.DownloadFile("http://ezbot.curssor.com/update.zip", tempFileName);
+                    webClient.DownloadFile("https://raw.githubusercontent.com/hesa2020/HesaElobuddy/master/eZ_Source/update.txt", tempFileName);
                 }
                 Thread.Sleep(1000);
                 if(File.Exists(tempFileName))

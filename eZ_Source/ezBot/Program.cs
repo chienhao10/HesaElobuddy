@@ -55,7 +55,7 @@ namespace ezBot
             var remoteVersion = LoadRemoteVersion();
             if (string.IsNullOrEmpty(EzBotVersion) || string.IsNullOrEmpty(remoteVersion) || EzBotVersion != remoteVersion)
             {
-                Process.Start("Launcher.exe");
+                Process.Start("AutoUpdater.exe");
                 Environment.Exit(0);
             }
 
@@ -66,8 +66,8 @@ namespace ezBot
             Tools.TitleMessage("Version: " + EzBotVersion);
             Tools.ConsoleMessage("Skype: wisahesa", ConsoleColor.Magenta);
 
-            Tools.ConsoleMessage("Hey guys Elobuddy had problems with Elobuddy admins but now its fixed, We can all thanks Definetly Not Kappa.", ConsoleColor.Cyan);
-            Tools.ConsoleMessage("I uploaded the source code on github now EVERYBODY can see that it his not \"fishy\".", ConsoleColor.Cyan);
+            Tools.ConsoleMessage("Hey guys had issues with Elobuddy admins but now its resolved, We can all thanks Definetly Not Kappa.", ConsoleColor.Cyan);
+            Tools.ConsoleMessage("I uploaded the source code on github.", ConsoleColor.Cyan);
 
             if (!IsUserAdministrator())
             {
@@ -151,7 +151,7 @@ namespace ezBot
             try
             {
                 WebClient webClient = new WebClient();
-                return webClient.DownloadString("http://ezbot.curssor.com/version.txt");
+                return webClient.DownloadString("https://raw.githubusercontent.com/hesa2020/HesaElobuddy/master/eZ_Source/version.txt");
             }
             catch (Exception ex)
             {
