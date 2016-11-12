@@ -47,15 +47,10 @@ namespace ezBot
         public static string fourthFriend = "";
 
         public static string EzBotVersion = "Unknown";
-        public static ezBotClient ezClient = new ezBotClient();
+        public static Action<string, string, string> OnInvite;
 
         private static void Main(string[] args)
         {
-            AppDomain.CurrentDomain.ProcessExit += delegate (object sender, EventArgs e)
-            {
-                //Shutdown Socket
-                ezClient.Disconnect();
-            };
             EzBotVersion = LoadEzBotVersion();
             var remoteVersion = LoadRemoteVersion();
             if (string.IsNullOrEmpty(EzBotVersion) || string.IsNullOrEmpty(remoteVersion) || EzBotVersion != remoteVersion)

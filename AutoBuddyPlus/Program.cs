@@ -41,10 +41,9 @@ namespace AutoBuddy
 
         private static void Loading_OnLoadingComplete(EventArgs args)
         {
-           
             createFS();
-            Chat.Print("Welcome to Auto Buddy Plus.");
-            Core.DelayAction(Start, 3000);
+            Chat.Print("Welcome to Auto Buddy Plus, starting in 10 seconds.");
+            Core.DelayAction(Start, 10000);
             menu = MainMenu.AddMenu("AB+", "AB");
             menu.AddGroupLabel("Default");
             CheckBox c =

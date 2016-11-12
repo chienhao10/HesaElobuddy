@@ -62,9 +62,7 @@ namespace ezBot
         private LobbyStatus Lobby { get; set; }
 
         private bool m_isLeader { get; set; }
-
-        private string myHash { get; set; }
-
+        
         private int pickAtTurn = 0;
         private int turn = 0;
         
@@ -108,7 +106,7 @@ namespace ezBot
             this.m_isLeader = isLeader;
 
             handler = new ConsoleEventDelegate(ConsoleEventCallback);
-            Program.ezClient.OnReceiveInvite += OnReceiveInvite;
+            Program.OnInvite += OnReceiveInvite;
         }
         
         public string EncryptText(string input, string password)
@@ -122,15 +120,17 @@ namespace ezBot
 
         public async void OnReceiveInvite(string from, string to, string inviteId)
         {
-            if(to == myHash)
+            if(to.ToLower() == sumName.ToLower())
             {
-                if(from == EncryptText(Program.leaderName.ToLower(), "ezBotDSDJAK@$()*$@$@_)$kpd=a0=4-1290-49"))
+                if(from.ToLower() == Program.leaderName.ToLower())
                 {
-                    Tools.ConsoleMessage("Accepted lobby invite", ConsoleColor.Cyan);
+                    Tools.ConsoleMessage("Accepting lobby invite", ConsoleColor.Cyan);
+                    await Task.Delay(new Random().Next(1, 3) * new Random().Next(800, 1200));
                     await this.connection.AcceptLobbyInvite(inviteId);
                 }
                 else
                 {
+                    await Task.Delay(new Random().Next(1, 3) * new Random().Next(800, 1200));
                     await this.connection.DeclineLobbyInvite(inviteId);
                 }
             }
@@ -268,7 +268,8 @@ namespace ezBot
 
                                             int championId = Enums.GetChampion(championString);
                                             ChampionDTO champDto = ChampList.FirstOrDefault(c => c.ChampionId == championId);
-                                            if (champDto != null && (champDto.Owned || champDto.FreeToPlay && !gameDTO.PlayerChampionSelections.Any(c => c.ChampionId == championId)))
+                                            //TEMP FIX use Active instead of FreeToPlay...
+                                            if (champDto != null && (champDto.Owned || champDto.Active && !gameDTO.PlayerChampionSelections.Any(c => c.ChampionId == championId)))
                                             {
                                                 selectedChampionId = championId;
                                                 championName = champDto.DisplayName;
@@ -286,7 +287,7 @@ namespace ezBot
                                             string championString = strArray[index];
                                             int championId = Enums.GetChampion(championString);
                                             ChampionDTO champDto = ChampList.FirstOrDefault(c => c.ChampionId == championId);
-                                            if (champDto != null && (champDto.Owned || champDto.FreeToPlay && !gameDTO.PlayerChampionSelections.Any(c => c.ChampionId == championId)))
+                                            if (champDto != null && (champDto.Owned || champDto.Active && !gameDTO.PlayerChampionSelections.Any(c => c.ChampionId == championId)))
                                             {
                                                 selectedChampionId = championId;
                                                 championName = champDto.DisplayName;
@@ -1049,10 +1050,7 @@ namespace ezBot
                 }
                 
                 Tools.ConsoleMessage("Welcome " + this.loginPacket.AllSummonerData.Summoner.Name + " - lvl (" + (object)this.loginPacket.AllSummonerData.SummonerLevel.Level + ") IP: (" + this.ipBalance.ToString() + ") - XP: (" + this.loginPacket.AllSummonerData.SummonerLevelAndPoints.ExpPoints + " / " + this.loginPacket.AllSummonerData.SummonerLevel.ExpToNextLevel +")", ConsoleColor.White);
-                this.myHash = EncryptText(this.loginPacket.AllSummonerData.Summoner.Name.ToLower(), "ezBotDSDJAK@$()*$@$@_)$kpd=a0=4-1290-49");
-
-                if (Program.queueWithFriends) Program.ezClient.Register(myHash);
-
+                
                 PlayerDto player = await this.connection.CreatePlayer();
                 if (this.loginPacket.ReconnectInfo != null && ((PlatformGameLifecycleDTO)this.loginPacket.ReconnectInfo).Game != null)
                     this.connection_OnMessageReceived((object)this, (object)((PlatformGameLifecycleDTO)this.loginPacket.ReconnectInfo).PlayerCredentials);
@@ -1109,7 +1107,7 @@ namespace ezBot
                         var summonerData = await connection.GetAllPublicSummonerDataByAccount(summoner.AccountId);
                         var invitation = await connection.InvitePlayer(summonerData.Summoner.SumId);
                         await Task.Delay(500);
-                        Program.ezClient.SendInvitation(myHash, EncryptText(Program.firstFriend.ToLower(), "ezBotDSDJAK@$()*$@$@_)$kpd=a0=4-1290-49"), Lobby.InvitationID);
+                        Program.OnInvite?.Invoke(sumName, Program.firstFriend.ToLower(), Lobby.InvitationID);
                     }
                 }
                 catch(Exception ex)
@@ -1124,7 +1122,7 @@ namespace ezBot
                         var summoner = await connection.GetSummonerByName(Program.secondFriend);
                         var summonerData = await connection.GetAllPublicSummonerDataByAccount(summoner.AccountId);
                         InvitationRequest invitation = await connection.InvitePlayer(summonerData.Summoner.SumId) as InvitationRequest;
-                        Program.ezClient.SendInvitation(myHash, EncryptText(Program.secondFriend.ToLower(), "ezBotDSDJAK@$()*$@$@_)$kpd=a0=4-1290-49"), invitation.InvitationId);
+                        Program.OnInvite?.Invoke(sumName, Program.secondFriend.ToLower(), Lobby.InvitationID);
                     }
                 }
                 catch (Exception)
@@ -1139,7 +1137,7 @@ namespace ezBot
                         var summoner = await connection.GetSummonerByName(Program.thirdFriend);
                         var summonerData = await connection.GetAllPublicSummonerDataByAccount(summoner.AccountId);
                         InvitationRequest invitation = await connection.InvitePlayer(summonerData.Summoner.SumId) as InvitationRequest;
-                        Program.ezClient.SendInvitation(myHash, EncryptText(Program.thirdFriend.ToLower(), "ezBotDSDJAK@$()*$@$@_)$kpd=a0=4-1290-49"), invitation.InvitationId);
+                        Program.OnInvite?.Invoke(sumName, Program.thirdFriend.ToLower(), Lobby.InvitationID);
                     }
                 }
                 catch (Exception)
@@ -1154,7 +1152,7 @@ namespace ezBot
                         var summoner = await connection.GetSummonerByName(Program.fourthFriend);
                         var summonerData = await connection.GetAllPublicSummonerDataByAccount(summoner.AccountId);
                         InvitationRequest invitation = await connection.InvitePlayer(summonerData.Summoner.SumId) as InvitationRequest;
-                        Program.ezClient.SendInvitation(myHash, EncryptText(Program.fourthFriend.ToLower(), "ezBotDSDJAK@$()*$@$@_)$kpd=a0=4-1290-49"), invitation.InvitationId);
+                        Program.OnInvite?.Invoke(sumName, Program.fourthFriend.ToLower(), Lobby.InvitationID);
                     }
                 }
                 catch (Exception)

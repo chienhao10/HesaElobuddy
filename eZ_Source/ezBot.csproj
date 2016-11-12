@@ -104,7 +104,6 @@
     <Compile Include="ezBot\EnumerableExtensions.cs" />
     <Compile Include="ezBot\Enums.cs" />
     <Compile Include="ezBot\ezBot.cs" />
-    <Compile Include="ezBot\ezBotClient.cs" />
     <Compile Include="ezBot\IniFile.cs" />
     <Compile Include="ezBot\Program.cs" />
     <Compile Include="ezBot\QueueTypeId.cs" />
