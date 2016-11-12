@@ -115,14 +115,6 @@
       <Project>{7c8ef2b7-831b-4f64-959e-6fe35612a8f0}</Project>
       <Name>BananaLib</Name>
     </ProjectReference>
-    <ProjectReference Include="ezBot Shared\ezBot Shared.csproj">
-      <Project>{4c7774fc-05de-4fc2-b4bd-050e9553458a}</Project>
-      <Name>ezBot Shared</Name>
-    </ProjectReference>
-    <ProjectReference Include="Hazel\Hazel.csproj">
-      <Project>{02cfbd30-d77d-400f-94b2-700f60efdd7f}</Project>
-      <Name>Hazel</Name>
-    </ProjectReference>
     <ProjectReference Include="rtmp-sharp\rtmp-sharp.csproj">
       <Project>{18c508e9-2843-4ebf-a755-257c725ec634}</Project>
       <Name>rtmp-sharp</Name>
