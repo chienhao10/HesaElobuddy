@@ -117,10 +117,7 @@ namespace BananaLib.RestService
 
         private string reToken(string s)
         {
-            string s1 = s.Replace("/", "%2F");
-            s1 = s1.Replace("+", "%2B");
-            s1 = s1.Replace("=", "%3D");
-            return s1;
+            return s.Replace("/", "%2F").Replace("+", "%2B").Replace("=", "%3D");
         }
 
         public async Task<AuthResult> GetAuthResult()
@@ -139,6 +136,14 @@ namespace BananaLib.RestService
             return JsonConvert.DeserializeObject<AuthResult>(str);
         }
 
+        public async Task<string> GetToken()
+        {
+            WebClient client = new WebClient();
+            var result = client.DownloadString("https://lol.auth.garenanow.com/login-queue/rest/queue/authToken/" + Username.ToLower());
+            
+            return null;
+        }
+
         public async Task<bool> GetAuthToken()
         {
             Stopwatch sw = new Stopwatch();
@@ -153,7 +158,8 @@ namespace BananaLib.RestService
                     {
                         this.AuthResult = await this.GetAuthResult().ConfigureAwait(false);
                         this.User = this.AuthResult.User;
-                        this.Token = this.AuthResult.IdToken;
+                        this.Token = AuthResult.Lqt.PartnerToken;
+                        //await GetToken();
                         //this.UserId = this.AuthResult.Lqt.AccountId;
                     }
                     catch (IpBannedException ex)
@@ -185,13 +191,7 @@ namespace BananaLib.RestService
                         }
                         else
                         {
-                            // ISSUE: reference to a compiler-generated field
-                            LoginQueue.OnAuthFailedHandler onAuthFailed = this.OnAuthFailed;
-                            if (onAuthFailed != null)
-                            {
-                                string message = "Unable to get Auth Token.";
-                                onAuthFailed(message);
-                            }
+                            OnAuthFailed?.Invoke("Unable to get Auth Token.");
                             return false;
                         }
                     }
@@ -210,13 +210,7 @@ namespace BananaLib.RestService
                                         {
                                             if (reason == "server_full")
                                             {
-                                                // ISSUE: reference to a compiler-generated field
-                                                LoginQueue.OnAuthFailedHandler onAuthFailed = this.OnAuthFailed;
-                                                if (onAuthFailed != null)
-                                                {
-                                                    string message = "Server is full. Try again later.";
-                                                    onAuthFailed(message);
-                                                }
+                                                OnAuthFailed?.Invoke("Server is full. Try again later.");
                                                 return false;
                                             }
                                             if (this.AuthResult.Status == "QUEUE" && this.AuthResult.Tickers != null)

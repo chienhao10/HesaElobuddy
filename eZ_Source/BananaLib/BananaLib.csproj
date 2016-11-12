@@ -55,6 +55,7 @@
     <Compile Include="GameServerAddressAttribute.cs" />
     <Compile Include="LoginQueueAttribute.cs" />
     <Compile Include="LocaleAttribute.cs" />
+    <Compile Include="RestService\GasToken.cs" />
     <Compile Include="UseGarenaAttribute.cs" />
     <Compile Include="RegionInfo.cs" />
     <Compile Include="Utils.cs" />

@@ -691,7 +691,7 @@ namespace BananaLib
 
                     if (_useGarena)
                     {
-                        cred.PartnerCredentials = "8393 " + Password;
+                        cred.PartnerCredentials = loginQueue.Token;
                         cred.Username = loginQueue.User;//UserId
                         cred.Password = null;
                     }
