@@ -6,5 +6,13 @@
         {
 
         }
+
+        public static bool CanWard()
+        {
+            return false;
+        }
+
+
+
     }
 }

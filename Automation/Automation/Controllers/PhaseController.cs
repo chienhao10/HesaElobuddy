@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Automation.Enums;
 
 namespace Automation.Controllers
 {
     public static class PhaseController
     {
+        public static Phase CurrentPhase = Phase.Early;
+
         public static void Tick()
         {
 

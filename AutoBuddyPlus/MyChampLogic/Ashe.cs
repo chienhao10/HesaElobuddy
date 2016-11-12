@@ -44,9 +44,7 @@ namespace AutoBuddy.MyChampLogic
         {
             if (R.IsReady() || W.IsReady())
             {
-                AIHeroClient chaser =
-                    EntityManager.Heroes.Enemies.FirstOrDefault(
-                        chase => chase.Distance(AutoWalker.myHero) < 600 && chase.IsVisible());
+                AIHeroClient chaser =  EntityManager.Heroes.Enemies.FirstOrDefault(chase => chase.Distance(AutoWalker.myHero) < 600 && chase.IsVisible());
                 if (chaser != null)
                 {
                     if (R.IsReady() && AutoWalker.myHero.HealthPercent() > 18)
