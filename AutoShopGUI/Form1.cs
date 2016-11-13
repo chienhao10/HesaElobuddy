@@ -29,6 +29,11 @@ namespace AutoShopGUI
             saveFileDialog.InitialDirectory = AutoShopDirectoryPath;
             openFileDialog.InitialDirectory = AutoShopDirectoryPath;
         }
+
+        public void SetTitle(string title)
+        {
+            Text = "AutoShop - Profile Creator - " + title;
+        }
         
         private void LoadItemDatabase()
         {
@@ -136,6 +141,7 @@ namespace AutoShopGUI
             var result = BuildController.SaveBuildToFile(savePath);
             if(result)
             {
+                SetTitle(saveFileDialog.FileName);
                 ProfileSavePath = savePath;
                 saveToolStripMenuItem.Enabled = true;
             }
@@ -297,6 +303,7 @@ namespace AutoShopGUI
             var result = BuildController.GetBuildFromFile(filePath);
             if(result != null)
             {
+                SetTitle(filePath);
                 ProfileSavePath = filePath;
                 saveAsToolStripMenuItem.Enabled = true;
                 saveToolStripMenuItem.Enabled = true;
@@ -332,7 +339,11 @@ namespace AutoShopGUI
 
         private void openFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!string.IsNullOrEmpty(openFileDialog.FileName)) LoadProfile(openFileDialog.FileName);
+            if (!string.IsNullOrEmpty(openFileDialog.FileName))
+            {
+                SetTitle(openFileDialog.FileName);
+                LoadProfile(openFileDialog.FileName);
+            }
             openFileDialog.FileName = "";
         }
         
