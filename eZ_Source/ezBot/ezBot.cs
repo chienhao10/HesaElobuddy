@@ -919,7 +919,7 @@ namespace ezBot
         {
             while(true)
             {
-                if (GameStartedAt == null || exeProcess != null)
+                if (GameStartedAt == null)// || exeProcess != null)
                     break;
                 var ellapsedTime = DateTime.Now.Subtract(GameStartedAt.Value).Minutes;
                 if (ellapsedTime >= 3)
