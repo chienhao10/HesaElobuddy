@@ -20,17 +20,16 @@ namespace Hesa_Riven
         public static Spell.Active Q = new Spell.Active(SpellSlot.Q, 300);
         public static Spell.Active W
         {
-            get { return new Spell.Active(SpellSlot.W, (uint) (70 + Player.Instance.BoundingRadius + (Player.Instance.HasBuff("RivenFengShuiEngine") ? 195 : 120))); }
+            get { return new Spell.Active(SpellSlot.W, (uint)(70 + Player.Instance.BoundingRadius + (Player.Instance.HasBuff("RivenFengShuiEngine") ? 195 : 120))); }
         }
         public static Spell.Active E = new Spell.Active(SpellSlot.E, 300);
-        public static Spell.Skillshot R = new Spell.Skillshot(SpellSlot.R, 900, SkillShotType.Cone, 250, 1600, 45)
+        public static Spell.Skillshot R = new Spell.Skillshot(SpellSlot.R, 900, SkillShotType.Cone, 250, 1600, 45, DamageType.Physical)
         {
             AllowedCollisionCount = int.MaxValue
         };
 
-
         private static readonly SpellSlot Flash = Player.Instance.GetSpellSlotFromName("summonerFlash");
-        public static Spell.Active F = new Spell.Active(Flash);
+        public static Spell.Targeted F;
 
         #region Variables
         public static Text Timer, Timer2;
@@ -140,6 +139,14 @@ namespace Hesa_Riven
 
         void Start()
         {
+            if (Player.Instance.Spellbook.GetSpell(SpellSlot.Summoner1).Name == "SummonerFlash")
+            {
+                F = new Spell.Targeted(SpellSlot.Summoner1, 425);
+            }
+            else if (Player.Instance.Spellbook.GetSpell(SpellSlot.Summoner2).Name == "SummonerFlash")
+            {
+                F = new Spell.Targeted(SpellSlot.Summoner2, 425);
+            }
             InitializeEvents();
         }
 
@@ -980,18 +987,26 @@ namespace Hesa_Riven
                 var target = TargetSelector.SelectedTarget;
                 if (target != null) R.Cast(target.Position);
             }
+            if (F == null) return;
             //Flash R
+            Chat.Print(Player.Instance.GetSpellDamage(Player.Instance, SpellSlot.R, DamageLibrary.SpellStages.SecondCast) + "");
+
             if (Player.Instance.Level < 6 || !R.IsReady() || R.Name != SecondR || !F.IsReady() || !E.IsReady()) return;
-            foreach(var enemy in EntityManager.Enemies.Where(x => !x.IsMe && !x.IsMinion && !x.IsMonster && x.PlayerControlled))
+
+            foreach(var enemy in EntityManager.Enemies.Where(x => !x.IsMe && !x.IsMinion && !x.IsMonster))// && x.PlayerControlled))
             {
-                if(enemy.Health < getComboDamage(enemy))
+                var damage = Player.Instance.GetSpellDamage(enemy, SpellSlot.R);
+                Chat.Print("Enemy: " + enemy.Name + " Health: " + enemy.Health + "DMG: " + damage);
+                if((enemy.Health + enemy.AttackShield) < damage)
                 {
                     var distance = Player.Instance.Distance(enemy);
+                    Chat.Print(enemy.Name + " " + distance);
                     if (distance < (R.Range + E.Range + F.Range) && distance > (R.Range + E.Range))
                     {
                         Chat.Print("We can kill: " + enemy.Name);
                         E.Cast(enemy.Position);
                         Core.DelayAction(() => Player.Instance.Spellbook.CastSpell(Flash, enemy.Position), 1);
+                        
                         Core.DelayAction(() => R.Cast(enemy.Position), 2);
                     }
                 }
