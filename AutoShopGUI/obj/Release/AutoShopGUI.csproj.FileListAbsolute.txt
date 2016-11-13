@@ -13,3 +13,4 @@ C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Release\AutoShopGUI.Propert
 C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Release\AutoShopGUI.csproj.GenerateResource.Cache
 C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Release\AutoShopGUI.exe
 C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Release\AutoShopGUI.pdb
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Release\AutoShopGUI.csprojResolveAssemblyReference.cache
