@@ -917,10 +917,14 @@ namespace ezBot
 
         private async void RestartLeague()
         {
-            while(true)
+            var found = false;
+            while(!found)
             {
                 if (GameStartedAt == null)// || exeProcess != null)
+                {
+                    found = true;
                     break;
+                }
                 var ellapsedTime = DateTime.Now.Subtract(GameStartedAt.Value).Minutes;
                 if (ellapsedTime >= 3)
                 {
@@ -937,6 +941,8 @@ namespace ezBot
                             connection_OnMessageReceived(this, new EndOfGameStats());
                             ShouldBeInGame = false;
                         }
+                        found = true;
+                        break;
                     }
                     catch (InvocationException ex)
                     {
