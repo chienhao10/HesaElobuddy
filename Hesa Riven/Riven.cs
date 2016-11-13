@@ -17,12 +17,14 @@ namespace Hesa_Riven
         private const string FirstR = "RivenFengShuiEngine";
         private const string SecondR = "RivenIzunaBlade";
 
-        public static Spell.Active Q = new Spell.Active(SpellSlot.Q, 300);
+        public static Spell.Active Q = new Spell.Active(SpellSlot.Q, 300);//150
+
         public static Spell.Active W
         {
-            get { return new Spell.Active(SpellSlot.W, (uint)(70 + Player.Instance.BoundingRadius + (Player.Instance.HasBuff("RivenFengShuiEngine") ? 195 : 120))); }
+            get { return new Spell.Active(SpellSlot.W, (uint)(70 + Player.Instance.BoundingRadius + (Player.Instance.HasBuff("RivenFengShuiEngine") ? 195 : 120))); }//200
         }
-        public static Spell.Active E = new Spell.Active(SpellSlot.E, 300);
+
+        public static Spell.Active E = new Spell.Active(SpellSlot.E, 300);//325
         public static Spell.Skillshot R = new Spell.Skillshot(SpellSlot.R, 900, SkillShotType.Cone, 250, 1600, 45, DamageType.Physical)
         {
             AllowedCollisionCount = int.MaxValue
@@ -989,7 +991,7 @@ namespace Hesa_Riven
             }
             if (F == null) return;
             //Flash R
-            Chat.Print(Player.Instance.GetSpellDamage(Player.Instance, SpellSlot.R, DamageLibrary.SpellStages.SecondCast) + "");
+            //Chat.Print(Player.Instance.GetSpellDamage(Player.Instance, SpellSlot.R, DamageLibrary.SpellStages.SecondCast) + "");
 
             if (Player.Instance.Level < 6 || !R.IsReady() || R.Name != SecondR || !F.IsReady() || !E.IsReady()) return;
 
