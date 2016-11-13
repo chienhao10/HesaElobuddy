@@ -1,5 +1,6 @@
 ﻿using AutoShopGUI.Properties;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,7 +31,6 @@ namespace AutoShopGUI.Controllers
             foreach (JToken token in data.GetValue("data"))
             {
                 JToken t = token.First;
-
                 List<int> maps = new List<int>();
                 if ((bool)t["maps"]["1"]) maps.Add(1);
                 if ((bool)t["maps"]["8"]) maps.Add(8);
@@ -51,15 +51,29 @@ namespace AutoShopGUI.Controllers
                 if (t["tags"] != null)
                     tags.AddRange(t["tags"].Select(tok => tok.ToString()));
 
-                loLItems.Add(new LoLItem(t["name"].ToString(), t["description"].ToString(),
-                    t["sanitizedDescription"].ToString(),
-                    t["plaintext"] == null ? string.Empty : t["plaintext"].ToString(),
-                    (int)t["id"], (int)t["gold"]["base"], (int)t["gold"]["total"], (int)t["gold"]["sell"],
-                    (bool)t["gold"]["purchasable"],
-                    t["requiredChampion"] == null ? string.Empty : t["requiredChampion"].ToString(), maps.ToArray(),
-                    fromItems.ToArray(), toItems.ToArray(), t["depth"] == null ? -1 : (int)t["depth"], tags.ToArray(),
-                    t["cq"] == null ? string.Empty : t["cq"].ToString(),
-                    t["group"] == null ? string.Empty : t["group"].ToString()));
+                var name = t["name"].ToString();
+                var description = t["description"].ToString();
+                var sanitizedDescription = string.Empty;//t["sanitizedDescription"].ToString();
+                var plaintext = t["plaintext"] == null ? string.Empty : t["plaintext"].ToString();
+                var id = Convert.ToInt32(t.Path.ToString().Replace("data.", ""));
+                var baseGold = (int) t["gold"]["base"];
+                var totalGold = (int)t["gold"]["total"];
+                var sellGold = (int)t["gold"]["sell"];
+                var purchasable = (bool) t["gold"]["purchasable"];
+                var requiredChampion = t["requiredChampion"] == null ? string.Empty : t["requiredChampion"].ToString();
+                var depth = t["depth"] == null ? -1 : (int) t["depth"];
+                var cq = t["cq"] == null ? string.Empty : t["cq"].ToString();
+                var group = t["group"] == null ? string.Empty : t["group"].ToString();
+
+                loLItems.Add(new LoLItem(name, description,
+                    sanitizedDescription,
+                    plaintext,
+                    id, baseGold, totalGold, sellGold,
+                    purchasable,
+                    requiredChampion, maps.ToArray(),
+                    fromItems.ToArray(), toItems.ToArray(), depth, tags.ToArray(),
+                    cq,
+                    group));
             }
             return loLItems;
         }

@@ -151,6 +151,9 @@ namespace ezBot
             try
             {
                 WebClient webClient = new WebClient();
+                webClient.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.BypassCache);
+                webClient.Headers.Add("Cache-Control", "no-cache");
+
                 return webClient.DownloadString("https://raw.githubusercontent.com/hesa2020/HesaElobuddy/master/eZ_Source/version.txt");
             }
             catch (Exception ex)

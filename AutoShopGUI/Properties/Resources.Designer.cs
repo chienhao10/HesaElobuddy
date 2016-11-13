@@ -343,286 +343,6 @@ namespace AutoShopGUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _1300 {
-            get {
-                object obj = ResourceManager.GetObject("_1300", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1301 {
-            get {
-                object obj = ResourceManager.GetObject("_1301", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1302 {
-            get {
-                object obj = ResourceManager.GetObject("_1302", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1303 {
-            get {
-                object obj = ResourceManager.GetObject("_1303", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1305 {
-            get {
-                object obj = ResourceManager.GetObject("_1305", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1306 {
-            get {
-                object obj = ResourceManager.GetObject("_1306", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1307 {
-            get {
-                object obj = ResourceManager.GetObject("_1307", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1308 {
-            get {
-                object obj = ResourceManager.GetObject("_1308", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1310 {
-            get {
-                object obj = ResourceManager.GetObject("_1310", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1311 {
-            get {
-                object obj = ResourceManager.GetObject("_1311", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1312 {
-            get {
-                object obj = ResourceManager.GetObject("_1312", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1313 {
-            get {
-                object obj = ResourceManager.GetObject("_1313", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1315 {
-            get {
-                object obj = ResourceManager.GetObject("_1315", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1316 {
-            get {
-                object obj = ResourceManager.GetObject("_1316", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1317 {
-            get {
-                object obj = ResourceManager.GetObject("_1317", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1318 {
-            get {
-                object obj = ResourceManager.GetObject("_1318", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1320 {
-            get {
-                object obj = ResourceManager.GetObject("_1320", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1321 {
-            get {
-                object obj = ResourceManager.GetObject("_1321", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1322 {
-            get {
-                object obj = ResourceManager.GetObject("_1322", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1323 {
-            get {
-                object obj = ResourceManager.GetObject("_1323", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1325 {
-            get {
-                object obj = ResourceManager.GetObject("_1325", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1326 {
-            get {
-                object obj = ResourceManager.GetObject("_1326", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1327 {
-            get {
-                object obj = ResourceManager.GetObject("_1327", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1328 {
-            get {
-                object obj = ResourceManager.GetObject("_1328", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1330 {
-            get {
-                object obj = ResourceManager.GetObject("_1330", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1331 {
-            get {
-                object obj = ResourceManager.GetObject("_1331", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1332 {
-            get {
-                object obj = ResourceManager.GetObject("_1332", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1333 {
-            get {
-                object obj = ResourceManager.GetObject("_1333", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap _1400 {
             get {
                 object obj = ResourceManager.GetObject("_1400", resourceCulture);
@@ -653,9 +373,29 @@ namespace AutoShopGUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _1403 {
+        internal static System.Drawing.Bitmap _1404 {
             get {
-                object obj = ResourceManager.GetObject("_1403", resourceCulture);
+                object obj = ResourceManager.GetObject("_1404", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1405 {
+            get {
+                object obj = ResourceManager.GetObject("_1405", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1406 {
+            get {
+                object obj = ResourceManager.GetObject("_1406", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -693,16 +433,6 @@ namespace AutoShopGUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _1411 {
-            get {
-                object obj = ResourceManager.GetObject("_1411", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap _1412 {
             get {
                 object obj = ResourceManager.GetObject("_1412", resourceCulture);
@@ -733,9 +463,39 @@ namespace AutoShopGUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _1415 {
+        internal static System.Drawing.Bitmap _1416 {
             get {
-                object obj = ResourceManager.GetObject("_1415", resourceCulture);
+                object obj = ResourceManager.GetObject("_1416", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1417 {
+            get {
+                object obj = ResourceManager.GetObject("_1417", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1418 {
+            get {
+                object obj = ResourceManager.GetObject("_1418", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1419 {
+            get {
+                object obj = ResourceManager.GetObject("_1419", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -806,16 +566,6 @@ namespace AutoShopGUI.Properties {
         internal static System.Drawing.Bitmap _2033 {
             get {
                 object obj = ResourceManager.GetObject("_2033", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _2043 {
-            get {
-                object obj = ResourceManager.GetObject("_2043", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -896,6 +646,16 @@ namespace AutoShopGUI.Properties {
         internal static System.Drawing.Bitmap _2054 {
             get {
                 object obj = ResourceManager.GetObject("_2054", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _2055 {
+            get {
+                object obj = ResourceManager.GetObject("_2055", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1116,6 +876,16 @@ namespace AutoShopGUI.Properties {
         internal static System.Drawing.Bitmap _3029 {
             get {
                 object obj = ResourceManager.GetObject("_3029", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3030 {
+            get {
+                object obj = ResourceManager.GetObject("_3030", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1623,9 +1393,29 @@ namespace AutoShopGUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _3107 {
+            get {
+                object obj = ResourceManager.GetObject("_3107", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _3108 {
             get {
                 object obj = ResourceManager.GetObject("_3108", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3109 {
+            get {
+                object obj = ResourceManager.GetObject("_3109", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1903,6 +1693,16 @@ namespace AutoShopGUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _3154 {
+            get {
+                object obj = ResourceManager.GetObject("_3154", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _3155 {
             get {
                 object obj = ResourceManager.GetObject("_3155", resourceCulture);
@@ -1966,6 +1766,16 @@ namespace AutoShopGUI.Properties {
         internal static System.Drawing.Bitmap _3174 {
             get {
                 object obj = ResourceManager.GetObject("_3174", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3175 {
+            get {
+                object obj = ResourceManager.GetObject("_3175", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2093,39 +1903,9 @@ namespace AutoShopGUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _3240 {
+        internal static System.Drawing.Bitmap _3252 {
             get {
-                object obj = ResourceManager.GetObject("_3240", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _3241 {
-            get {
-                object obj = ResourceManager.GetObject("_3241", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _3242 {
-            get {
-                object obj = ResourceManager.GetObject("_3242", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _3243 {
-            get {
-                object obj = ResourceManager.GetObject("_3243", resourceCulture);
+                object obj = ResourceManager.GetObject("_3252", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2263,6 +2043,46 @@ namespace AutoShopGUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _3410 {
+            get {
+                object obj = ResourceManager.GetObject("_3410", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3416 {
+            get {
+                object obj = ResourceManager.GetObject("_3416", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3422 {
+            get {
+                object obj = ResourceManager.GetObject("_3422", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3455 {
+            get {
+                object obj = ResourceManager.GetObject("_3455", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _3460 {
             get {
                 object obj = ResourceManager.GetObject("_3460", resourceCulture);
@@ -2276,6 +2096,16 @@ namespace AutoShopGUI.Properties {
         internal static System.Drawing.Bitmap _3461 {
             get {
                 object obj = ResourceManager.GetObject("_3461", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3462 {
+            get {
+                object obj = ResourceManager.GetObject("_3462", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2323,6 +2153,166 @@ namespace AutoShopGUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _3630 {
+            get {
+                object obj = ResourceManager.GetObject("_3630", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3631 {
+            get {
+                object obj = ResourceManager.GetObject("_3631", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3632 {
+            get {
+                object obj = ResourceManager.GetObject("_3632", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3633 {
+            get {
+                object obj = ResourceManager.GetObject("_3633", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3634 {
+            get {
+                object obj = ResourceManager.GetObject("_3634", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3635 {
+            get {
+                object obj = ResourceManager.GetObject("_3635", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3636 {
+            get {
+                object obj = ResourceManager.GetObject("_3636", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3637 {
+            get {
+                object obj = ResourceManager.GetObject("_3637", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3640 {
+            get {
+                object obj = ResourceManager.GetObject("_3640", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3641 {
+            get {
+                object obj = ResourceManager.GetObject("_3641", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3642 {
+            get {
+                object obj = ResourceManager.GetObject("_3642", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3643 {
+            get {
+                object obj = ResourceManager.GetObject("_3643", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3645 {
+            get {
+                object obj = ResourceManager.GetObject("_3645", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3647 {
+            get {
+                object obj = ResourceManager.GetObject("_3647", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3648 {
+            get {
+                object obj = ResourceManager.GetObject("_3648", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3649 {
+            get {
+                object obj = ResourceManager.GetObject("_3649", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _3671 {
             get {
                 object obj = ResourceManager.GetObject("_3671", resourceCulture);
@@ -2353,9 +2343,9 @@ namespace AutoShopGUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _3674 {
+        internal static System.Drawing.Bitmap _3675 {
             get {
-                object obj = ResourceManager.GetObject("_3674", resourceCulture);
+                object obj = ResourceManager.GetObject("_3675", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2443,9 +2433,29 @@ namespace AutoShopGUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _3802 {
+            get {
+                object obj = ResourceManager.GetObject("_3802", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _3812 {
             get {
                 object obj = ResourceManager.GetObject("_3812", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3814 {
+            get {
+                object obj = ResourceManager.GetObject("_3814", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2511,22 +2521,17 @@ namespace AutoShopGUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///	&quot;UseHPotion&quot;: true,
-        ///	&quot;MaxHPotionCount&quot;: 3,
-        ///	&quot;MaxHPotionLevel&quot;: 11,
-        ///	&quot;Itens&quot;:
-        ///	[
-        ///		{
-        ///			&quot;Id&quot;: 4,
-        ///			&quot;Name&quot;: &quot;A name&quot;,
-        ///			&quot;BuildFrom&quot;:
-        ///			[
-        ///				
-        ///			] 
-        ///		}
-        ///	]
-        ///}.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3933 {
+            get {
+                object obj = ResourceManager.GetObject("_3933", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {&quot;UseHPotion&quot;:true,&quot;MaxHPotionCount&quot;:1,&quot;MaxHPotionLevel&quot;:11,&quot;Items&quot;:[{&quot;Id&quot;:3340,&quot;Name&quot;:&quot;Warding Totem (Trinket)&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:0,&quot;UpgradeCost&quot;:0,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:1055,&quot;Name&quot;:&quot;Doran&apos;s Blade&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:450,&quot;UpgradeCost&quot;:450,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:3153,&quot;Name&quot;:&quot;Blade of the Ruined King&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:3400,&quot;UpgradeCost&quot;:750,&quot;BuildFrom&quot;:[{&quot;Id&quot;:3144,&quot;Name&quot;:&quot;Bilgewater Cutlass&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:1650,&quot;Upgra [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GenericADC {
             get {
@@ -2535,22 +2540,7 @@ namespace AutoShopGUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///	&quot;UseHPotion&quot;: true,
-        ///	&quot;MaxHPotionCount&quot;: 3,
-        ///	&quot;MaxHPotionLevel&quot;: 11,
-        ///	&quot;Itens&quot;:
-        ///	[
-        ///		{
-        ///			&quot;Id&quot;: 4,
-        ///			&quot;Name&quot;: &quot;A name&quot;,
-        ///			&quot;BuildFrom&quot;:
-        ///			[
-        ///				
-        ///			] 
-        ///		}
-        ///	]
-        ///}.
+        ///   Looks up a localized string similar to {&quot;UseHPotion&quot;:true,&quot;MaxHPotionCount&quot;:3,&quot;MaxHPotionLevel&quot;:11,&quot;Items&quot;:[{&quot;Id&quot;:3340,&quot;Name&quot;:&quot;Warding Totem (Trinket)&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:0,&quot;UpgradeCost&quot;:0,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:1413,&quot;Name&quot;:&quot;Enchantment: Cinderhulk&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:2625,&quot;UpgradeCost&quot;:525,&quot;BuildFrom&quot;:[{&quot;Id&quot;:3715,&quot;Name&quot;:&quot;Skirmisher&apos;s Sabre&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:1000,&quot;UpgradeCost&quot;:300,&quot;BuildFrom&quot;:[{&quot;Id&quot;:1041,&quot;Name&quot;:&quot;Hunter&apos;s Machete&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:350,&quot;UpgradeCost&quot;:350,&quot;B [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GenericJungleAD {
             get {
@@ -2559,22 +2549,7 @@ namespace AutoShopGUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///	&quot;UseHPotion&quot;: true,
-        ///	&quot;MaxHPotionCount&quot;: 3,
-        ///	&quot;MaxHPotionLevel&quot;: 11,
-        ///	&quot;Itens&quot;:
-        ///	[
-        ///		{
-        ///			&quot;Id&quot;: 4,
-        ///			&quot;Name&quot;: &quot;A name&quot;,
-        ///			&quot;BuildFrom&quot;:
-        ///			[
-        ///				
-        ///			] 
-        ///		}
-        ///	]
-        ///}.
+        ///   Looks up a localized string similar to {&quot;UseHPotion&quot;:true,&quot;MaxHPotionCount&quot;:3,&quot;MaxHPotionLevel&quot;:11,&quot;Items&quot;:[{&quot;Id&quot;:3340,&quot;Name&quot;:&quot;Warding Totem (Trinket)&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:0,&quot;UpgradeCost&quot;:0,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:1413,&quot;Name&quot;:&quot;Enchantment: Cinderhulk&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:2625,&quot;UpgradeCost&quot;:525,&quot;BuildFrom&quot;:[{&quot;Id&quot;:3715,&quot;Name&quot;:&quot;Skirmisher&apos;s Sabre&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:1000,&quot;UpgradeCost&quot;:300,&quot;BuildFrom&quot;:[{&quot;Id&quot;:1041,&quot;Name&quot;:&quot;Hunter&apos;s Machete&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:350,&quot;UpgradeCost&quot;:350,&quot;B [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GenericJungleADTank {
             get {
@@ -2583,22 +2558,7 @@ namespace AutoShopGUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///	&quot;UseHPotion&quot;: true,
-        ///	&quot;MaxHPotionCount&quot;: 3,
-        ///	&quot;MaxHPotionLevel&quot;: 11,
-        ///	&quot;Itens&quot;:
-        ///	[
-        ///		{
-        ///			&quot;Id&quot;: 4,
-        ///			&quot;Name&quot;: &quot;A name&quot;,
-        ///			&quot;BuildFrom&quot;:
-        ///			[
-        ///				
-        ///			] 
-        ///		}
-        ///	]
-        ///}.
+        ///   Looks up a localized string similar to {&quot;UseHPotion&quot;:true,&quot;MaxHPotionCount&quot;:3,&quot;MaxHPotionLevel&quot;:11,&quot;Items&quot;:[{&quot;Id&quot;:3340,&quot;Name&quot;:&quot;Warding Totem (Trinket)&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:0,&quot;UpgradeCost&quot;:0,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:1414,&quot;Name&quot;:&quot;Enchantment: Runic Echoes&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:2625,&quot;UpgradeCost&quot;:340,&quot;BuildFrom&quot;:[{&quot;Id&quot;:3715,&quot;Name&quot;:&quot;Skirmisher&apos;s Sabre&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:1000,&quot;UpgradeCost&quot;:300,&quot;BuildFrom&quot;:[{&quot;Id&quot;:1039,&quot;Name&quot;:&quot;Hunter&apos;s Talisman&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:350,&quot;UpgradeCost&quot;:350 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GenericJungleAP {
             get {
@@ -2607,22 +2567,7 @@ namespace AutoShopGUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///	&quot;UseHPotion&quot;: true,
-        ///	&quot;MaxHPotionCount&quot;: 3,
-        ///	&quot;MaxHPotionLevel&quot;: 11,
-        ///	&quot;Itens&quot;:
-        ///	[
-        ///		{
-        ///			&quot;Id&quot;: 4,
-        ///			&quot;Name&quot;: &quot;A name&quot;,
-        ///			&quot;BuildFrom&quot;:
-        ///			[
-        ///				
-        ///			] 
-        ///		}
-        ///	]
-        ///}.
+        ///   Looks up a localized string similar to {&quot;UseHPotion&quot;:true,&quot;MaxHPotionCount&quot;:3,&quot;MaxHPotionLevel&quot;:11,&quot;Items&quot;:[{&quot;Id&quot;:3340,&quot;Name&quot;:&quot;Warding Totem (Trinket)&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:0,&quot;UpgradeCost&quot;:0,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:1401,&quot;Name&quot;:&quot;Enchantment: Cinderhulk&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:2625,&quot;UpgradeCost&quot;:525,&quot;BuildFrom&quot;:[{&quot;Id&quot;:3706,&quot;Name&quot;:&quot;Stalker&apos;s Blade&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:1000,&quot;UpgradeCost&quot;:300,&quot;BuildFrom&quot;:[{&quot;Id&quot;:1039,&quot;Name&quot;:&quot;Hunter&apos;s Talisman&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:350,&quot;UpgradeCost&quot;:350,&quot;Bui [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GenericJungleAPTank {
             get {
@@ -2631,22 +2576,7 @@ namespace AutoShopGUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///	&quot;UseHPotion&quot;: true,
-        ///	&quot;MaxHPotionCount&quot;: 3,
-        ///	&quot;MaxHPotionLevel&quot;: 11,
-        ///	&quot;Itens&quot;:
-        ///	[
-        ///		{
-        ///			&quot;Id&quot;: 4,
-        ///			&quot;Name&quot;: &quot;A name&quot;,
-        ///			&quot;BuildFrom&quot;:
-        ///			[
-        ///				
-        ///			] 
-        ///		}
-        ///	]
-        ///}.
+        ///   Looks up a localized string similar to {&quot;UseHPotion&quot;:true,&quot;MaxHPotionCount&quot;:1,&quot;MaxHPotionLevel&quot;:11,&quot;Items&quot;:[{&quot;Id&quot;:3340,&quot;Name&quot;:&quot;Warding Totem (Trinket)&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:0,&quot;UpgradeCost&quot;:0,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:3142,&quot;Name&quot;:&quot;Youmuu&apos;s Ghostblade&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:3200,&quot;UpgradeCost&quot;:1000,&quot;BuildFrom&quot;:[{&quot;Id&quot;:3134,&quot;Name&quot;:&quot;Serrated Dirk&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:1100,&quot;UpgradeCost&quot;:400,&quot;BuildFrom&quot;:[{&quot;Id&quot;:1036,&quot;Name&quot;:&quot;Long Sword&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:350,&quot;UpgradeCost&quot;:350,&quot;BuildFrom&quot;:[],&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GenericMidAD {
             get {
@@ -2655,22 +2585,7 @@ namespace AutoShopGUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///	&quot;UseHPotion&quot;: true,
-        ///	&quot;MaxHPotionCount&quot;: 3,
-        ///	&quot;MaxHPotionLevel&quot;: 11,
-        ///	&quot;Itens&quot;:
-        ///	[
-        ///		{
-        ///			&quot;Id&quot;: 4,
-        ///			&quot;Name&quot;: &quot;A name&quot;,
-        ///			&quot;BuildFrom&quot;:
-        ///			[
-        ///				
-        ///			] 
-        ///		}
-        ///	]
-        ///}.
+        ///   Looks up a localized string similar to {&quot;UseHPotion&quot;:true,&quot;MaxHPotionCount&quot;:1,&quot;MaxHPotionLevel&quot;:11,&quot;Items&quot;:[{&quot;Id&quot;:3340,&quot;Name&quot;:&quot;Warding Totem (Trinket)&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:0,&quot;UpgradeCost&quot;:0,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:1056,&quot;Name&quot;:&quot;Doran&apos;s Ring&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:400,&quot;UpgradeCost&quot;:400,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:3285,&quot;Name&quot;:&quot;Luden&apos;s Echo&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:3200,&quot;UpgradeCost&quot;:1100,&quot;BuildFrom&quot;:[{&quot;Id&quot;:1058,&quot;Name&quot;:&quot;Needlessly Large Rod&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:1250,&quot;UpgradeCost&quot;:12 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GenericMidAP {
             get {
@@ -2679,22 +2594,7 @@ namespace AutoShopGUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///	&quot;UseHPotion&quot;: true,
-        ///	&quot;MaxHPotionCount&quot;: 3,
-        ///	&quot;MaxHPotionLevel&quot;: 11,
-        ///	&quot;Itens&quot;:
-        ///	[
-        ///		{
-        ///			&quot;Id&quot;: 4,
-        ///			&quot;Name&quot;: &quot;A name&quot;,
-        ///			&quot;BuildFrom&quot;:
-        ///			[
-        ///				
-        ///			] 
-        ///		}
-        ///	]
-        ///}.
+        ///   Looks up a localized string similar to {&quot;UseHPotion&quot;:true,&quot;MaxHPotionCount&quot;:3,&quot;MaxHPotionLevel&quot;:11,&quot;Items&quot;:[{&quot;Id&quot;:3340,&quot;Name&quot;:&quot;Warding Totem (Trinket)&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:0,&quot;UpgradeCost&quot;:0,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:3097,&quot;Name&quot;:&quot;Targon&apos;s Brace&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:850,&quot;UpgradeCost&quot;:350,&quot;BuildFrom&quot;:[{&quot;Id&quot;:3302,&quot;Name&quot;:&quot;Relic Shield&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:350,&quot;UpgradeCost&quot;:350,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:1006,&quot;Name&quot;:&quot;Rejuvenation Bead&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:150,&quot;UpgradeCost&quot;:150,&quot;B [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GenericSupportADTank {
             get {
@@ -2703,22 +2603,7 @@ namespace AutoShopGUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///	&quot;UseHPotion&quot;: true,
-        ///	&quot;MaxHPotionCount&quot;: 3,
-        ///	&quot;MaxHPotionLevel&quot;: 11,
-        ///	&quot;Itens&quot;:
-        ///	[
-        ///		{
-        ///			&quot;Id&quot;: 4,
-        ///			&quot;Name&quot;: &quot;A name&quot;,
-        ///			&quot;BuildFrom&quot;:
-        ///			[
-        ///				
-        ///			] 
-        ///		}
-        ///	]
-        ///}.
+        ///   Looks up a localized string similar to {&quot;UseHPotion&quot;:true,&quot;MaxHPotionCount&quot;:3,&quot;MaxHPotionLevel&quot;:11,&quot;Items&quot;:[{&quot;Id&quot;:3340,&quot;Name&quot;:&quot;Warding Totem (Trinket)&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:0,&quot;UpgradeCost&quot;:0,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:3092,&quot;Name&quot;:&quot;Frost Queen&apos;s Claim&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:2200,&quot;UpgradeCost&quot;:550,&quot;BuildFrom&quot;:[{&quot;Id&quot;:3098,&quot;Name&quot;:&quot;Frostfang&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:850,&quot;UpgradeCost&quot;:375,&quot;BuildFrom&quot;:[{&quot;Id&quot;:3303,&quot;Name&quot;:&quot;Spellthief&apos;s Edge&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:350,&quot;UpgradeCost&quot;:350,&quot;BuildFrom&quot;:[], [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GenericSupportAPBurst {
             get {
@@ -2727,22 +2612,7 @@ namespace AutoShopGUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///	&quot;UseHPotion&quot;: true,
-        ///	&quot;MaxHPotionCount&quot;: 3,
-        ///	&quot;MaxHPotionLevel&quot;: 11,
-        ///	&quot;Itens&quot;:
-        ///	[
-        ///		{
-        ///			&quot;Id&quot;: 4,
-        ///			&quot;Name&quot;: &quot;A name&quot;,
-        ///			&quot;BuildFrom&quot;:
-        ///			[
-        ///				
-        ///			] 
-        ///		}
-        ///	]
-        ///}.
+        ///   Looks up a localized string similar to {&quot;UseHPotion&quot;:true,&quot;MaxHPotionCount&quot;:3,&quot;MaxHPotionLevel&quot;:11,&quot;Items&quot;:[{&quot;Id&quot;:3340,&quot;Name&quot;:&quot;Warding Totem (Trinket)&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:0,&quot;UpgradeCost&quot;:0,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:3092,&quot;Name&quot;:&quot;Frost Queen&apos;s Claim&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:2200,&quot;UpgradeCost&quot;:550,&quot;BuildFrom&quot;:[{&quot;Id&quot;:3098,&quot;Name&quot;:&quot;Frostfang&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:850,&quot;UpgradeCost&quot;:375,&quot;BuildFrom&quot;:[{&quot;Id&quot;:3303,&quot;Name&quot;:&quot;Spellthief&apos;s Edge&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:350,&quot;UpgradeCost&quot;:350,&quot;BuildFrom&quot;:[], [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GenericSupportAPHeal {
             get {
@@ -2751,22 +2621,7 @@ namespace AutoShopGUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///	&quot;UseHPotion&quot;: true,
-        ///	&quot;MaxHPotionCount&quot;: 3,
-        ///	&quot;MaxHPotionLevel&quot;: 11,
-        ///	&quot;Itens&quot;:
-        ///	[
-        ///		{
-        ///			&quot;Id&quot;: 4,
-        ///			&quot;Name&quot;: &quot;A name&quot;,
-        ///			&quot;BuildFrom&quot;:
-        ///			[
-        ///				
-        ///			] 
-        ///		}
-        ///	]
-        ///}.
+        ///   Looks up a localized string similar to {&quot;UseHPotion&quot;:true,&quot;MaxHPotionCount&quot;:3,&quot;MaxHPotionLevel&quot;:11,&quot;Items&quot;:[{&quot;Id&quot;:3340,&quot;Name&quot;:&quot;Warding Totem (Trinket)&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:0,&quot;UpgradeCost&quot;:0,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:3069,&quot;Name&quot;:&quot;Talisman of Ascension&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:2200,&quot;UpgradeCost&quot;:800,&quot;BuildFrom&quot;:[{&quot;Id&quot;:3096,&quot;Name&quot;:&quot;Nomad&apos;s Medallion&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:850,&quot;UpgradeCost&quot;:225,&quot;BuildFrom&quot;:[{&quot;Id&quot;:3301,&quot;Name&quot;:&quot;Ancient Coin&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:350,&quot;UpgradeCost&quot;:350,&quot;BuildFrom [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GenericSupportAPTank {
             get {
@@ -2775,22 +2630,7 @@ namespace AutoShopGUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///	&quot;UseHPotion&quot;: true,
-        ///	&quot;MaxHPotionCount&quot;: 3,
-        ///	&quot;MaxHPotionLevel&quot;: 11,
-        ///	&quot;Itens&quot;:
-        ///	[
-        ///		{
-        ///			&quot;Id&quot;: 4,
-        ///			&quot;Name&quot;: &quot;A name&quot;,
-        ///			&quot;BuildFrom&quot;:
-        ///			[
-        ///				
-        ///			] 
-        ///		}
-        ///	]
-        ///}.
+        ///   Looks up a localized string similar to {&quot;UseHPotion&quot;:true,&quot;MaxHPotionCount&quot;:3,&quot;MaxHPotionLevel&quot;:11,&quot;Items&quot;:[{&quot;Id&quot;:3340,&quot;Name&quot;:&quot;Warding Totem (Trinket)&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:0,&quot;UpgradeCost&quot;:0,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:3074,&quot;Name&quot;:&quot;Ravenous Hydra&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:3500,&quot;UpgradeCost&quot;:1050,&quot;BuildFrom&quot;:[{&quot;Id&quot;:1036,&quot;Name&quot;:&quot;Long Sword&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:350,&quot;UpgradeCost&quot;:350,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:3077,&quot;Name&quot;:&quot;Tiamat&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:1200,&quot;UpgradeCost&quot;:175,&quot;BuildFrom&quot;: [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GenericTopAD {
             get {
@@ -2799,22 +2639,7 @@ namespace AutoShopGUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///	&quot;UseHPotion&quot;: true,
-        ///	&quot;MaxHPotionCount&quot;: 3,
-        ///	&quot;MaxHPotionLevel&quot;: 11,
-        ///	&quot;Itens&quot;:
-        ///	[
-        ///		{
-        ///			&quot;Id&quot;: 4,
-        ///			&quot;Name&quot;: &quot;A name&quot;,
-        ///			&quot;BuildFrom&quot;:
-        ///			[
-        ///				
-        ///			] 
-        ///		}
-        ///	]
-        ///}.
+        ///   Looks up a localized string similar to {&quot;UseHPotion&quot;:true,&quot;MaxHPotionCount&quot;:1,&quot;MaxHPotionLevel&quot;:11,&quot;Items&quot;:[{&quot;Id&quot;:3340,&quot;Name&quot;:&quot;Warding Totem (Trinket)&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:0,&quot;UpgradeCost&quot;:0,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:1054,&quot;Name&quot;:&quot;Doran&apos;s Shield&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:450,&quot;UpgradeCost&quot;:450,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:3068,&quot;Name&quot;:&quot;Sunfire Cape&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:2700,&quot;UpgradeCost&quot;:800,&quot;BuildFrom&quot;:[{&quot;Id&quot;:3751,&quot;Name&quot;:&quot;Bami&apos;s Cinder&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:1100,&quot;UpgradeCost&quot;:700,&quot;Bui [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GenericTopADTank {
             get {
@@ -2823,22 +2648,7 @@ namespace AutoShopGUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///	&quot;UseHPotion&quot;: true,
-        ///	&quot;MaxHPotionCount&quot;: 3,
-        ///	&quot;MaxHPotionLevel&quot;: 11,
-        ///	&quot;Itens&quot;:
-        ///	[
-        ///		{
-        ///			&quot;Id&quot;: 4,
-        ///			&quot;Name&quot;: &quot;A name&quot;,
-        ///			&quot;BuildFrom&quot;:
-        ///			[
-        ///				
-        ///			] 
-        ///		}
-        ///	]
-        ///}.
+        ///   Looks up a localized string similar to {&quot;UseHPotion&quot;:false,&quot;MaxHPotionCount&quot;:3,&quot;MaxHPotionLevel&quot;:11,&quot;Items&quot;:[{&quot;Id&quot;:3340,&quot;Name&quot;:&quot;Warding Totem (Trinket)&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:0,&quot;UpgradeCost&quot;:0,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:1056,&quot;Name&quot;:&quot;Doran&apos;s Ring&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:400,&quot;UpgradeCost&quot;:400,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:3027,&quot;Name&quot;:&quot;Rod of Ages&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:3000,&quot;UpgradeCost&quot;:950,&quot;BuildFrom&quot;:[{&quot;Id&quot;:3010,&quot;Name&quot;:&quot;Catalyst the Protector&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:1200,&quot;UpgradeCost&quot;:4 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GenericTopAP {
             get {
@@ -2847,22 +2657,7 @@ namespace AutoShopGUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///	&quot;UseHPotion&quot;: true,
-        ///	&quot;MaxHPotionCount&quot;: 3,
-        ///	&quot;MaxHPotionLevel&quot;: 11,
-        ///	&quot;Itens&quot;:
-        ///	[
-        ///		{
-        ///			&quot;Id&quot;: 4,
-        ///			&quot;Name&quot;: &quot;A name&quot;,
-        ///			&quot;BuildFrom&quot;:
-        ///			[
-        ///				
-        ///			] 
-        ///		}
-        ///	]
-        ///}.
+        ///   Looks up a localized string similar to {&quot;UseHPotion&quot;:true,&quot;MaxHPotionCount&quot;:3,&quot;MaxHPotionLevel&quot;:11,&quot;Items&quot;:[{&quot;Id&quot;:3340,&quot;Name&quot;:&quot;Warding Totem (Trinket)&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:0,&quot;UpgradeCost&quot;:0,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:1056,&quot;Name&quot;:&quot;Doran&apos;s Ring&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:400,&quot;UpgradeCost&quot;:400,&quot;BuildFrom&quot;:[],&quot;Sell&quot;:false},{&quot;Id&quot;:3027,&quot;Name&quot;:&quot;Rod of Ages&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:3000,&quot;UpgradeCost&quot;:950,&quot;BuildFrom&quot;:[{&quot;Id&quot;:3010,&quot;Name&quot;:&quot;Catalyst the Protector&quot;,&quot;BuyNowIfWeCan&quot;:false,&quot;TotalCost&quot;:1200,&quot;UpgradeCost&quot;:45 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GenericTopAPTank {
             get {

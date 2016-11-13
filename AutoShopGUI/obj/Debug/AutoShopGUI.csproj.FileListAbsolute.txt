@@ -1,1 +1,16 @@
 C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Debug\AutoShopGUI.exe.config
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Debug\AutoShopGUI.exe
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Debug\AutoShopGUI.pdb
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Debug\DevComponents.DotNetBar.SuperGrid.dll
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Debug\DevComponents.DotNetBar2.dll
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Debug\DevComponents.Instrumentation.dll
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Debug\DevComponents.DotNetBar.SuperGrid.xml
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Debug\DevComponents.DotNetBar2.xml
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\bin\Debug\DevComponents.Instrumentation.xml
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Debug\AutoShopGUI.csprojResolveAssemblyReference.cache
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Debug\AutoShopGUI.Form1.resources
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Debug\AutoShopGUI.Properties.Resources.resources
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Debug\AutoShopGUI.csproj.GenerateResource.Cache
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Debug\AutoShopGUI.exe
+C:\Users\Hesa\Documents\HesaElobuddy\AutoShopGUI\obj\Debug\AutoShopGUI.pdb

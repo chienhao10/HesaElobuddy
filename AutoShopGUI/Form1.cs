@@ -50,7 +50,20 @@ namespace AutoShopGUI
 
         public Bitmap GetBitmapFromItemId(int itemId)
         {
-            return (Bitmap)Properties.Resources.ResourceManager.GetObject("_" + itemId);
+            Bitmap icon = null;
+            try
+            {
+                icon = (Bitmap)Properties.Resources.ResourceManager.GetObject("_" + itemId);
+            }catch(Exception ex)
+            {
+
+            }
+            if(icon == null)
+            {
+                //Download the image...
+
+            }
+            return icon;
         }
 
         private void textBoxFilterItemsDatabase_TextChanged(object sender, EventArgs e)
