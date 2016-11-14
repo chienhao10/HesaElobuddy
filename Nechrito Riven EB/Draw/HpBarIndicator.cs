@@ -102,9 +102,7 @@
         {
             DxLine.Begin();
 
-            DxLine.Draw(
-                new[] { new Vector2((int)from.X, (int)from.Y + 4f), new Vector2((int)to.X, (int)to.Y + 4f) },
-                color);
+            DxLine.Draw(new[] { new Vector2((int)from.X, (int)from.Y + 4f), new Vector2((int)to.X, (int)to.Y + 4f) }, color);
 
             DxLine.End();
         }
