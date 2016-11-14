@@ -38,7 +38,7 @@
                         LastQ = Environment.TickCount;
                         Qstack = 2;
 
-                        if (SafeReset())
+                        //if (SafeReset())
                         {
                             Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
 
@@ -51,7 +51,7 @@
                         LastQ = Environment.TickCount;
                         Qstack = 3;
 
-                        if (SafeReset())
+                        //if (SafeReset())
                         {
                             Core.DelayAction(Reset, ResetDelay(MenuConfig.Q2D));
 
@@ -64,7 +64,7 @@
                         LastQ = Environment.TickCount;
                         Qstack = 1;
 
-                        if (SafeReset())
+                        //if (SafeReset())
                         {
                             Core.DelayAction(Reset, ResetDelay(MenuConfig.Qld));
 
@@ -127,19 +127,23 @@
             switch (MenuConfig.EmoteList)
             {
                 case "Laugh":
-                    Chat.Print("/l");
+                    EloBuddy.Player.DoEmote(Emote.Laugh);
+                    //Chat.Print("/l");
                     //Game.Say("/l");
                     break;
                 case "Taunt":
-                    Chat.Print("/t");
+                    EloBuddy.Player.DoEmote(Emote.Taunt);
+                    //Chat.Print("/t");
                     //Game.Say("/t");
                     break;
                 case "Joke":
-                    Chat.Print("/j");
+                    EloBuddy.Player.DoEmote(Emote.Joke);
+                    //Chat.Print("/j");
                     //Game.Say("/j");
                     break;
                 case "Dance":
-                    Chat.Print("/d");
+                    EloBuddy.Player.DoEmote(Emote.Dance);
+                    //Chat.Print("/d");
                     //Game.Say("/d");
                     break;
             }
@@ -163,7 +167,7 @@
         private static void Reset()
         {
             Emotes();
-            Orbwalker.ResetAutoAttack();
+            //Orbwalker.ResetAutoAttack();
             //Orbwalking.ResetAutoAttackTimer();
             Orbwalker.MoveTo(Game.CursorPos);
         }
