@@ -17,7 +17,7 @@
         public static void Combo()
         {
             var targetAquireRange = Spells.R.IsReady() ? Player.AttackRange + 390 : Player.AttackRange + 370;
-            var target = TargetSelector.GetTarget(250 + Player.AttackRange + 70, DamageType.Physical);
+            var target = TargetSelector.GetTarget(targetAquireRange, DamageType.Physical);
             //var target = TargetSelector.GetTarget(targetAquireRange, DamageType.Physical, Player.Position);
 
             if (target == null || !target.IsValidTarget() || target.Type != Player.Type) return;
@@ -37,7 +37,7 @@
                     && !Spells.Q.IsReady() && Qstack == 1
                     || target.Distance(Player) >= Player.AttackRange + 310))
                 {
-                    Spells.R.Cast(pred.UnitPosition);
+                    Player.Spellbook.CastSpell(SpellSlot.R, pred.UnitPosition);
                 }
             }
 
@@ -57,18 +57,18 @@
                 {
                     return;
                 }
-                Spells.E.Cast(wallPoint);
+                Player.Spellbook.CastSpell(SpellSlot.E, wallPoint);
 
                 if (Spells.R.IsReady() && Spells.R.Name == IsFirstR)
                 {
-                    Spells.R.Cast(target);
+                    Player.Spellbook.CastSpell(SpellSlot.Q, target);
                 }
 
-                EloBuddy.SDK.Core.DelayAction(() => Spells.Q.Cast(wallPoint), 190);
+                EloBuddy.SDK.Core.DelayAction(() => Player.Spellbook.CastSpell(SpellSlot.Q, wallPoint), 190);
                 
                 if (wallPoint.Distance(Player.Position) <= 100)
                 {
-                    Spells.Q.Cast(wallPoint);
+                    Player.Spellbook.CastSpell(SpellSlot.Q, wallPoint);
                 }
             } 
             #endregion
@@ -81,7 +81,7 @@
 
                 if (MenuConfig.AlwaysR && Spells.R.IsReady() && Spells.R.Name == IsFirstR)
                 {
-                    Spells.R.Cast(target);
+                    Player.Spellbook.CastSpell(SpellSlot.R, target);
                 }
                 else
                 {
@@ -89,20 +89,32 @@
                 }
             }
 
-            if (!Spells.W.IsReady() || !BackgroundData.InRange(target))
+            if (Spells.W.IsReady() && BackgroundData.InRange(target))
             {
-                return;
+                if (MenuConfig.Doublecast && Spells.Q.IsReady())// && Qstack != 2)
+                {
+                    BackgroundData.CastW(target);
+                    BackgroundData.DoubleCastQ(target);
+                }
+                else
+                {
+                    BackgroundData.CastW(target);
+                }
             }
 
-            if (MenuConfig.Doublecast && Spells.Q.IsReady() && Qstack != 2)
+            if(BackgroundData.InRange(target))
             {
-                BackgroundData.CastW(target);
-                BackgroundData.DoubleCastQ(target);
+                Usables.CastHydra();
             }
-            else
+            
+            if (Spells.Q.IsReady() && ObjectManager.Player.Position.Distance(target.ServerPosition) > Player.GetAutoAttackRange(target) && ObjectManager.Player.Position.Distance(target.ServerPosition) < 400)
             {
-                BackgroundData.CastW(target);
+                {
+                    Player.Spellbook.CastSpell(SpellSlot.Q, Player.Position.Extend(target.ServerPosition, 250).To3D());
+                    //Spells.Q.Cast(Player.Position.Extend(target.ServerPosition, 250).To3D());
+                }
             }
+
         }
 
         #endregion

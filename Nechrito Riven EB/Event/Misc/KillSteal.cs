@@ -39,13 +39,13 @@
                 {
                     var pred = Spells.R.GetPrediction(target);
 
-                    Spells.R.Cast(pred.CastPosition);
+                    Player.Spellbook.CastSpell(SpellSlot.R, pred.CastPosition);//UnitPosition?
                 }
             }
 
             if (target.Health < Spells.Q.GetSpellDamage(target) && Spells.Q.IsReady() && Qstack != 3)
             {
-                Spells.Q.Cast(target.Position);
+                Player.Spellbook.CastSpell(SpellSlot.Q, target.Position);
             }
 
             if (Player.Spellbook.CanUseSpell(Spells.Ignite) != SpellState.Ready || !MenuConfig.Ignite)

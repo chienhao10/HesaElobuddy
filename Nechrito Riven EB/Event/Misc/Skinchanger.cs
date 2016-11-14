@@ -12,9 +12,16 @@
     {
         #region Public Methods and Operators
 
+        private static int lastSkinId = -1;
+
         public static void Update(EventArgs args)
         {
-            //Player.SetSkin(Player.CharData.BaseSkinName, MenuConfig.UseSkin  ? MenuConfig.SelectedSkinId : Player.SkinId);
+            var skinId = MenuConfig.UseSkin ? MenuConfig.SelectedSkinId : Player.SkinId;
+            if(lastSkinId != skinId)
+            {
+                lastSkinId = skinId;
+                Player.SetSkin(Player.CharData.BaseSkinName, skinId);
+            }
         }
 
         #endregion

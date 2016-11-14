@@ -101,23 +101,23 @@
                 if (Item.CanUseItem(AnyItem) && AnyItem != 0 && Qstack == 3)
                 {
                     Item.UseItem(AnyItem);
-                    EloBuddy.SDK.Core.DelayAction(() => Spells.Q.Cast(Unit.Position), 1);
+                    EloBuddy.SDK.Core.DelayAction(() => Player.Spellbook.CastSpell(SpellSlot.Q, Unit.Position), 1);
                 }
                 else
                 {
-                    Spells.Q.Cast(Unit.Position);
+                    Player.Spellbook.CastSpell(SpellSlot.Q, Unit.Position);
                 }
             }
 
             if (canW)
             {
-                Spells.W.Cast();
+                Player.Spellbook.CastSpell(SpellSlot.W, Unit);
 
                 if (doublecastQ && Spells.Q.IsReady() && Qstack == 1)
                 {
                     var delay = Spells.R.IsReady() ? 190 : 90;
 
-                    EloBuddy.SDK.Core.DelayAction(() => Spells.Q.Cast(Unit.Position), delay);
+                    EloBuddy.SDK.Core.DelayAction(() => Player.Spellbook.CastSpell(SpellSlot.Q, Unit.Position), delay);
                 }
             }
 
@@ -125,8 +125,7 @@
             {
                 return;
             }
-
-            Spells.R.Cast(Player);
+            Player.Spellbook.CastSpell(SpellSlot.R, Player);//TODO: Make sure this shouldnt be Unit...
         }
 
         public static void DoubleCastQ(AttackableUnit x)

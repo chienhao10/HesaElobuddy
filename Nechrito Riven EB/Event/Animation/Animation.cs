@@ -36,7 +36,7 @@
                     case "Spell1a":
                     {
                         LastQ = Environment.TickCount;
-                        Qstack = 0;
+                        Qstack = 2;
 
                         if (SafeReset())
                         {
@@ -49,7 +49,7 @@
                     case "Spell1b":
                     {
                         LastQ = Environment.TickCount;
-                        Qstack = 1;
+                        Qstack = 3;
 
                         if (SafeReset())
                         {
@@ -62,7 +62,7 @@
                     case "Spell1c":
                     {
                         LastQ = Environment.TickCount;
-                        Qstack = 2;
+                        Qstack = 1;
 
                         if (SafeReset())
                         {

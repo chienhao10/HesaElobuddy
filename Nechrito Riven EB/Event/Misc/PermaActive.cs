@@ -23,7 +23,7 @@
                 return;
             }
             //EloBuddy.SDK.Core.DelayAction(() => Spells.Q.Cast(Player.Position - 15), Game.Ping + 2);
-            EloBuddy.SDK.Core.DelayAction(() => Spells.Q.Cast(Game.CursorPos), Game.Ping + 2);
+            EloBuddy.SDK.Core.DelayAction(() => Player.Spellbook.CastSpell(SpellSlot.Q, Game.CursorPos), Game.Ping + 2);
         }
 
         public static void Update(EventArgs args)
@@ -33,13 +33,12 @@
                 return;
             }
 
-            if (Environment.TickCount - LastQ >= 3650 - Game.Ping
-                && MenuConfig.KeepQ
+            if (Environment.TickCount - LastQ >= 3650 - Game.Ping && MenuConfig.KeepQ
                 //&& !Player.InFountain()//TODO: Figure if this exist in Elobuddy
                 && !Player.HasBuff("Recall")
                 && Player.HasBuff("RivenTriCleave"))
             {
-                Spells.Q.Cast(Game.CursorPos);
+                Player.Spellbook.CastSpell(SpellSlot.Q, Game.CursorPos);
             }
 
             QMove();
@@ -74,7 +73,7 @@
                     ComboMode.Combo();
                 break;
                 case EloBuddy.SDK.Orbwalker.ActiveModes.Flee:
-                 FleeMode.Flee();
+                    FleeMode.Flee();
                 break;
                 case EloBuddy.SDK.Orbwalker.ActiveModes.Harass:
                     Mixed.Harass();

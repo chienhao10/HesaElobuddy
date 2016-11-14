@@ -235,9 +235,9 @@
             //Orbwalker = new Orbwalking.Orbwalker(orbwalker);
 
             animation = config.AddSubMenu("Animation", "riv_anim");
-            animation.Add("QD", new Slider("Q1 Reset Delay", 293, 120, 400));
-            animation.Add("Q2D", new Slider("Q2 Reset Delay", 293, 120, 400));
-            animation.Add("Q3D", new Slider("Q3 Reset Delay", 393, 120, 500));
+            animation.Add("QD", new Slider("Q1 Reset Delay", 236, 200, 300));
+            animation.Add("Q2D", new Slider("Q2 Reset Delay", 236, 200, 300));
+            animation.Add("Q3D", new Slider("Q3 Reset Delay", 346, 300, 400));
             animation.Add("CancelPing", new CheckBox("Include Ping", true));
             animation.Add("EmoteList", new ComboBox("Emotes", new[] { "Laugh", "Taunt", "Joke", "Dance", "None" }, 3));
             
