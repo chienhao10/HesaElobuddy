@@ -123,8 +123,8 @@
         #endregion
 
         #region Flee
-        public static bool WallFlee => flee["WallFlee"].Cast<KeyBind>().CurrentValue;
-        public static bool FleeYomuu => flee["FleeYoumuu"].Cast<KeyBind>().CurrentValue;
+        public static bool WallFlee => flee["WallFlee"].Cast<CheckBox>().CurrentValue;
+        public static bool FleeYomuu => flee["FleeYoumuu"].Cast<CheckBox>().CurrentValue;
         #endregion
 
         #region SkinChanger
