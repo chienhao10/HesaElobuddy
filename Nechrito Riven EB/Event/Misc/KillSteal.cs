@@ -18,7 +18,7 @@
         {
             var target = TargetSelector.GetTarget(Spells.R.Range, DamageType.Physical);
 
-            if (target == null || target.HasBuff(BackgroundData.InvulnerableList.ToString()))
+            if (target == null || target.IsDead || target.HasBuff(BackgroundData.InvulnerableList.ToString()))
             {
                 return;
             }
@@ -31,15 +31,14 @@
                 BackgroundData.CastW(target);
             }
 
-            if (Spells.R.IsReady()
-                && Spells.R.Name == IsSecondR
-                && MenuConfig.KsR2)
+            if (Spells.R.IsReady() && Spells.R.Name == IsSecondR && MenuConfig.KsR2)
             {
-                if (target.Health < Dmg.RDmg(target))
+                var rDmg = Dmg.RDmg(target);
+                if (rDmg != 0 && (target.Health + target.TotalShieldHealth()) < rDmg)
                 {
                     var pred = Spells.R.GetPrediction(target);
 
-                    Player.Spellbook.CastSpell(SpellSlot.R, pred.CastPosition);//UnitPosition?
+                    Player.Spellbook.CastSpell(SpellSlot.R, pred.CastPosition);
                 }
             }
 

@@ -31,11 +31,9 @@
                     return;
                 }
 
-                if ((!MenuConfig.OverKillCheck && Qstack > 1)
-                    || MenuConfig.OverKillCheck 
+                if ((!MenuConfig.OverKillCheck && Qstack > 1) || MenuConfig.OverKillCheck 
                     && (target.HealthPercent <= 40 
-                    && !Spells.Q.IsReady() && Qstack == 1
-                    || target.Distance(Player) >= Player.AttackRange + 310))
+                    && !Spells.Q.IsReady() && Qstack == 1 || target.Distance(Player) >= Player.AttackRange + 310))
                 {
                     Player.Spellbook.CastSpell(SpellSlot.R, pred.UnitPosition);
                 }

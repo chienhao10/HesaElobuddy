@@ -23,7 +23,7 @@
 
         public static void DmgDraw(EventArgs args)
         {
-            foreach (var enemy in EntityManager.Enemies.Where(ene => ene.IsInRange(Player.Instance, 1750) && ene.Type == Player.Instance.Type))
+            foreach (var enemy in EntityManager.Enemies.Where(ene => ene.IsInRange(Player.Instance, 1750) && ene.Type == Player.Instance.Type && ene.IsVisible))
             {
                 if (!MenuConfig.Dind || ObjectManager.Player.IsDead)
                 {
