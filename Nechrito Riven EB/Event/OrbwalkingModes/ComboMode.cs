@@ -60,7 +60,7 @@
 
                 if (Spells.R.IsReady() && Spells.R.Name == IsFirstR)
                 {
-                    Spells.R.Cast();
+                    Spells.R.Cast(target);
                 }
 
                 EloBuddy.SDK.Core.DelayAction(() => Spells.Q.Cast(wallPoint), 190);
@@ -78,7 +78,7 @@
 
                 if (MenuConfig.AlwaysR && Spells.R.IsReady() && Spells.R.Name == IsFirstR)
                 {
-                    Spells.R.Cast();
+                    Spells.R.Cast(target);
                 }
                 else
                 {

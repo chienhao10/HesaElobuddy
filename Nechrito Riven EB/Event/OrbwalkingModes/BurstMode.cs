@@ -29,7 +29,7 @@
 
                 Usables.CastYoumoo();
                 Spells.E.Cast(selectedTarget.Position);
-                Spells.R.Cast();
+                Spells.R.Cast(selectedTarget);
                 EloBuddy.SDK.Core.DelayAction(BackgroundData.FlashW, 170);
             }
             else
@@ -59,7 +59,7 @@
 
                 if (Spells.R.IsReady() && Spells.R.Name == IsFirstR)
                 {
-                    Spells.R.Cast();
+                    Spells.R.Cast(target);
                 }
 
                 if (!Spells.W.IsReady() || !BackgroundData.InRange(target))

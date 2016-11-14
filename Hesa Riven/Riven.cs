@@ -150,6 +150,7 @@ namespace Hesa_Riven
                 F = new Spell.Targeted(SpellSlot.Summoner2, 425);
             }
             InitializeEvents();
+            
         }
 
         void InitializeEvents()
@@ -436,7 +437,7 @@ namespace Hesa_Riven
                 }
             }
             if (args.Target is Obj_AI_Turret || args.Target is Obj_Barracks || args.Target is Obj_BarracksDampener || args.Target is Obj_Building) if (args.Target.IsValid && args.Target != null && Q.IsReady() && LaneQ && Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear)) ForceCastQ((Obj_AI_Base)args.Target);
-            if (args.Target is AIHeroClient)
+            if (args.Target is AIHeroClient && args.Target.Type == Player.Instance.Type)
             {
                 var target = (AIHeroClient)args.Target;
                 if (KillstealR && R.IsReady() && R.Name == SecondR) if (target.Health < (Rdame(target, target.Health) + Player.Instance.GetAutoAttackDamage(target)) && target.Health > Player.Instance.GetAutoAttackDamage(target)) R.Cast(target.Position);
@@ -641,7 +642,7 @@ namespace Hesa_Riven
         private void Combo()
         {
             var targetR = TargetSelector.GetTarget(250 + Player.Instance.AttackRange + 70, DamageType.Physical);
-            if (targetR != null && targetR.IsValidTarget() && targetR.IsEnemy && !targetR.IsZombie && !targetR.IsMinion && !targetR.IsMonster && !targetR.IsMe && targetR.PlayerControlled)
+            if (targetR != null && targetR.IsValidTarget() && targetR.IsEnemy && !targetR.IsZombie && !targetR.IsMinion && !targetR.IsMonster && !targetR.IsMe && targetR.PlayerControlled && targetR.Type == Player.Instance.Type)
             {
                 if (R.IsReady() && R.Name == FirstR && Player.Instance.IsInAutoAttackRange(targetR) && AlwaysR) ForceR();
                 if (R.IsReady() && R.Name == FirstR && W.IsReady() && InWRange(targetR) && ComboW && AlwaysR)
@@ -760,7 +761,7 @@ namespace Hesa_Riven
         {
             var enemy = EntityManager.Enemies.Where(hero => hero.IsValidTarget(Player.Instance.HasBuff("RivenFengShuiEngine") ? 70 + 195 + Player.Instance.BoundingRadius : 70 + 120 + Player.Instance.BoundingRadius) && W.IsReady());
             var x = Player.Instance.Position.Extend(Game.CursorPos, 300);
-            if (W.IsReady() && enemy.Any()) foreach (var target in enemy) if (InWRange(target)) W.Cast();
+            if (W.IsReady() && enemy.Any()) foreach (var target in enemy) if (InWRange(target) && target.Type == Player.Instance.Type) W.Cast();
         }
 
         private void Jungleclear()
@@ -1053,11 +1054,14 @@ namespace Hesa_Riven
         {
             if (KillstealW && W.IsReady())
             {
-                var targets = EntityManager.Enemies.Where(x => x.IsValidTarget(R.Range) && !x.IsZombie);
+                var targets = EntityManager.Enemies.Where(x => x.IsValidTarget(R.Range) && !x.IsZombie && x.Type == Player.Instance.Type);
                 foreach (var target in targets)
                 {
                     if (target.Health < W.GetSpellDamage(target) && InWRange(target))
+                    {
+                        Chat.Print("KS with W!");
                         W.Cast();
+                    }
                 }
             }
             if (KillstealR && R.IsReady() && R.Name == SecondR)
@@ -1069,6 +1073,23 @@ namespace Hesa_Riven
                         R.Cast(target.Position);
                 }
             }
+        }
+
+        public static void OnInterruptableTarget(AIHeroClient sender)//, Interrupter2.InterruptableTargetEventArgs args)
+        {
+            if (!sender.IsEnemy || !sender.IsValidTarget(W.Range) || sender.HasBuff("FioraW"))
+            {
+                return;
+            }
+            if (W.IsReady())
+            {
+                W.Cast(sender);
+            }
+            if (QStack != 3)
+            {
+                return;
+            }
+            Q.Cast(sender);
         }
 
         private static bool InWRange(GameObject target) => (Player.HasBuff("RivenFengShuiEngine") && target != null) ? 330 >= Player.Instance.Distance(target.Position) : 265 >= Player.Instance.Distance(target.Position);

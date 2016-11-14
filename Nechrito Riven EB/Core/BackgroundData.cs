@@ -126,7 +126,7 @@
                 return;
             }
 
-            Spells.R.Cast();
+            Spells.R.Cast(Player);
         }
 
         public static void DoubleCastQ(AttackableUnit x)
