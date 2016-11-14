@@ -12,13 +12,15 @@
     {
         #region Public Methods and Operators
 
+        private static bool InWRange(GameObject target) => (Player.HasBuff("RivenFengShuiEngine") && target != null) ? 330 >= Player.Distance(target.Position) : 265 >= Player.Distance(target.Position);
+
         public static void Combo()
         {
             var targetAquireRange = Spells.R.IsReady() ? Player.AttackRange + 390 : Player.AttackRange + 370;
+            var target = TargetSelector.GetTarget(250 + Player.AttackRange + 70, DamageType.Physical);
+            //var target = TargetSelector.GetTarget(targetAquireRange, DamageType.Physical, Player.Position);
 
-            var target = TargetSelector.GetTarget(targetAquireRange, DamageType.Physical);
-
-            if (target == null || !target.IsValidTarget()) return;
+            if (target == null || !target.IsValidTarget() || target.Type != Player.Type) return;
 
             if (Spells.R.IsReady() && Spells.R.Name == IsSecondR)
             {
@@ -35,7 +37,7 @@
                     && !Spells.Q.IsReady() && Qstack == 1
                     || target.Distance(Player) >= Player.AttackRange + 310))
                 {
-                    Spells.R.Cast(pred.CastPosition);
+                    Spells.R.Cast(pred.UnitPosition);
                 }
             }
 
@@ -55,7 +57,7 @@
                 {
                     return;
                 }
-
+                Chat.Print("I casted E 1");
                 Spells.E.Cast(wallPoint);
 
                 if (Spells.R.IsReady() && Spells.R.Name == IsFirstR)
@@ -74,7 +76,9 @@
 
             if (Spells.E.IsReady())
             {
-                Spells.E.Cast(target.Position);
+                Chat.Print("I casted E toward " + target.Name);
+                Player.Spellbook.CastSpell(SpellSlot.E, target);
+               // Spells.E.Cast(target);
 
                 if (MenuConfig.AlwaysR && Spells.R.IsReady() && Spells.R.Name == IsFirstR)
                 {
