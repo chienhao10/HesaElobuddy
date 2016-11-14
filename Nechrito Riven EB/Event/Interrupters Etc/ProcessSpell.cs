@@ -4,10 +4,12 @@
     #region
 
     using EloBuddy;
+    using EloBuddy.SDK;
+    using System;
 
     #endregion
 
-    internal class ProcessSpell : Core
+    internal class ProcessSpell : NechritoRiven.Core.Core
     {
         #region Public Methods and Operators
 
@@ -32,6 +34,104 @@
             }
 
             BackgroundData.CastW(sender);
+        }
+
+        public static void Orbwalker_OnPostAttack(AttackableUnit target, EventArgs args)
+        {
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
+            {
+                if (Spells.Q.IsReady())
+                {
+                    if (Qstack == 0 || !Orbwalker.IsAutoAttacking)
+                    {
+
+                        Spells.Q.Cast(target.Position);
+
+                    }
+
+                    if (Qstack == 1 || !Orbwalker.IsAutoAttacking)
+                    {
+
+                        Spells.Q.Cast(target.Position);
+
+                    }
+
+                    if (Qstack == 2 || !Orbwalker.IsAutoAttacking)
+                    {
+
+                        Spells.Q.Cast(target.Position);
+                        EloBuddy.SDK.Core.DelayAction(Animation.Animation.Reset, Animation.Animation.ResetDelay(MenuConfig.Qld));
+                    }
+                }
+            }
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass) && target.Type == GameObjectType.AIHeroClient)
+            {
+                if (Spells.Q.IsReady())
+                {
+                    if (Qstack == 0 || !Orbwalker.IsAutoAttacking)
+                    {
+
+                        Spells.Q.Cast(target.Position);
+
+                    }
+
+                    if (Qstack == 1 || !Orbwalker.IsAutoAttacking)
+                    {
+
+                        Spells.Q.Cast(target.Position);
+
+                    }
+
+                    if (Qstack == 2 || !Orbwalker.IsAutoAttacking)
+                    {
+
+                        Spells.Q.Cast(target.Position);
+
+                    }
+                }
+            }
+
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear))
+            {
+                if (Spells.Q.IsReady())
+                {
+                    if (Qstack == 0 || !Orbwalker.IsAutoAttacking)
+                    {
+                        Spells.Q.Cast(target.Position);
+                    }
+
+                    if (Qstack == 1 || !Orbwalker.IsAutoAttacking)
+                    {
+                        Spells.Q.Cast(target.Position);
+                    }
+
+                    // if (CountQ == 2 || !Orbwalker.IsAutoAttacking)
+                    //{
+                    //   Q.Cast(target.Position);
+                    //}
+                }
+            }
+
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear))
+            {
+                if (MenuConfig.JnglQ && Spells.Q.IsReady())
+                {
+                    if (Qstack == 0 || !Orbwalker.IsAutoAttacking)
+                    {
+                        Spells.Q.Cast(target.Position);
+                    }
+
+                    if (Qstack == 1 || !Orbwalker.IsAutoAttacking)
+                    {
+                        Spells.Q.Cast(target.Position);
+                    }
+
+                    if (Qstack == 2 || !Orbwalker.IsAutoAttacking)
+                    {
+                        Spells.Q.Cast(target.Position);
+                    }
+                }
+            }
         }
 
         #endregion

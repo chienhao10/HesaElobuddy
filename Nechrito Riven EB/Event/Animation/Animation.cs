@@ -36,7 +36,7 @@
                     case "Spell1a":
                     {
                         LastQ = Environment.TickCount;
-                        Qstack = 2;
+                        Qstack = 0;
 
                         //if (SafeReset())
                         {
@@ -49,7 +49,7 @@
                     case "Spell1b":
                     {
                         LastQ = Environment.TickCount;
-                        Qstack = 3;
+                        Qstack = 1;
 
                         //if (SafeReset())
                         {
@@ -62,7 +62,7 @@
                     case "Spell1c":
                     {
                         LastQ = Environment.TickCount;
-                        Qstack = 1;
+                        Qstack = 2;
 
                         //if (SafeReset())
                         {
@@ -153,11 +153,12 @@
             }
         }
 
-        private static int ResetDelay(int qDelay)
+        public static int ResetDelay(int qDelay)
         {
             if (MenuConfig.CancelPing)
             {
-                return qDelay + Game.Ping / 2;
+                return qDelay - Game.Ping;
+                //return qDelay + Game.Ping / 2;
             }
 
             if ((Target != null && Target.IsMoving) || (Mob != null && Mob.IsMoving) || IsGameObject)
@@ -167,13 +168,13 @@
 
             return qDelay;
         }
-        
-        private static void Reset()
+
+        public static void Reset()
         {
+            Orbwalker.ResetAutoAttack();
             Emotes();
-            //Orbwalker.ResetAutoAttack();
-            //Orbwalking.ResetAutoAttackTimer();
-            Orbwalker.MoveTo(Game.CursorPos);
+            Orbwalker.ResetAutoAttack();
+            //Orbwalker.MoveTo(Game.CursorPos);
         }
 
         private static bool SafeReset()

@@ -9,11 +9,12 @@
     using Draw;
 
     using Event.OrbwalkingModes;
-    
+
     using NechritoRiven.Event.Animation;
     using NechritoRiven.Event.Interrupters_Etc;
     using NechritoRiven.Event.Misc;
     using EloBuddy;
+    using EloBuddy.SDK;
 
     #endregion
 
@@ -38,6 +39,7 @@
             Game.OnUpdate += KillSteal.Update;
             Game.OnUpdate += PermaActive.Update;
             Game.OnUpdate += Skinchanger.Update;
+            Orbwalker.OnPostAttack += ProcessSpell.Orbwalker_OnPostAttack;
 
             //Interrupter2.OnInterruptableTarget += Interrupt2.OnInterruptableTarget;
             //AntiGapcloser.OnEnemyGapcloser += Gapclose.Gapcloser;

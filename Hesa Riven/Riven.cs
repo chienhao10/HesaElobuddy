@@ -95,7 +95,6 @@ namespace Hesa_Riven
 
             ComboMenu = Menu.AddSubMenu("Combo", "hesa_riven_combo", "Combo");
             ComboMenu.AddLabel("Combo Settings");
-            ComboMenu.Add("AlwaysR", new KeyBind("Always Use R (Toggle)", true, KeyBind.BindTypes.PressToggle, 'G'));
             ComboMenu.Add("UseHesa", new KeyBind("Use Hesa Combo Logic (Toggle)", true, KeyBind.BindTypes.PressToggle, 'L'));
             ComboMenu.Add("DoBurst", new KeyBind("Enter Burst Mode", false, KeyBind.BindTypes.PressToggle, 'T'));
             ComboMenu.Add("ComboW", new CheckBox("Use W", true));
