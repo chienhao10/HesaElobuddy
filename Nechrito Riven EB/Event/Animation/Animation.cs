@@ -16,7 +16,7 @@
 
         private static AIHeroClient Target => TargetSelector.GetTarget(ObjectManager.Player.AttackRange + 50, DamageType.Physical);
         private static Obj_AI_Minion Mob => EntityManager.MinionsAndMonsters.EnemyMinions.Where(x => Player.IsInRange(x, Player.AttackRange + 50)).FirstOrDefault();
-        static string lastAnimation = "";
+        //static string lastAnimation = "";
         public static void OnPlay(Obj_AI_Base sender, GameObjectPlayAnimationEventArgs args)
         {
             if (!sender.IsMe)
@@ -26,11 +26,11 @@
 
             if (ObjectManager.Player.ChampionName == "Riven")
             {
-                if (lastAnimation != args.Animation)
-                {
-                    lastAnimation = args.Animation;
-                    Chat.Print("Current animation = " + args.Animation);
-                }
+                //if (lastAnimation != args.Animation)
+                //{
+                    //lastAnimation = args.Animation;
+                    //Chat.Print("Current animation = " + args.Animation);
+                //}
                 switch (args.Animation)
                 {
                     case "Spell1a":
@@ -38,7 +38,7 @@
                         LastQ = Environment.TickCount;
                         Qstack = 0;
 
-                        //if (SafeReset())
+                        if (SafeReset())
                         {
                             Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
 
@@ -51,7 +51,7 @@
                         LastQ = Environment.TickCount;
                         Qstack = 1;
 
-                        //if (SafeReset())
+                        if (SafeReset())
                         {
                             Core.DelayAction(Reset, ResetDelay(MenuConfig.Q2D));
 
@@ -64,7 +64,7 @@
                         LastQ = Environment.TickCount;
                         Qstack = 2;
 
-                        //if (SafeReset())
+                        if (SafeReset())
                         {
                             Core.DelayAction(Reset, ResetDelay(MenuConfig.Qld));
 
@@ -74,48 +74,22 @@
                     break;
                     case "Spell2":
                     {
-                        Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
+                        if (SafeReset()) Core.DelayAction(Reset, MenuConfig.CancelPing ? 170 - Game.Ping : 170);
                     }
                     break;
                     case "Spell3":
                     {
-                        Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
+                        //Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
                     }
                     break;
                     case "Spell4a":
                     {
-                        Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
+                        //Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
                     }
                     break;
                     case "Spell4b":
                     {
-                        Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
-                    }
-                    break;
-                }
-            }
-            else
-            {
-                switch (args.Animation)
-                {
-                    case "Spell1":
-                    {
-                        Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
-                    }
-                    break;
-                    case "Spell2":
-                    {
-                        Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
-                    }
-                    break;
-                    case "Spell3":
-                    {
-                        Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
-                    }
-                    break;
-                    case "Spell4":
-                    {
-                        Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
+                        if (SafeReset()) Core.DelayAction(Reset, MenuConfig.CancelPing ? 150 - Game.Ping : 150);
                     }
                     break;
                 }
@@ -179,10 +153,10 @@
 
         private static bool SafeReset()
         {
-            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Flee) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None))
+            if(!Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) || !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear))
             //if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Flee || Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.None)
             {
-                return false;
+            //    return false;
             }
 
             return !ObjectManager.Player.HasBuffOfType(BuffType.Stun)

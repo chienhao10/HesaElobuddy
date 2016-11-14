@@ -57,7 +57,6 @@
                 {
                     return;
                 }
-                Chat.Print("I casted E 1");
                 Spells.E.Cast(wallPoint);
 
                 if (Spells.R.IsReady() && Spells.R.Name == IsFirstR)
@@ -76,9 +75,9 @@
 
             if (Spells.E.IsReady())
             {
-                Chat.Print("I casted E toward " + target.Name);
+                //Chat.Print("I casted E toward " + target.Name);
                 Player.Spellbook.CastSpell(SpellSlot.E, target);
-               // Spells.E.Cast(target);
+                Usables.CastYoumoo();
 
                 if (MenuConfig.AlwaysR && Spells.R.IsReady() && Spells.R.Name == IsFirstR)
                 {
