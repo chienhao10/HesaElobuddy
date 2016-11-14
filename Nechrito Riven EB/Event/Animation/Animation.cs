@@ -68,24 +68,28 @@
                         {
                             Core.DelayAction(Reset, ResetDelay(MenuConfig.Qld));
 
-                            Console.WriteLine("Q3 Delay: "
-                             + ResetDelay(MenuConfig.Qld)
-                             + Environment.NewLine + ">----END----<");
+                            Console.WriteLine("Q3 Delay: " + ResetDelay(MenuConfig.Qld) + Environment.NewLine + ">----END----<");
                         }
+                    }
+                    break;
+                    case "Spell2":
+                    {
+                        Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
                     }
                     break;
                     case "Spell3":
                     {
-
+                        Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
                     }
                     break;
                     case "Spell4a":
                     {
+                        Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
                     }
                     break;
                     case "Spell4b":
                     {
-
+                        Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
                     }
                     break;
                 }
@@ -96,22 +100,22 @@
                 {
                     case "Spell1":
                     {
-
+                        Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
                     }
                     break;
                     case "Spell2":
                     {
-
+                        Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
                     }
                     break;
                     case "Spell3":
                     {
-
+                        Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
                     }
                     break;
                     case "Spell4":
                     {
-
+                        Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
                     }
                     break;
                 }
@@ -174,7 +178,7 @@
 
         private static bool SafeReset()
         {
-            if (Orbwalker.ActiveModesFlags.HasFlag(EloBuddy.SDK.Orbwalker.ActiveModes.Flee) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None))
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Flee) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None))
             //if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Flee || Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.None)
             {
                 return false;
