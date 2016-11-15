@@ -60,8 +60,7 @@ namespace AutoBuddy.MainLogics
         public MainLogics SetLogic(MainLogics newlogic)
         {
             if (saveMylife) return current;
-            if (newlogic != MainLogics.PushLogic)
-                pushLogic.Deactivate();
+            if (newlogic != MainLogics.PushLogic) pushLogic.Deactivate();
             MainLogics old = current;
             switch (current)
             {

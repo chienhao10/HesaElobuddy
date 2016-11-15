@@ -60,21 +60,21 @@ namespace AutoBuddy.MainLogics
         public MainLogics SetLogic(MainLogics newlogic)
         {
             if (saveMylife) return current;
-            if (newlogic != MainLogics.PushLogic)
-                pushLogic.Deactivate();
+            if (newlogic != MainLogics.PushLogic) pushLogic.Deactivate();
             MainLogics old = current;
+            Chat.Print("Changing logic, old = " + old.ToString() + " & new = " + newlogic.ToString());
             switch (current)
             {
                 case MainLogics.SurviLogic:
                     surviLogic.Deactivate();
-                    break;
+                break;
 
                 case MainLogics.RecallLogic:
                     recallLogic.Deactivate();
-                    break;
+                break;
                 case MainLogics.CombatLogic:
                     combatLogic.Deactivate();
-                    break;
+                break;
             }
 
 
@@ -82,20 +82,20 @@ namespace AutoBuddy.MainLogics
             {
                 case MainLogics.PushLogic:
                     pushLogic.Activate();
-                    break;
+                break;
                 case MainLogics.LoadLogic:
                     loadLogic.Activate();
-                    break;
+                break;
                 case MainLogics.SurviLogic:
                     surviLogic.Activate();
 
-                    break;
+                break;
                 case MainLogics.RecallLogic:
                     recallLogic.Activate();
-                    break;
+                break;
                 case MainLogics.CombatLogic:
                     combatLogic.Activate();
-                    break;
+                break;
             }
 
 

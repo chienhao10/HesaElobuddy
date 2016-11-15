@@ -22,9 +22,7 @@ namespace AutoBuddy.MyChampLogic
         public Tristana()
         {
             skillSequence = new[] { 3, 1, 2, 3, 3, 4, 3, 1, 3, 1, 4, 1, 1, 2, 2, 4, 2, 2 };
-            ShopSequence =
-                "3340:Buy,1036:Buy,2003:StartHpPot,1053:Buy,1042:Buy,1001:Buy,3006:Buy,1036:Buy,1038:Buy,3072:Buy,2003:StopHpPot,1042:Buy,1051:Buy,3086:Buy,1042:Buy,1042:Buy,1043:Buy,3085:Buy,2015:Buy,3086:Buy,3094:Buy,1018:Buy,1038:Buy,3031:Buy,1037:Buy,3035:Buy,3033:Buy";
-
+            
             Q = new Spell.Active(SpellSlot.Q, 550);
             W = new Spell.Skillshot(SpellSlot.W, 900, SkillShotType.Circular, 450, int.MaxValue, 180);
             E = new Spell.Targeted(SpellSlot.E, 550);
@@ -33,9 +31,7 @@ namespace AutoBuddy.MyChampLogic
 
         public int[] skillSequence { get; private set; }
         public LogicSelector Logic { get; set; }
-
-        public string ShopSequence { get; private set; }
-
+        
         public void Harass(AIHeroClient target)
         {
 

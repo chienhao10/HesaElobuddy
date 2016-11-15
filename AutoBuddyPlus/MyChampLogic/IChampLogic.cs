@@ -10,7 +10,6 @@ namespace AutoBuddy.MyChampLogic
         float OptimalMaxComboDistance { get; }
         float HarassDistance { get; }
         LogicSelector Logic { set; }
-        string ShopSequence { get; }
         void Harass(AIHeroClient target);
         void Survi();
         void Combo(AIHeroClient target);
