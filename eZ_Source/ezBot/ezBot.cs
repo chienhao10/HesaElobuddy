@@ -213,10 +213,36 @@ namespace ezBot
                                 this.firstTimeInQueuePop = true;
                                 if (this.firstTimeInLobby)
                                 {
-                                    if (pickAtTurn == 0)
+                                    if(this.queueType != "ARAM")
+                                    {
+                                        if (pickAtTurn == 0)
+                                        {
+                                            Tools.ConsoleMessage("You are in champion select.", ConsoleColor.White);
+
+                                            try
+                                            {
+                                                await connection.SetClientReceivedGameMessage(gameDTO.Id, "CHAMP_SELECT_CLIENT");
+                                            }
+                                            catch (InvocationException ex)
+                                            {
+                                                Tools.Log(ex.StackTrace);
+                                                Tools.ConsoleMessage("Fault Code: " + ex.FaultCode + " Fault String" + ex.FaultString + " Fault Detail:" + ex.FaultDetail + "Root Cause:" + ex.RootCause, ConsoleColor.White);
+                                            }
+                                            if (!m_isLeader || !Program.queueWithFriends)
+                                            {
+                                                pickAtTurn = new Random().Next(1, 3);
+                                                turn = 0;
+                                                return;
+                                            }
+                                        }
+                                        else if (turn < pickAtTurn)
+                                        {
+                                            turn++;
+                                            return;
+                                        }
+                                    }else
                                     {
                                         Tools.ConsoleMessage("You are in champion select.", ConsoleColor.White);
-
                                         try
                                         {
                                             await connection.SetClientReceivedGameMessage(gameDTO.Id, "CHAMP_SELECT_CLIENT");
@@ -226,17 +252,6 @@ namespace ezBot
                                             Tools.Log(ex.StackTrace);
                                             Tools.ConsoleMessage("Fault Code: " + ex.FaultCode + " Fault String" + ex.FaultString + " Fault Detail:" + ex.FaultDetail + "Root Cause:" + ex.RootCause, ConsoleColor.White);
                                         }
-                                        if (!m_isLeader || !Program.queueWithFriends)
-                                        {
-                                            pickAtTurn = new Random().Next(1, 3);
-                                            turn = 0;
-                                            return;
-                                        }
-                                    }
-                                    else if (turn < pickAtTurn)
-                                    {
-                                        turn++;
-                                        return;
                                     }
                                     this.firstTimeInLobby = false;
                                     #region Not Aram
@@ -403,51 +418,40 @@ namespace ezBot
                                             }
                                         }
 
-                                        int spellOneId2;
-                                        int spellTwoId2;
+                                        int Spell1;
+                                        int Spell2;
                                         if (!Program.randomSpell)
                                         {
-                                            spellOneId2 = Enums.GetSpell(Program.spell1);
-                                            spellTwoId2 = Enums.GetSpell(Program.spell2);
+                                            Spell1 = Enums.GetSpell(Program.spell1);
+                                            Spell2 = Enums.GetSpell(Program.spell2);
                                         }
                                         else
                                         {
-                                            Random random2 = new Random();
-                                            List<int> list2 = new List<int>()
-                                        {
-                                            13,
-                                            6,
-                                            7,
-                                            10,
-                                            1,
-                                            11,
-                                            21,
-                                            12,
-                                            3,
-                                            14,
-                                            2,
-                                            4
-                                        };
-                                            int index4 = random2.Next(list2.Count);
-                                            int index5 = random2.Next(list2.Count);
-                                            int num3 = list2[index4];
-                                            int num4 = list2[index5];
-                                            if (num3 == num4)
+                                            var random = new Random();
+                                            var spellList = new List<int> { 13, 6, 7, 10, 1, 11, 21, 12, 3, 14, 2, 4 };
+
+                                            int index = random.Next(spellList.Count);
+                                            int index2 = random.Next(spellList.Count);
+
+                                            int randomSpell1 = spellList[index];
+                                            int randomSpell2 = spellList[index2];
+
+                                            if (randomSpell1 == randomSpell2)
                                             {
-                                                int index6 = random2.Next(list2.Count);
-                                                num4 = list2[index6];
+                                                int index3 = random.Next(spellList.Count);
+                                                randomSpell2 = spellList[index3];
                                             }
-                                            spellOneId2 = Convert.ToInt32(num3);
-                                            spellTwoId2 = Convert.ToInt32(num4);
-                                            random2 = null;
-                                            list2 = null;
+
+                                            Spell1 = Convert.ToInt32(randomSpell1);
+                                            Spell2 = Convert.ToInt32(randomSpell2);
                                         }
-                                        await Task.Delay(new Random().Next(1, 9) * new Random().Next(800, 1000));
-                                        await connection.SelectSpells(spellOneId2, spellTwoId2);
-                                        await Task.Delay(new Random().Next(1, 9) * new Random().Next(800, 1000));
+                                        
                                         try
                                         {
+                                            await Task.Delay(new Random().Next(1, 9) * new Random().Next(800, 1000));
+                                            await connection.SelectSpells(Spell1, Spell2);
                                             await connection.ChampionSelectCompleted();
+                                            await Task.Delay(new Random().Next(1, 9) * new Random().Next(800, 1000));
                                         }
                                         catch (Exception ex)
                                         {
@@ -632,18 +636,22 @@ namespace ezBot
                     if (message is EndOfGameStats)
                     {
                         var match = message as EndOfGameStats;
-                        if (match.GameId != default(double))
+                        if(match.TeamPlayerParticipantStats != null && match.TeamPlayerParticipantStats.Count > 0)
                         {
-                            var games = await this.connection.GetRecentGames(this.loginPacket.AllSummonerData.Summoner.AccountId);
-                            if(games != null)
+                            var game = match.TeamPlayerParticipantStats.FirstOrDefault(x => x.SummonerName.ToLower() == sumName.ToLower().Replace(" ", ""));
+                            
+                            if (game != null)
                             {
-                                var game = games.GameStatistics.Last();
-                                var stat = game.Statistics.FirstOrDefault(x => x.StatType == "WIN");
-                                if(stat != null)
+                                foreach (var stat1 in game.Statistics) Tools.ConsoleMessage(stat1.StatTypeName + " = " + stat1.Value.ToString(), ConsoleColor.White);
+                                var statWin = game.Statistics.FirstOrDefault(x => x.StatTypeName == "WIN");
+                                bool win = statWin != null && statWin.Value == 1;
+                                
+                                if (statWin != null)
                                 {
-                                    Program.AddGame(stat.Value == 1);
+                                    Program.AddGame(statWin.Value == 1);
                                 }
                             }
+
                         }
                         ShouldBeInGame = false;
                         GameStartedAt = null;
@@ -1147,11 +1155,11 @@ namespace ezBot
         {
             try
             {
-                if(queueType == "INTRO_BOT")
+                if(queueType == "INTRO_BOT" || queueType == "BEGINNER_BOT")
                 {
                     var lobby = await connection.CreateArrangedBotTeamLobby(GetGameModeId(), "EASY");
                 }
-                else if(queueType == "MEDIUM_BOT" || queueType == "BEGINNER_BOT" || queueType == "BOT_3x3")
+                else if(queueType == "MEDIUM_BOT" || queueType == "BOT_3x3")
                 {
                     var lobby = await connection.CreateArrangedBotTeamLobby(GetGameModeId(), "MEDIUM");
                 }
@@ -1349,33 +1357,24 @@ namespace ezBot
                 return;
             if (error.Message.Contains("Your summoner level is too low to select the spell"))
             {
-                Random random = new Random();
-                List<int> intList = new List<int>()
+                var random = new Random();
+                var spellList = new List<int> { 13, 6, 7, 10, 1, 11, 21, 12, 3, 14, 2, 4 };
+
+                int index = random.Next(spellList.Count);
+                int index2 = random.Next(spellList.Count);
+
+                int randomSpell1 = spellList[index];
+                int randomSpell2 = spellList[index2];
+
+                if (randomSpell1 == randomSpell2)
                 {
-                    13,
-                    6,
-                    7,
-                    10,
-                    1,
-                    11,
-                    21,
-                    12,
-                    3,
-                    14,
-                    2,
-                    4
-                };
-                int index1 = random.Next(intList.Count);
-                int index2 = random.Next(intList.Count);
-                int num1 = intList[index1];
-                int num2 = intList[index2];
-                if (num1 == num2)
-                {
-                    int index3 = random.Next(intList.Count);
-                    num2 = intList[index3];
+                    int index3 = random.Next(spellList.Count);
+                    randomSpell2 = spellList[index3];
                 }
-                Convert.ToInt32(num1);
-                Convert.ToInt32(num2);
+
+                int Spell1 = Convert.ToInt32(randomSpell1);
+                int Spell2 = Convert.ToInt32(randomSpell2);
+                return;
             }
             else
                 Tools.ConsoleMessage("error received:\n" + error.Message, ConsoleColor.White);
