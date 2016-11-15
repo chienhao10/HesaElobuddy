@@ -1,8 +1,9 @@
 ﻿namespace NechritoRiven.Event.Interrupters_Etc
 {
     using EloBuddy;
+    using EloBuddy.SDK.Events;
     #region
-    
+
     using NechritoRiven.Core;
 
     #endregion
@@ -10,10 +11,10 @@
     internal class Interrupt2 : Core
     {
         #region Public Methods and Operators
-        /*
-        public static void OnInterruptableTarget(AIHeroClient sender, Interrupter2.InterruptableTargetEventArgs args)
+        
+        public static void OnInterruptableTarget(Obj_AI_Base sender, Interrupter.InterruptableSpellEventArgs e)
         {
-            if (!MenuConfig.InterruptMenu || !sender.IsEnemy || !sender.IsValid(Spells.W.Range) || sender.HasBuff("FioraW"))
+            if (!MenuConfig.InterruptMenu || !sender.IsEnemy || !sender.IsValid || !Spells.W.IsInRange(sender) || sender.HasBuff("FioraW"))
             {
                 return;
             }
@@ -30,7 +31,7 @@
 
             Spells.Q.Cast(sender);
         }
-        */
+        
         #endregion
     }
 }

@@ -34,6 +34,7 @@
             }
 
             if (Environment.TickCount - LastQ >= 3650 - Game.Ping && MenuConfig.KeepQ
+                
                 //&& !Player.InFountain()//TODO: Figure if this exist in Elobuddy
                 && !Player.HasBuff("Recall")
                 && Player.HasBuff("RivenTriCleave"))
@@ -70,7 +71,7 @@
             switch (EloBuddy.SDK.Orbwalker.ActiveModesFlags)
             {
                 case EloBuddy.SDK.Orbwalker.ActiveModes.Combo:
-                    ComboMode.Combo();
+                    if (MenuConfig.BurstEnabled) BurstMode.Burst(); else ComboMode.Combo();
                 break;
                 case EloBuddy.SDK.Orbwalker.ActiveModes.Flee:
                     FleeMode.Flee();

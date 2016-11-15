@@ -81,6 +81,7 @@
         public static bool Doublecast => combo["Doublecast"].Cast<CheckBox>().CurrentValue;
         public static bool AlwaysF => combo["AlwaysF"].Cast<KeyBind>().CurrentValue;
         public static bool AlwaysR => combo["AlwaysR"].Cast<KeyBind>().CurrentValue;
+        public static bool BurstEnabled => combo["BurstEnabled"].Cast<KeyBind>().CurrentValue;
         #endregion
 
         #region Lane
@@ -116,6 +117,7 @@
         public static bool Dind => draw["Dind"].Cast<CheckBox>().CurrentValue;
         public static bool ForceFlash => draw["DrawForceFlash"].Cast<CheckBox>().CurrentValue;
         public static bool DrawAlwaysR => draw["DrawAlwaysR"].Cast<CheckBox>().CurrentValue;
+        public static bool DrawBurst => draw["DrawBurst"].Cast<CheckBox>().CurrentValue;
         public static bool DrawCb => draw["DrawCB"].Cast<CheckBox>().CurrentValue;
         public static bool DrawBt => draw["DrawBT"].Cast<CheckBox>().CurrentValue;
         public static bool DrawFh => draw["DrawFH"].Cast<CheckBox>().CurrentValue;
@@ -248,6 +250,7 @@
             combo.Add("Doublecast", new CheckBox("Fast Combo, less dmg", true));
             combo.Add("AlwaysR", new KeyBind("Use R (Toggle)", true, KeyBind.BindTypes.PressToggle, 'G'));
             combo.Add("AlwaysF", new KeyBind("Use Flash (Toggle)", true, KeyBind.BindTypes.PressToggle, 'L'));
+            combo.Add("BurstEnabled", new KeyBind("Enable Burst Combo (Toggle)", false, KeyBind.BindTypes.PressToggle, 'Y'));
 
 
             lane = config.AddSubMenu("Lane", "riv_lane");
@@ -280,6 +283,7 @@
             draw.Add("Dind", new CheckBox("Damage Indicator", true));
             draw.Add("DrawForceFlash", new CheckBox("Flash Status", true));
             draw.Add("DrawAlwaysR", new CheckBox("R Status", true));
+            draw.Add("DrawBurst", new CheckBox("Burst Status", true));
             draw.Add("DrawCB", new CheckBox("Combo Engage", true));
             draw.Add("DrawBT", new CheckBox("BurstMode Engage", false));
             draw.Add("DrawFH", new CheckBox("FastHarassMode Engage", false));

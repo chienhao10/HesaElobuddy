@@ -40,7 +40,8 @@
 
                         if (SafeReset())
                         {
-                            Core.DelayAction(Reset, ResetDelay(MenuConfig.Qd));
+                            Orbwalker.ResetAutoAttack();
+                            Core.DelayAction(Reset, 236);
 
                             Console.WriteLine("Q1 Delay: " + ResetDelay(MenuConfig.Qd));
                         }
@@ -53,7 +54,8 @@
 
                         if (SafeReset())
                         {
-                            Core.DelayAction(Reset, ResetDelay(MenuConfig.Q2D));
+                            Orbwalker.ResetAutoAttack();
+                            Core.DelayAction(Reset, 236);
 
                             Console.WriteLine("Q2 Delay: " + ResetDelay(MenuConfig.Q2D));
                         }
@@ -63,18 +65,22 @@
                     {
                         LastQ = Environment.TickCount;
                         Qstack = 1;
-
                         if (SafeReset())
                         {
-                            Core.DelayAction(Reset, ResetDelay(MenuConfig.Qld));
-
+                            Orbwalker.ResetAutoAttack();
+                            Core.DelayAction(Reset, 346);
                             Console.WriteLine("Q3 Delay: " + ResetDelay(MenuConfig.Qld) + Environment.NewLine + ">----END----<");
                         }
                     }
                     break;
                     case "Spell2":
                     {
-                        if (SafeReset()) Core.DelayAction(Reset, MenuConfig.CancelPing ? 170 - Game.Ping : 170);
+                        if (SafeReset())
+                        {
+                            Orbwalker.ResetAutoAttack();
+                            Core.DelayAction(Reset, 170);
+                        }
+                        Console.WriteLine("W Delay: " + (MenuConfig.CancelPing ? 170 - Game.Ping : 170));
                     }
                     break;
                     case "Spell3":
@@ -89,7 +95,11 @@
                     break;
                     case "Spell4b":
                     {
-                        if (SafeReset()) Core.DelayAction(Reset, MenuConfig.CancelPing ? 150 - Game.Ping : 150);
+                        if (SafeReset())
+                        {
+                            Orbwalker.ResetAutoAttack();
+                            Core.DelayAction(Reset, 150);
+                        }
                     }
                     break;
                 }
@@ -131,10 +141,10 @@
         {
             if (MenuConfig.CancelPing)
             {
-                return qDelay - Game.Ping;
-                //return qDelay + Game.Ping / 2;
+                return qDelay + Game.Ping / 2;
+                //return qDelay - Game.Ping;
+                
             }
-
             if ((Target != null && Target.IsMoving) || (Mob != null && Mob.IsMoving) || IsGameObject)
             {
                 return (int)(qDelay * 1.15);
@@ -145,14 +155,14 @@
 
         public static void Reset()
         {
-            Orbwalker.ResetAutoAttack();
             Emotes();
             Orbwalker.ResetAutoAttack();
-            //Orbwalker.MoveTo(Game.CursorPos);
         }
 
         private static bool SafeReset()
         {
+            return true;
+            //For now...
             if(!Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) || !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear))
             //if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Flee || Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.None)
             {

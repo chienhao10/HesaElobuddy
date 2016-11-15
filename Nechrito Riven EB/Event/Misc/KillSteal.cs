@@ -34,10 +34,10 @@
             if (Spells.R.IsReady() && Spells.R.Name == IsSecondR && MenuConfig.KsR2)
             {
                 var rDmg = Dmg.RDmg(target);
+                //Chat.Print("Ult dmg= " + rDmg);
                 if (rDmg != 0 && (target.Health + target.TotalShieldHealth()) < rDmg)
                 {
                     var pred = Spells.R.GetPrediction(target);
-
                     Player.Spellbook.CastSpell(SpellSlot.R, pred.CastPosition);
                 }
             }

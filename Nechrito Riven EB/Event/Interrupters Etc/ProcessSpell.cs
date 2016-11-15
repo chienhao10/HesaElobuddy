@@ -15,7 +15,7 @@
 
         public static void OnProcessSpell(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (!sender.IsEnemy)// || !sender.IsValid(1000))//TODO: Fix this...
+            if (!sender.IsEnemy || !sender.IsValid())// || !sender.IsValid(1000))//TODO: Fix this...
             {
                 return;
             }
@@ -42,6 +42,12 @@
             {
                 if (Spells.Q.IsReady())
                 {
+                    if (Qstack == 1 || !Orbwalker.IsAutoAttacking)
+                    {
+                        Player.Spellbook.CastSpell(SpellSlot.Q, target.Position);
+
+                    }
+
                     if (Qstack == 2 || !Orbwalker.IsAutoAttacking)
                     {
                         Player.Spellbook.CastSpell(SpellSlot.Q, target.Position);
@@ -51,13 +57,7 @@
                     if (Qstack == 3 || !Orbwalker.IsAutoAttacking)
                     {
                         Player.Spellbook.CastSpell(SpellSlot.Q, target.Position);
-
-                    }
-
-                    if (Qstack == 1 || !Orbwalker.IsAutoAttacking)
-                    {
-                        Player.Spellbook.CastSpell(SpellSlot.Q, target.Position);
-                        EloBuddy.SDK.Core.DelayAction(Animation.Animation.Reset, Animation.Animation.ResetDelay(MenuConfig.Qld));
+                        EloBuddy.SDK.Core.DelayAction(Animation.Animation.Reset, 346);
                     }
                 }
             }
@@ -65,6 +65,12 @@
             {
                 if (Spells.Q.IsReady())
                 {
+                    if (Qstack == 1 || !Orbwalker.IsAutoAttacking)
+                    {
+                        Player.Spellbook.CastSpell(SpellSlot.Q, target.Position);
+
+                    }
+
                     if (Qstack == 2 || !Orbwalker.IsAutoAttacking)
                     {
                         Player.Spellbook.CastSpell(SpellSlot.Q, target.Position);
@@ -72,12 +78,6 @@
                     }
 
                     if (Qstack == 3 || !Orbwalker.IsAutoAttacking)
-                    {
-                        Player.Spellbook.CastSpell(SpellSlot.Q, target.Position);
-
-                    }
-
-                    if (Qstack == 1 || !Orbwalker.IsAutoAttacking)
                     {
                         Player.Spellbook.CastSpell(SpellSlot.Q, target.Position);
                     }
@@ -88,6 +88,11 @@
             {
                 if (Spells.Q.IsReady())
                 {
+                    if (Qstack == 1 || !Orbwalker.IsAutoAttacking)
+                    {
+                        Player.Spellbook.CastSpell(SpellSlot.Q, target.Position);
+                    }
+
                     if (Qstack == 2 || !Orbwalker.IsAutoAttacking)
                     {
                         Player.Spellbook.CastSpell(SpellSlot.Q, target.Position);
@@ -97,11 +102,6 @@
                     {
                         Player.Spellbook.CastSpell(SpellSlot.Q, target.Position);
                     }
-
-                    // if (CountQ == 2 || !Orbwalker.IsAutoAttacking)
-                    //{
-                    //   Q.Cast(target.Position);
-                    //}
                 }
             }
 
@@ -109,17 +109,17 @@
             {
                 if (MenuConfig.JnglQ && Spells.Q.IsReady())
                 {
+                    if (Qstack == 1 || !Orbwalker.IsAutoAttacking)
+                    {
+                        Player.Spellbook.CastSpell(SpellSlot.Q, target.Position);
+                    }
+
                     if (Qstack == 2 || !Orbwalker.IsAutoAttacking)
                     {
                         Player.Spellbook.CastSpell(SpellSlot.Q, target.Position);
                     }
 
                     if (Qstack == 3 || !Orbwalker.IsAutoAttacking)
-                    {
-                        Player.Spellbook.CastSpell(SpellSlot.Q, target.Position);
-                    }
-
-                    if (Qstack == 1 || !Orbwalker.IsAutoAttacking)
                     {
                         Player.Spellbook.CastSpell(SpellSlot.Q, target.Position);
                     }

@@ -33,8 +33,7 @@
                 {
                     return;
                 }
-                if(Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
-                //if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
+                if(Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) && !MenuConfig.BurstEnabled)
                 {
                     if (Spells.Q.IsReady())
                     {
@@ -43,7 +42,6 @@
                     }
                 }
                 if(Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass))
-                //if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
                 {
                     if (Qstack == 2)
                     {
@@ -58,14 +56,14 @@
                         BackgroundData.CastQ(target);
                     }
                 }
+                */
 
-                if (Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Burst) return;
+                if (!Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) || !MenuConfig.BurstEnabled) return;
 
                 if (Spells.Q.IsReady())
                 {
                     BackgroundData.CastQ(target);
                 }
-                */
             }
             if(!Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear))
             //if (Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.LaneClear)

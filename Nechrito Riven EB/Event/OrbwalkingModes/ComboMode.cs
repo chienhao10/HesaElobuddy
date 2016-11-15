@@ -28,24 +28,21 @@
 
                 if (pred.HitChance != EloBuddy.SDK.Enumerations.HitChance.High || target.HasBuff(BackgroundData.InvulnerableList.ToString()))// || Player.IsWindingUp)
                 {
-                    return;
-                }
-
-                if ((!MenuConfig.OverKillCheck && Qstack > 1) || MenuConfig.OverKillCheck 
-                    && (target.HealthPercent <= 40 
-                    && !Spells.Q.IsReady() && Qstack == 1 || target.Distance(Player) >= Player.AttackRange + 310))
+                    //return;
+                }else
                 {
-                    Player.Spellbook.CastSpell(SpellSlot.R, pred.UnitPosition);
+                    if ((!MenuConfig.OverKillCheck && Qstack > 1) || MenuConfig.OverKillCheck
+                    && (target.HealthPercent <= 40
+                    && !Spells.Q.IsReady() && Qstack == 1 || target.Distance(Player) >= Player.AttackRange + 310))
+                    {
+                        Player.Spellbook.CastSpell(SpellSlot.R, pred.UnitPosition);
+                    }
                 }
             }
 
             #region Q3 Wall
 
-            if (Qstack == 3
-                    && target.Distance(Player) >= Player.AttackRange
-                    && target.Distance(Player) <= 650
-                    && MenuConfig.Q3Wall
-                    && Spells.E.IsReady())
+            if (Qstack == 3 && target.Distance(Player) >= Player.AttackRange && target.Distance(Player) <= 650 && MenuConfig.Q3Wall && Spells.E.IsReady())
             {
                 var wallPoint = FleeLogic.GetFirstWallPoint(Player.Position, Player.Position.Extend(target.Position, 650).To3D());//TODO: Fix this...
 
@@ -53,43 +50,47 @@
 
                 if (!Spells.E.IsReady() || wallPoint.Distance(Player.Position) > Spells.E.Range || !wallPoint.IsValid())
                 {
-                    return;
-                }
-                Player.Spellbook.CastSpell(SpellSlot.E, wallPoint);
-
-                if (Spells.R.IsReady() && Spells.R.Name == IsFirstR)
+                    //return;
+                } else
                 {
-                    Player.Spellbook.CastSpell(SpellSlot.Q, target);
-                }
+                    Player.Spellbook.CastSpell(SpellSlot.E, wallPoint);
 
-                EloBuddy.SDK.Core.DelayAction(() => Player.Spellbook.CastSpell(SpellSlot.Q, wallPoint), 190);
-                
-                if (wallPoint.Distance(Player.Position) <= 100)
-                {
-                    Player.Spellbook.CastSpell(SpellSlot.Q, wallPoint);
+                    if (Spells.R.IsReady() && Spells.R.Name == IsFirstR)
+                    {
+                        Player.Spellbook.CastSpell(SpellSlot.R, target);
+                    }
+
+                    EloBuddy.SDK.Core.DelayAction(() => Player.Spellbook.CastSpell(SpellSlot.Q, wallPoint), 190);
+
+                    if (wallPoint.Distance(Player.Position) <= 100)
+                    {
+                        Player.Spellbook.CastSpell(SpellSlot.Q, wallPoint);
+                    }
                 }
-            } 
+            }
             #endregion
 
             if (Spells.E.IsReady())
             {
                 //Chat.Print("I casted E toward " + target.Name);
-                Player.Spellbook.CastSpell(SpellSlot.E, target);
                 Usables.CastYoumoo();
 
-                if (MenuConfig.AlwaysR && Spells.R.IsReady() && Spells.R.Name == IsFirstR)
+                if (MenuConfig.AlwaysR && Spells.R.IsReady() && !Spells.R.IsOnCooldown && Spells.R.Name == IsFirstR)
                 {
                     Player.Spellbook.CastSpell(SpellSlot.R, target);
                 }
                 else
                 {
+                    Player.Spellbook.CastSpell(SpellSlot.E, target);
+                    //if (Player.Distance(target) < 350)
+                    
                     EloBuddy.SDK.Core.DelayAction(Usables.CastHydra, 10);
                 }
             }
 
             if (Spells.W.IsReady() && BackgroundData.InRange(target))
             {
-                if (MenuConfig.Doublecast && Spells.Q.IsReady())// && Qstack != 2)
+                if (MenuConfig.Doublecast && Spells.Q.IsReady() && Qstack != 2)
                 {
                     BackgroundData.CastW(target);
                     BackgroundData.DoubleCastQ(target);
@@ -99,20 +100,12 @@
                     BackgroundData.CastW(target);
                 }
             }
-
-            if(BackgroundData.InRange(target))
+            //Added....
+            if (Spells.Q.IsReady() && Spells.Q.IsInRange(target))
             {
-                Usables.CastHydra();
+                BackgroundData.CastQ(target);
+                //Player.Spellbook.CastSpell(SpellSlot.Q, target);
             }
-            
-            if (Spells.Q.IsReady() && ObjectManager.Player.Position.Distance(target.ServerPosition) > Player.GetAutoAttackRange(target) && ObjectManager.Player.Position.Distance(target.ServerPosition) < 400)
-            {
-                {
-                    Player.Spellbook.CastSpell(SpellSlot.Q, Player.Position.Extend(target.ServerPosition, 250).To3D());
-                    //Spells.Q.Cast(Player.Position.Extend(target.ServerPosition, 250).To3D());
-                }
-            }
-
         }
 
         #endregion

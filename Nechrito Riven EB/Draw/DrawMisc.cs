@@ -51,10 +51,20 @@
 
             var pos = Drawing.WorldToScreen(Player.Position);
 
+            var offset = 0;
+
             if (MenuConfig.DrawAlwaysR)
             {
-                Drawing.DrawText(pos.X - 20, pos.Y + 20, Color.DodgerBlue, "Use R1  (     )");
-                Drawing.DrawText(pos.X + 43, pos.Y + 20, MenuConfig.AlwaysR  ? Color.Yellow : Color.Red, MenuConfig.AlwaysR ? "On" : "Off");
+                offset += 20;
+                Drawing.DrawText(pos.X - 20, pos.Y + offset, Color.White, "Use R1  (     )");
+                Drawing.DrawText(pos.X + 41, pos.Y + offset, MenuConfig.AlwaysR  ? Color.Green : Color.Red, MenuConfig.AlwaysR ? "On" : "Off");
+            }
+
+            if(MenuConfig.DrawBurst)
+            {
+                offset += 20;
+                Drawing.DrawText(pos.X - 20, pos.Y + offset, Color.White, "Burst Mode  (     )");
+                Drawing.DrawText(pos.X + 67, pos.Y + offset, MenuConfig.BurstEnabled ? Color.Green : Color.Red, MenuConfig.BurstEnabled ? "On" : "Off");
             }
 
             if (!MenuConfig.ForceFlash)
@@ -62,8 +72,9 @@
                 return;
             }
 
-            Drawing.DrawText(pos.X - 20, pos.Y + 40, Color.DodgerBlue, "Use Flash  (     )");
-            Drawing.DrawText(pos.X + 64, pos.Y + 40, MenuConfig.AlwaysF ? Color.Yellow : Color.Red, MenuConfig.AlwaysF ? "On" : "Off");
+            offset += 20;
+            Drawing.DrawText(pos.X - 20, pos.Y + offset, Color.White, "Use Flash  (     )");
+            Drawing.DrawText(pos.X + 59, pos.Y + offset, MenuConfig.AlwaysF ? Color.Green : Color.Red, MenuConfig.AlwaysF ? "On" : "Off");
         }
 
         #endregion

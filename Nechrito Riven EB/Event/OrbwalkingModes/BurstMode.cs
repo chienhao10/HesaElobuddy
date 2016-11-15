@@ -16,27 +16,34 @@
         {
             if (Player.Spellbook.CanUseSpell(Spells.Flash) == SpellState.Ready && MenuConfig.AlwaysF)
             {
-                var selectedTarget = TargetSelector.SelectedTarget;
-
-                if (selectedTarget == null 
-                    || !selectedTarget.IsValidTarget(Player.AttackRange + 625)
+                var selectedTarget = TargetSelector.GetTarget(Player.AttackRange + 625, DamageType.Physical);
+                
+                if (selectedTarget == null
+                    || Player.Distance(selectedTarget.Position) > (Player.AttackRange + 625)
                     || Player.Distance(selectedTarget.Position) < Player.AttackRange
                     || (MenuConfig.Flash && selectedTarget.Health > Dmg.GetComboDamage(selectedTarget) && !Spells.R.IsReady())
-                    || (!MenuConfig.Flash && (!Spells.R.IsReady() || !Spells.W.IsReady())))
+                    || (!MenuConfig.Flash || (!Spells.R.IsReady() || !Spells.W.IsReady()))
+                )
                 {
                     return;
                 }
 
                 Usables.CastYoumoo();
-                Spells.E.Cast(selectedTarget.Position);
-                Spells.R.Cast(selectedTarget);
-                EloBuddy.SDK.Core.DelayAction(BackgroundData.FlashW, 170);
+                BackgroundData.CastE(selectedTarget);
+
+                Player.Spellbook.CastSpell(SpellSlot.R, selectedTarget);
+                EloBuddy.SDK.Core.DelayAction(() => BackgroundData.FlashW(selectedTarget), 170);
             }
             else
             {
                 var target = TargetSelector.GetTarget(Player.AttackRange + 360, DamageType.Physical);
 
                 if (target == null) return;
+
+                if(!MenuConfig.AlwaysF)
+                {
+                    Usables.CastYoumoo();
+                }
 
                 if (Spells.R.IsReady() && Spells.R.Name == IsSecondR && Qstack > 1)
                 {
@@ -45,21 +52,22 @@
                         true,
                         collisionable: new[] { CollisionableObjects.YasuoWall });*/
 
-                    if (pred.HitChance != EloBuddy.SDK.Enumerations.HitChance.High)
+                    if (pred.HitChance == EloBuddy.SDK.Enumerations.HitChance.High)
                     {
-                        return;
+                        Player.Spellbook.CastSpell(SpellSlot.R, pred.CastPosition);
                     }
-                    Spells.R.Cast(pred.CastPosition);
                 }
 
                 if (Spells.E.IsReady())
                 {
-                    Spells.E.Cast(target.Position);
+                    BackgroundData.CastE(target);
+                    //Spells.E.Cast(target.Position);
                 }
 
                 if (Spells.R.IsReady() && Spells.R.Name == IsFirstR)
                 {
-                    Spells.R.Cast(target);
+                    Player.Spellbook.CastSpell(SpellSlot.R, target);
+                    //Spells.R.Cast(target);
                 }
 
                 if (!Spells.W.IsReady() || !BackgroundData.InRange(target))

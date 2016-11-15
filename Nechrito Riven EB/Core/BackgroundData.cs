@@ -121,7 +121,7 @@
                 }
             }
 
-            if (!R1 || Spells.R.Name != IsFirstR)
+            if (!R1 || !Spells.R.IsReady())
             {
                 return;
             }
@@ -146,11 +146,12 @@
             Unit = x;
         }
 
-        public static void FlashW()
+        public static void FlashW(AIHeroClient target)
         {
-            var target = TargetSelector.SelectedTarget;
+            //var target = TargetSelector.SelectedTarget;
             if (target == null) return;
             Spells.W.Cast();
+
             EloBuddy.SDK.Core.DelayAction(() => Player.Spellbook.CastSpell(Spells.Flash, target.Position), 10);
             EloBuddy.SDK.Core.DelayAction(() => DoubleCastQ(target), 30);
         }
@@ -192,6 +193,20 @@
             if (argsName == IsFirstR)
             {
                 R1 = false;
+            }
+
+            var target = args.Target as Obj_AI_Base;
+            {
+                Orbwalker.ResetAutoAttack();
+                if (Spells.W.IsReady())
+                {
+                    var target2 = TargetSelector.GetTarget(Spells.W.Range, DamageType.Physical);
+                    if (target2 != null || Orbwalker.ActiveModesFlags != Orbwalker.ActiveModes.None)
+                    {
+                        Player.Spellbook.CastSpell(SpellSlot.W);
+                    }
+                }
+                return;
             }
         }
         #endregion

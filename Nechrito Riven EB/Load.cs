@@ -15,6 +15,7 @@
     using NechritoRiven.Event.Misc;
     using EloBuddy;
     using EloBuddy.SDK;
+    using EloBuddy.SDK.Events;
 
     #endregion
 
@@ -41,8 +42,8 @@
             Game.OnUpdate += Skinchanger.Update;
             Orbwalker.OnPostAttack += ProcessSpell.Orbwalker_OnPostAttack;
 
-            //Interrupter2.OnInterruptableTarget += Interrupt2.OnInterruptableTarget;
-            //AntiGapcloser.OnEnemyGapcloser += Gapclose.Gapcloser;
+            Interrupter.OnInterruptableSpell += Interrupt2.OnInterruptableTarget;
+            Gapcloser.OnGapcloser += Gapclose.Gapcloser;
 
             Chat.Print("<b><font color=\"#FFFFFF\">[</font></b><b><font color=\"#00e5e5\">Nechrito Riven ( Elobuddy )</font></b><b><font color=\"#FFFFFF\">]</font></b><b><font color=\"#FFFFFF\"> Loaded!</font></b>");
             Console.WriteLine("Nechrito Riven ( Elobuddy ): Loaded");
