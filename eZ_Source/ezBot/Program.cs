@@ -20,6 +20,7 @@ namespace ezBot
         public static ArrayList accounts = new ArrayList();
         public static ArrayList accountsNew = new ArrayList();
         public static int maxBots = 1;
+        public static bool printGameStats = false;
         public static bool replaceConfig = false;
         public static bool randomChampionPick = false;
         public static string firstChampionPick = "";
@@ -344,6 +345,14 @@ namespace ezBot
                     iniFile.Write("FRIENDS", "SecondFriend", "");
                     iniFile.Write("FRIENDS", "ThirdFriend", "");
                     iniFile.Write("FRIENDS", "FourthFriend", "");
+                }
+                try
+                {
+                    printGameStats = Convert.ToBoolean(iniFile.Read("GENERAL", "PrintGameStats"));
+                }
+                catch (Exception ex)
+                {
+                    iniFile.Write("GENERAL", "PrintGameStats", "false");
                 }
             }
             catch (Exception ex)

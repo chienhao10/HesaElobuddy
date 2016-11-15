@@ -642,7 +642,7 @@ namespace ezBot
                             
                             if (game != null)
                             {
-                                //foreach (var stat1 in game.Statistics) Tools.ConsoleMessage(stat1.StatTypeName + " = " + stat1.Value.ToString(), ConsoleColor.White);
+                                if(Program.printGameStats) foreach (var stat1 in game.Statistics) Tools.ConsoleMessage(stat1.StatTypeName + " = " + stat1.Value.ToString(), ConsoleColor.White);
                                 var statWin = game.Statistics.FirstOrDefault(x => x.StatTypeName == "WIN");
                                 bool win = statWin != null && statWin.Value == 1;
                                 
