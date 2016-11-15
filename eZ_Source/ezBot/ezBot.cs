@@ -664,7 +664,7 @@ namespace ezBot
                                 var a = game.Statistics.FirstOrDefault(x => x.StatTypeName == "ASSISTS");
                                 if (a != null) assists = (int)a.Value;
 
-                                Tools.ConsoleMessage(string.Format("{0} - {1}/{2}/{3}", win ? "Victory" : "Defeat", kills, deaths, assists), ConsoleColor.Magenta);
+                                Tools.ConsoleMessage(string.Format("{4} - {0} - {1}/{2}/{3}", win ? "Victory" : "Defeat", kills, deaths, assists, sumName), ConsoleColor.Magenta);
                             }
 
                         }
