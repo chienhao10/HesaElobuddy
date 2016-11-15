@@ -642,7 +642,7 @@ namespace ezBot
                             
                             if (game != null)
                             {
-                                foreach (var stat1 in game.Statistics) Tools.ConsoleMessage(stat1.StatTypeName + " = " + stat1.Value.ToString(), ConsoleColor.White);
+                                //foreach (var stat1 in game.Statistics) Tools.ConsoleMessage(stat1.StatTypeName + " = " + stat1.Value.ToString(), ConsoleColor.White);
                                 var statWin = game.Statistics.FirstOrDefault(x => x.StatTypeName == "WIN");
                                 bool win = statWin != null && statWin.Value == 1;
                                 
@@ -650,6 +650,21 @@ namespace ezBot
                                 {
                                     Program.AddGame(statWin.Value == 1);
                                 }
+
+                                var kills = 0;
+                                var deaths = 0;
+                                var assists = 0;
+
+                                var k = game.Statistics.FirstOrDefault(x => x.StatTypeName == "CHAMPIONS_KILLED");
+                                if (k != null) kills = (int) k.Value;
+
+                                var d = game.Statistics.FirstOrDefault(x => x.StatTypeName == "NUM_DEATHS");
+                                if (d != null) deaths = (int)d.Value;
+
+                                var a = game.Statistics.FirstOrDefault(x => x.StatTypeName == "ASSISTS");
+                                if (a != null) assists = (int)a.Value;
+
+                                Tools.ConsoleMessage(string.Format("{0} - {1}/{2}/{3}", win ? "Victory" : "Defeat", kills, deaths, assists), ConsoleColor.Magenta);
                             }
 
                         }
@@ -998,8 +1013,8 @@ namespace ezBot
                 }
                 else
                 {
-                    connection_OnMessageReceived(sender, new EndOfGameStats());
                     ShouldBeInGame = false;
+                    connection_OnMessageReceived(sender, new EndOfGameStats());
                 }
             }
             catch(InvocationException ex)
