@@ -40,9 +40,7 @@ AutoBuddy won't recall if you have less gold than needed for next item.
 
             ");
             current = currentLogic;
-            foreach (
-                Obj_SpawnPoint so in
-                    ObjectManager.Get<Obj_SpawnPoint>().Where(so => so.Team == ObjectManager.Player.Team))
+            foreach (Obj_SpawnPoint so in ObjectManager.Get<Obj_SpawnPoint>().Where(so => so.Team == ObjectManager.Player.Team))
             {
                 spawn = so;
             }
@@ -64,13 +62,14 @@ AutoBuddy won't recall if you have less gold than needed for next item.
                 return;
             }
 
-            if ((AutoWalker.myHero.Gold > flatGold.CurrentValue+AutoWalker.myHero.Level*goldPerLevel.CurrentValue && AutoWalker.myHero.InventoryItems.Length < 8 &&
-                 recallsWithGold <= 30) || AutoWalker.myHero.HealthPercent() < 25)
+            if ((AutoWalker.myHero.Gold > flatGold.CurrentValue+AutoWalker.myHero.Level*goldPerLevel.CurrentValue && AutoWalker.myHero.InventoryItems.Length < 8 && recallsWithGold <= 30) || AutoWalker.myHero.HealthPercent() < 25)
             {
-                if (AutoWalker.myHero.Gold > (AutoWalker.myHero.Level + 2)*150 && AutoWalker.myHero.InventoryItems.Length < 8 &&
-                    recallsWithGold <= 30)
+                if (AutoWalker.myHero.Gold > (AutoWalker.myHero.Level + 2) * 150 && AutoWalker.myHero.InventoryItems.Length < 8 && recallsWithGold <= 30)
+                {
                     recallsWithGold++;
-                current.SetLogic(LogicSelector.MainLogics.RecallLogic);
+                    current.SetLogic(LogicSelector.MainLogics.RecallLogic);
+                    Console.WriteLine("Entering Recall Logic.");
+                }
             }
             Core.DelayAction(ShouldRecall, 500);
         }
@@ -81,10 +80,12 @@ AutoBuddy won't recall if you have less gold than needed for next item.
             active = true;
             g = null;
             Game.OnTick += Game_OnTick;
+            //Chat.Print("Recall Activated");
         }
 
         public void Deactivate()
         {
+            //Chat.Print("Recall desactivated");
             lastRecallTime = 0;
             active = false;
             Game.OnTick -= Game_OnTick;
@@ -92,8 +93,7 @@ AutoBuddy won't recall if you have less gold than needed for next item.
 
         private void Drawing_OnDraw(EventArgs args)
         {
-            if (!MainMenu.GetMenu("AB").Get<CheckBox>("debuginfo").CurrentValue)
-                return;
+            if (!MainMenu.GetMenu("AB").Get<CheckBox>("debuginfo").CurrentValue) return;
 
             Drawing.DrawText(250, 55, System.Drawing.Color.Gold, "Recall, active: " + active);
         }
@@ -101,7 +101,8 @@ AutoBuddy won't recall if you have less gold than needed for next item.
         private void Game_OnTick(EventArgs args)
         {
             AutoWalker.SetMode(Orbwalker.ActiveModes.Combo);
-            if (ObjectManager.Player.Distance(spawn) < 400 && ObjectManager.Player.HealthPercent() > 85 && (ObjectManager.Player.ManaPercent > 80 || ObjectManager.Player.PARRegenRate <= .0001))
+            
+            if (ObjectManager.Player.Distance(spawn) < 400 && ObjectManager.Player.HealthPercent() > 85)// && (ObjectManager.Player.ManaPercent > 80 || ObjectManager.Player.PARRegenRate <= .0001))
                 current.SetLogic(LogicSelector.MainLogics.PushLogic);
             else if (ObjectManager.Player.Distance(spawn) < 2000)
                 AutoWalker.WalkTo(spawn.Position);

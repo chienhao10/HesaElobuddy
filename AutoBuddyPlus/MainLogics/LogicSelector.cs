@@ -62,7 +62,7 @@ namespace AutoBuddy.MainLogics
             if (saveMylife) return current;
             if (newlogic != MainLogics.PushLogic) pushLogic.Deactivate();
             MainLogics old = current;
-            Chat.Print("Changing logic, old = " + old.ToString() + " & new = " + newlogic.ToString());
+            //Chat.Print("Changing logic, old = " + old.ToString() + " & new = " + newlogic.ToString());
             switch (current)
             {
                 case MainLogics.SurviLogic:

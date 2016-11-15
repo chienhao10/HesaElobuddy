@@ -37,7 +37,7 @@ namespace AutoBuddy.MyChampLogic
 
         public int[] skillSequence { get; private set; }
         public LogicSelector Logic { get; set; }
-        
+        /*
         private static void OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             var unit = sender as AIHeroClient;
