@@ -57,8 +57,8 @@ namespace ezBot
             var remoteVersion = LoadRemoteVersion();
             if (string.IsNullOrEmpty(EzBotVersion) || string.IsNullOrEmpty(remoteVersion) || EzBotVersion != remoteVersion)
             {
-                Process.Start("AutoUpdater.exe");
-                Environment.Exit(0);
+                //Process.Start("AutoUpdater.exe");
+                //Environment.Exit(0);
             }
 
             Program.LoadLeagueVersion();
@@ -103,48 +103,55 @@ namespace ezBot
                 ChangeGameConfig();
             }
             Tools.ConsoleMessage("Loading accounts.", ConsoleColor.White);
-            Program.LoadAccounts();
+            LoadAccounts();
             int num = 0;
-            foreach (string account in Program.accounts)
+            lock(accounts)
             {
-                try
+                //while(accountsNew.Count != 0)
+                foreach (string account in accounts)
                 {
-                    Program.accountsNew.RemoveAt(0);
-                    string[] strArray = account.Split(new string[1] { "|" }, StringSplitOptions.None);
-                    ++num;
-                    var isLeader = strArray[4] != null ? (strArray[4].ToLower() == "leader" ? true : false) : true;
-                    if (strArray[3] != null)
+                    //var account = accounts[0].ToString();
+                    try
                     {
-                        Generator.CreateRandomThread(Program.delay1, Program.delay2);
-                        string queueType = strArray[3];
-
-                        var region = Tools.ParseEnum<Region>(strArray[2].ToUpper());
-                        var password = strArray[1];
-                        if (region.UseGarena())
+                        accountsNew.RemoveAt(0);
+                        string[] strArray = account.Split(new string[1] { "|" }, StringSplitOptions.None);
+                        ++num;
+                        var isLeader = strArray[4] != null ? (strArray[4].ToLower() == "leader" ? true : false) : true;
+                        if (strArray[3] != null)
                         {
-                            password = GetGarenaToken();
+                            Generator.CreateRandomThread(Program.delay1, Program.delay2);
+                            string queueType = strArray[3];
+
+                            var region = Tools.ParseEnum<Region>(strArray[2].ToUpper());
+                            var password = strArray[1];
+                            if (region.UseGarena())
+                            {
+                                password = GetGarenaToken();
+                            }
+                            ezBot ezBot = new ezBot(strArray[0], password, strArray[2].ToUpper(), Program.lolPath, queueType, Program.LoLVersion, isLeader);
                         }
-                        ezBot ezBot = new ezBot(strArray[0], password, strArray[2].ToUpper(), Program.lolPath, queueType, Program.LoLVersion, isLeader);
+                        else
+                        {
+                            Generator.CreateRandomThread(Program.delay1, Program.delay2);
+                            string queueType = "ARAM";
+                            ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), Program.lolPath, queueType, Program.LoLVersion, isLeader);
+                        }
+                        if (num == Program.maxBots)
+                        {
+                            Tools.ConsoleMessage("Maximum bots running: " + Program.maxBots, ConsoleColor.Red);
+                            break;
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        Generator.CreateRandomThread(Program.delay1, Program.delay2);
-                        string queueType = "ARAM";
-                        ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), Program.lolPath, queueType, Program.LoLVersion, isLeader);
+                        Tools.ConsoleMessage(ex.Message + " " + ex.StackTrace, ConsoleColor.Green);
+                        Tools.ConsoleMessage("You may have an issue in your accounts.txt", ConsoleColor.Red);
+                        Tools.ConsoleMessage("Accounts structure ACCOUNT|PASSWORD|REGION|QUEUE_TYPE|IS_LEADER", ConsoleColor.Red);
+                        Console.ReadKey();
                     }
-                    if (num != Program.maxBots)
-                        Tools.ConsoleMessage("Maximum bots running: " + (object)Program.maxBots, ConsoleColor.Red);
-                    else
-                        break;
-                }
-                catch (Exception ex)
-                {
-                    Tools.ConsoleMessage(ex.Message + " " + ex.StackTrace, ConsoleColor.Green);
-                    Tools.ConsoleMessage("You may have an issue in your accounts.txt", ConsoleColor.Red);
-                    Tools.ConsoleMessage("Acconts structure ACCOUNT|PASSWORD|REGION|QUEUE_TYPE|IS_LEADER", ConsoleColor.Red);
-                    Console.ReadKey();
                 }
             }
+            
             while(true)
                 Console.ReadKey();
         }
@@ -276,13 +283,18 @@ namespace ezBot
 
         public static void LognNewAccount()
         {
-            Program.accountsNew = Program.accounts;
-            Program.accounts.RemoveAt(0);
-            int num = 0;
             if (Program.accounts.Count == 0)
-                Tools.ConsoleMessage("No more acocunts to login", ConsoleColor.Red);
-            foreach (string account in Program.accounts)
             {
+                Tools.ConsoleMessage("No more accounts to login", ConsoleColor.Red);
+                return;
+            }
+            
+            Program.accounts = Program.accountsNew;
+            int num = 0;
+            
+            foreach (string account in Program.accountsNew)
+            {
+                Program.accounts.RemoveAt(0);
                 string[] strArray = account.Split(new string[1] { "|" }, StringSplitOptions.None);
                 ++num;
                 var isLeader = string.IsNullOrEmpty(strArray[4]) ? true : (strArray[4].ToLower() == "leader" ? true : false);
@@ -299,8 +311,10 @@ namespace ezBot
                     ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), Program.lolPath, queueType, Program.LoLVersion, isLeader);
                 }
                 if (num == Program.maxBots)
+                {
+                    Tools.ConsoleMessage("Maximum bots running: " + (object)Program.maxBots, ConsoleColor.Red);
                     break;
-                Tools.ConsoleMessage("Maximun bots running: " + (object)Program.maxBots, ConsoleColor.Red);
+                }
             }
         }
 
@@ -365,14 +379,20 @@ namespace ezBot
 
         public static void LoadAccounts()
         {
-            TextReader textReader = (TextReader)File.OpenText(AppDomain.CurrentDomain.BaseDirectory + "configs\\accounts.txt");
-            string str;
-            while ((str = textReader.ReadLine()) != null)
+            lock (accounts)
             {
-                Program.accounts.Add((object)str);
-                Program.accountsNew.Add((object)str);
+                lock (accountsNew)
+                {
+                    TextReader textReader = (TextReader)File.OpenText(AppDomain.CurrentDomain.BaseDirectory + "configs\\accounts.txt");
+                    string str;
+                    while ((str = textReader.ReadLine()) != null)
+                    {
+                        accounts.Add((object)str);
+                        accountsNew.Add((object)str);
+                    }
+                    textReader.Close();
+                }
             }
-            textReader.Close();
         }
 
         private static int victory = 0;

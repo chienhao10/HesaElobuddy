@@ -1083,14 +1083,14 @@ namespace ezBot
             sumName = this.loginPacket.AllSummonerData.Summoner.Name;
             sumId = this.loginPacket.AllSummonerData.Summoner.SummonerId;
 
-            double arg_29F_0 = this.loginPacket.AllSummonerData.Summoner.SummonerId;
+            double summonerId = this.loginPacket.AllSummonerData.Summoner.SummonerId;
             this.rpBalance = this.loginPacket.RpBalance;
             this.ipBalance = this.loginPacket.IpBalance;
             if (this.sumLevel >= (double)Program.maxLevel)
             {
                 Tools.ConsoleMessage("Summoner: " + sumName + " is already max level.", ConsoleColor.White);
-                Tools.ConsoleMessage("Log into new account.", ConsoleColor.White);
                 this.connection.Disconnect();
+                Tools.ConsoleMessage("Log into new account.", ConsoleColor.White);
                 Program.LognNewAccount();
             }
             else
@@ -1102,7 +1102,7 @@ namespace ezBot
                     {
                         Task task = new Task(new Action(this.buyBoost));
                         task.Start();
-                        task = (Task)null;
+                        task = null;
                     }
                     catch (Exception ex)
                     {
