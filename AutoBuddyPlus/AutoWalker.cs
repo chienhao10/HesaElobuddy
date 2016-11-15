@@ -271,7 +271,7 @@ namespace AutoBuddy
         {
             // fix for stuck at base:
             var turret = ObjectManager.Get<Obj_HQ>().First(tur => tur.IsAlly && tur.Name.Contains("HQ_T"));
-            if (Player.Instance.IsInRange(turret, 2700))
+            if(Shop.CanShop)//if (Player.Instance.IsInRange(turret, 2700))
             {
                 Time++;
 
