@@ -5,6 +5,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Management;
 using System.Net;
 using System.Security.Principal;
@@ -78,6 +79,22 @@ namespace ezBot
 
             LoadConfigs();
             Tools.ConsoleMessage("Config loaded.", ConsoleColor.White);
+
+            try
+            {
+                if (lolPath.Contains("notfound"))
+                    throw new Exception();
+                var dir = Directory.EnumerateDirectories(lolPath + "RADS\\solutions\\lol_game_client_sln\\releases\\").OrderBy(f => new DirectoryInfo(f).CreationTime).Last() + "\\deploy\\";
+            }catch(Exception)
+            {
+                Tools.ConsoleMessage("Your LauncherPath is invalid.", ConsoleColor.Red);
+                Tools.ConsoleMessage("Please try this:", ConsoleColor.Red);
+                Tools.ConsoleMessage("1. Make sure the path point to the FOLDER where we can find the launcher for league of legends and not to any exe file.", ConsoleColor.Red);
+                Tools.ConsoleMessage("2. Make sure the LauncherPath ends with a \\", ConsoleColor.Red);
+                Tools.ConsoleMessage("3. Browse to the LauncherPath", ConsoleColor.Red);
+                Tools.ConsoleMessage("4. Browse to RADS\\solutions\\lol_game_client_sln\\releases\\", ConsoleColor.Red);
+                Tools.ConsoleMessage("5. Delete all folder in here except: 0.0.1.152", ConsoleColor.Red);
+            }
             
             if (replaceConfig)
             {
