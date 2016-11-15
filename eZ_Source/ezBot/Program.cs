@@ -67,7 +67,9 @@ namespace ezBot
             Tools.TitleMessage("Made by Tryller updated by Hesa.");
             Tools.TitleMessage("Version: " + EzBotVersion);
             Tools.ConsoleMessage("Skype: wisahesa", ConsoleColor.Magenta);
-            
+            Tools.ConsoleMessage("Paypal: h3xc0r3@gmail.com", ConsoleColor.Magenta);
+            Tools.ConsoleMessage("Get support on discord: https://discord.gg/Fg2tQGa", ConsoleColor.Magenta);
+
             Tools.ConsoleMessage("I uploaded the source code on github at github.com/hesa2020/HesaElobuddy.", ConsoleColor.Cyan);
             Tools.ConsoleMessage("Please report issue(s) on the ezbot thread customized by hesa on Elobuddy.net.", ConsoleColor.Cyan);
 
