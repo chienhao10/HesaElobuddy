@@ -64,7 +64,7 @@ namespace ezBot
             Program.LoadLeagueVersion();
             Console.Title = "ezBot";
             Tools.TitleMessage("ezBot - Auto Queue for LOL: " + Program.LoLVersion.Substring(0, 4));
-            Tools.TitleMessage("Made by Tryller updated by Hesa.");
+            Tools.TitleMessage("Made by Tryller updated, customized and supported by Hesa.");
             Tools.TitleMessage("Version: " + EzBotVersion);
             Tools.ConsoleMessage("Skype: wisahesa", ConsoleColor.Magenta);
             Tools.ConsoleMessage("Paypal: h3xc0r3@gmail.com", ConsoleColor.Magenta);
