@@ -47,10 +47,7 @@
 
                 if (Spells.R.IsReady() && Spells.R.Name == IsSecondR && Qstack > 1)
                 {
-                    var pred = Spells.R.GetPrediction(
-                        target);/*,
-                        true,
-                        collisionable: new[] { CollisionableObjects.YasuoWall });*/
+                    var pred = Spells.R.GetPrediction(target);
 
                     if (pred.HitChance == EloBuddy.SDK.Enumerations.HitChance.High)
                     {
@@ -61,6 +58,7 @@
                 if (Spells.E.IsReady())
                 {
                     BackgroundData.CastE(target);
+                    EloBuddy.SDK.Core.DelayAction(Usables.CastHydra, 10);
                     //Spells.E.Cast(target.Position);
                 }
 

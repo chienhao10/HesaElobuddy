@@ -38,6 +38,8 @@
 
         public static void Orbwalker_OnPostAttack(AttackableUnit target, EventArgs args)
         {
+            if (target == null || target.IsMe || target.IsDead) return;
+            
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
             {
                 if (Spells.Q.IsReady())

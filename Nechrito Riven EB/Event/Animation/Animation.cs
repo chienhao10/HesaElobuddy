@@ -43,7 +43,7 @@
                             Orbwalker.ResetAutoAttack();
                             Core.DelayAction(Reset, 236);
 
-                            Console.WriteLine("Q1 Delay: " + ResetDelay(MenuConfig.Qd));
+                            Console.WriteLine("Q1 Delay: " + 236);
                         }
                     }
                     break;
@@ -57,7 +57,7 @@
                             Orbwalker.ResetAutoAttack();
                             Core.DelayAction(Reset, 236);
 
-                            Console.WriteLine("Q2 Delay: " + ResetDelay(MenuConfig.Q2D));
+                            Console.WriteLine("Q2 Delay: " + 236);
                         }
                     }
                     break;
@@ -69,7 +69,7 @@
                         {
                             Orbwalker.ResetAutoAttack();
                             Core.DelayAction(Reset, 346);
-                            Console.WriteLine("Q3 Delay: " + ResetDelay(MenuConfig.Qld) + Environment.NewLine + ">----END----<");
+                            Console.WriteLine("Q3 Delay: " + 346 + Environment.NewLine + ">----END----<");
                         }
                     }
                     break;

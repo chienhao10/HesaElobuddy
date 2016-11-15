@@ -65,16 +65,21 @@
                 offset += 20;
                 Drawing.DrawText(pos.X - 20, pos.Y + offset, Color.White, "Burst Mode  (     )");
                 Drawing.DrawText(pos.X + 67, pos.Y + offset, MenuConfig.BurstEnabled ? Color.Green : Color.Red, MenuConfig.BurstEnabled ? "On" : "Off");
+
+                if (MenuConfig.ForceFlash)
+                {
+                    offset += 20;
+                    Drawing.DrawText(pos.X - 20, pos.Y + offset, Color.White, "Use Flash  (     )");
+                    Drawing.DrawText(pos.X + 59, pos.Y + offset, MenuConfig.AlwaysF ? Color.Green : Color.Red, MenuConfig.AlwaysF ? "On" : "Off");
+                }
             }
 
-            if (!MenuConfig.ForceFlash)
+            if(MenuConfig.DrawFastHarassStatus)
             {
-                return;
+                offset += 20;
+                Drawing.DrawText(pos.X - 20, pos.Y + offset, Color.White, "Fast Harass  (     )");
+                Drawing.DrawText(pos.X + 73, pos.Y + offset, MenuConfig.FastHarass ? Color.Green : Color.Red, MenuConfig.FastHarass ? "On" : "Off");
             }
-
-            offset += 20;
-            Drawing.DrawText(pos.X - 20, pos.Y + offset, Color.White, "Use Flash  (     )");
-            Drawing.DrawText(pos.X + 59, pos.Y + offset, MenuConfig.AlwaysF ? Color.Green : Color.Red, MenuConfig.AlwaysF ? "On" : "Off");
         }
 
         #endregion

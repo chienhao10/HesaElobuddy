@@ -24,10 +24,6 @@
         #region Public Properties
         
         #region Animation
-        public static int Qd => animation["QD"].Cast<Slider>().CurrentValue;
-
-        public static int Q2D => animation["Q2D"].Cast<Slider>().CurrentValue;
-        public static int Qld => animation["Q3D"].Cast<Slider>().CurrentValue;
         public static bool CancelPing => animation["CancelPing"].Cast<CheckBox>().CurrentValue;
         public static string EmoteList
         {
@@ -82,6 +78,7 @@
         public static bool AlwaysF => combo["AlwaysF"].Cast<KeyBind>().CurrentValue;
         public static bool AlwaysR => combo["AlwaysR"].Cast<KeyBind>().CurrentValue;
         public static bool BurstEnabled => combo["BurstEnabled"].Cast<KeyBind>().CurrentValue;
+        public static bool FastHarass => combo["FastHarass"].Cast<KeyBind>().CurrentValue;
         #endregion
 
         #region Lane
@@ -118,6 +115,7 @@
         public static bool ForceFlash => draw["DrawForceFlash"].Cast<CheckBox>().CurrentValue;
         public static bool DrawAlwaysR => draw["DrawAlwaysR"].Cast<CheckBox>().CurrentValue;
         public static bool DrawBurst => draw["DrawBurst"].Cast<CheckBox>().CurrentValue;
+        public static bool DrawFastHarassStatus => draw["DrawFastHarassStatus"].Cast<CheckBox>().CurrentValue;
         public static bool DrawCb => draw["DrawCB"].Cast<CheckBox>().CurrentValue;
         public static bool DrawBt => draw["DrawBT"].Cast<CheckBox>().CurrentValue;
         public static bool DrawFh => draw["DrawFH"].Cast<CheckBox>().CurrentValue;
@@ -220,10 +218,7 @@
         }
         public static int SelectedSkinId => skin["SkinList"].Cast<ComboBox>().CurrentValue;
         #endregion
-
-        //public static bool IreliaLogic => config.Item("IreliaLogic").GetValue<bool>();
-        //public static bool QReset => config.Item("qReset").GetValue<bool>();
-        //public static int WallWidth => config.Item("WallWidth").GetValue<Slider>().Value;
+        
         #endregion
 
         #region Public Methods and Operators
@@ -232,17 +227,11 @@
         {
             config = MainMenu.AddMenu(MenuName, MenuName);
 
-            //orbwalker = config.AddSubMenu("Orbwalker", "riv_orb");
-
-            //Orbwalker = new Orbwalking.Orbwalker(orbwalker);
-
             animation = config.AddSubMenu("Animation", "riv_anim");
-            animation.Add("QD", new Slider("Q1 Reset Delay", 236, 200, 300));
-            animation.Add("Q2D", new Slider("Q2 Reset Delay", 236, 200, 300));
-            animation.Add("Q3D", new Slider("Q3 Reset Delay", 346, 300, 400));
             animation.Add("CancelPing", new CheckBox("Include Ping", true));
             animation.Add("EmoteList", new ComboBox("Emotes", new[] { "Laugh", "Taunt", "Joke", "Dance", "None" }, 3));
             
+
             combo = config.AddSubMenu("Combo", "riv_combo");
             combo.Add("Q3Wall", new CheckBox("Q3 Over Wall", true));
             combo.Add("FlashOften", new CheckBox("Flash Burst Frequently", true));
@@ -250,7 +239,8 @@
             combo.Add("Doublecast", new CheckBox("Fast Combo, less dmg", true));
             combo.Add("AlwaysR", new KeyBind("Use R (Toggle)", true, KeyBind.BindTypes.PressToggle, 'G'));
             combo.Add("AlwaysF", new KeyBind("Use Flash (Toggle)", true, KeyBind.BindTypes.PressToggle, 'L'));
-            combo.Add("BurstEnabled", new KeyBind("Enable Burst Combo (Toggle)", false, KeyBind.BindTypes.PressToggle, 'Y'));
+            combo.Add("BurstEnabled", new KeyBind("Enable Burst Combo (Toggle)", false, KeyBind.BindTypes.PressToggle, 'H'));
+            combo.Add("FastHarass", new KeyBind("Fast Harass (Toggle)", false, KeyBind.BindTypes.PressToggle, 'J'));
 
 
             lane = config.AddSubMenu("Lane", "riv_lane");
@@ -260,16 +250,19 @@
             lane.Add("LaneW", new CheckBox("Use W", true));
             lane.Add("LaneE", new CheckBox("Use E", true));
 
+
             jngl = config.AddSubMenu("Jungle", "riv_jngl");
             jngl.Add("JungleQ", new CheckBox("Use Q", true));
             jngl.Add("JungleW", new CheckBox("Use W", true));
             jngl.Add("JungleE", new CheckBox("Use E", true));
+
 
             killsteal = config.AddSubMenu("Killsteal", "riv_ks");
             killsteal.Add("ignite", new CheckBox("Use Ignite", true));
             killsteal.Add("ksW", new CheckBox("Use W", true));
             killsteal.Add("ksR2", new CheckBox("Use R2", true));
             killsteal.Add("ksQ", new CheckBox("Use Q", true));
+
 
             misc = config.AddSubMenu("Misc", "riv_misc");
             misc.Add("GapcloserMenu", new CheckBox("Anti-Gapcloser", true));
@@ -284,18 +277,20 @@
             draw.Add("DrawForceFlash", new CheckBox("Flash Status", true));
             draw.Add("DrawAlwaysR", new CheckBox("R Status", true));
             draw.Add("DrawBurst", new CheckBox("Burst Status", true));
+            draw.Add("DrawFastHarassStatus", new CheckBox("Fast Harass Status", true));
             draw.Add("DrawCB", new CheckBox("Combo Engage", true));
             draw.Add("DrawBT", new CheckBox("BurstMode Engage", false));
             draw.Add("DrawFH", new CheckBox("FastHarassMode Engage", false));
             draw.Add("DrawHS", new CheckBox("Harass Engage", false));
 
+
             flee = config.AddSubMenu("Flee", "riv_flee");
             flee.Add("WallFlee", new CheckBox("WallJump in Flee", true));
             flee.Add("FleeYoumuu", new CheckBox("Use Youmuu's Ghostblade", true));
 
+
             skin = config.AddSubMenu("SkinChanger", "riv_skin");
             skin.Add("UseSkin", new CheckBox("Use SkinChanger", false));
-            
             skin.Add("SkinList", new ComboBox("Skin", new[] { "Default",
                 "Redeemed",
                 "Crimson Elite",

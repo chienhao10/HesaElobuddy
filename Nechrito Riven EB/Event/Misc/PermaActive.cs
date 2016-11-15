@@ -77,7 +77,7 @@
                     FleeMode.Flee();
                 break;
                 case EloBuddy.SDK.Orbwalker.ActiveModes.Harass:
-                    Mixed.Harass();
+                    if (MenuConfig.FastHarass) FastHarassMode.FastHarass(); else Mixed.Harass();
                 break;
                 case EloBuddy.SDK.Orbwalker.ActiveModes.JungleClear:
                 case EloBuddy.SDK.Orbwalker.ActiveModes.LaneClear:

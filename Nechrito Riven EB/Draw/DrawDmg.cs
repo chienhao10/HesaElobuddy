@@ -34,6 +34,7 @@
                 //Chat.Print(enemy.BaseSkinName);
                 var tempOffset = 0;
                 if (enemy.BaseSkinName == "Annie") tempOffset -= 12;
+                if (enemy.BaseSkinName == "Jhin") tempOffset -= 14;
 
                 var damagePercentage = ((enemy.TotalShieldHealth() - 0.9 * damage) > 0 ? (enemy.TotalShieldHealth() - damage) : 0) / (enemy.MaxHealth + enemy.AllShield + enemy.AttackShield + enemy.MagicShield);
                 var currentHealthPercentage = enemy.TotalShieldHealth() / (enemy.MaxHealth + enemy.AllShield + enemy.AttackShield + enemy.MagicShield);
