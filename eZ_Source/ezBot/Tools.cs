@@ -12,47 +12,51 @@ namespace ezBot
 	internal static class Tools
 	{
 		public static string ezVersion = Application.ProductVersion;
+        static object lockerLog = new object();
 
 		public static void Log(string text)
 		{
-            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\logs")) Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\logs");
+            lock(lockerLog)
+            {
+                if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\logs")) Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\logs");
 
-            string path = AppDomain.CurrentDomain.BaseDirectory + "\\logs\\errors.txt";
-			try
-			{
-				bool flag = !File.Exists(path);
-				if (flag)
-				{
-					using (StreamWriter streamWriter = File.CreateText(path))
-					{
-						streamWriter.Write(string.Concat(new object[]
-						{
-							"[",
-							DateTime.Now,
-							"] ",
-							text,
-							Environment.NewLine
-						}));
-						return;
-					}
-				}
-				bool flag2 = File.Exists(path);
-				if (flag2)
-				{
-					File.AppendAllText(path, string.Concat(new object[]
-					{
-						"[",
-						DateTime.Now,
-						"] ",
-						text,
-						Environment.NewLine
-					}));
-				}
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine("The process failed: {0}", ex.ToString());
-			}
+                string path = AppDomain.CurrentDomain.BaseDirectory + "\\logs\\errors.txt";
+                try
+                {
+                    bool flag = !File.Exists(path);
+                    if (flag)
+                    {
+                        using (StreamWriter streamWriter = File.CreateText(path))
+                        {
+                            streamWriter.Write(string.Concat(new object[]
+                            {
+                            "[",
+                            DateTime.Now,
+                            "] ",
+                            text,
+                            Environment.NewLine
+                            }));
+                            return;
+                        }
+                    }
+                    bool flag2 = File.Exists(path);
+                    if (flag2)
+                    {
+                        File.AppendAllText(path, string.Concat(new object[]
+                        {
+                        "[",
+                        DateTime.Now,
+                        "] ",
+                        text,
+                        Environment.NewLine
+                        }));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("The process failed: {0}", ex.ToString());
+                }
+            }
 		}
 
 		public static void TitleMessage(string message)
