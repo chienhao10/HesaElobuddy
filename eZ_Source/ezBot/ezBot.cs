@@ -164,21 +164,13 @@ namespace ezBot
                     PGLC = null;
                 }
                 #region LobbyStatus
-                if(message is LobbyStatus)
+                if(message is LobbyStatus && !IsInQueue)
                 {
                     Lobby = message as LobbyStatus;
                     if (Lobby.Members.Count == GetFriendsToInvite().Count + 1)
                     {
                         Tools.ConsoleMessage("All players accepted, starting queue.", ConsoleColor.Cyan);
                         this.EnterQueue();
-                        try
-                        {
-                        //    var test = await connection.StartMatchmakingPhaseV1();
-                        }
-                        catch(Exception ex)
-                        {
-
-                        }
                     }
                     else
                     {
@@ -538,7 +530,7 @@ namespace ezBot
                                         Tools.ConsoleMessage("Queue popped.", ConsoleColor.White);
                                         firstTimeInQueuePop = false;
                                         firstTimeInLobby = true;
-                                        await Task.Delay(new Random().Next(1, 9) * new Random().Next(800, 1000));
+                                        await Task.Delay(new Random().Next(1, Program.queueWithFriends ? (GetFriendsToInvite().ToList().Count > 3 ? 2 : 4) : 8) * new Random().Next(800, 1000));
                                         Tools.ConsoleMessage("Accepted Queue!", ConsoleColor.White);
                                         try
                                         {
@@ -777,6 +769,7 @@ namespace ezBot
         {
             if (IsInQueue)
                 return;
+            IsInQueue = true;
 
             ShouldBeInGame = false;
             try
@@ -829,10 +822,16 @@ namespace ezBot
                     Console.WriteLine(ex.StackTrace);
                 }
 
+                if(searchingForMatchNotification == null)
+                {
+                    return;
+                }
+
                 if (searchingForMatchNotification.PlayerJoinFailures == null)
                 {
                     if (searchingForMatchNotification.JoinedQueues.Count == 0)
                     {
+                        IsInQueue = false;
                         //Tools.ConsoleMessage("Cannot queue for: " + queueType.ToString() + " at the moment.", ConsoleColor.Red);
                     }
                     else
@@ -845,6 +844,7 @@ namespace ezBot
                 {
                     foreach (FailedJoinPlayer playerJoinFailure in searchingForMatchNotification.PlayerJoinFailures)
                     {
+                        IsInQueue = false;
                         FailedJoinPlayer failedJoinPlayer = playerJoinFailure;
                         Tools.ConsoleMessage("Queue failed, reason: " + failedJoinPlayer.ReasonFailed + ".", ConsoleColor.Red);
                         if (failedJoinPlayer is BustedLeaver)

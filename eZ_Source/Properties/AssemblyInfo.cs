@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 
 [assembly: AssemblyVersion("2.0.1.0")]
-[assembly: AssemblyCompany("Tryller's Development")]
+[assembly: AssemblyCompany("Tryller's Development & Hesa")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyDescription("A League of Legends Auto Queue")]
