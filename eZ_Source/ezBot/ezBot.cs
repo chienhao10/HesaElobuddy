@@ -638,10 +638,7 @@ namespace ezBot
                                 var statWin = game.Statistics.FirstOrDefault(x => x.StatTypeName == "WIN");
                                 bool win = statWin != null && statWin.Value == 1;
                                 
-                                if (statWin != null)
-                                {
-                                    Program.AddGame(statWin.Value == 1);
-                                }
+                                Program.AddGame(win);
 
                                 var kills = 0;
                                 var deaths = 0;

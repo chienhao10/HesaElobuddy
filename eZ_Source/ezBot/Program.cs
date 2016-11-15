@@ -83,8 +83,6 @@ namespace ezBot
 
             try
             {
-                if (lolPath.Contains("notfound"))
-                    throw new Exception();
                 var dir = Directory.EnumerateDirectories(lolPath + "RADS\\solutions\\lol_game_client_sln\\releases\\").OrderBy(f => new DirectoryInfo(f).CreationTime).Last() + "\\deploy\\";
             }catch(Exception)
             {
@@ -128,7 +126,10 @@ namespace ezBot
                             {
                                 password = GetGarenaToken();
                             }
-                            ezBot ezBot = new ezBot(strArray[0], password, strArray[2].ToUpper(), Program.lolPath, queueType, Program.LoLVersion, isLeader);
+                            if (IsGameModeValid(queueType))
+                            {
+                                ezBot ezBot = new ezBot(strArray[0], password, strArray[2].ToUpper(), Program.lolPath, queueType, Program.LoLVersion, isLeader);
+                            }
                         }
                         else
                         {
@@ -302,7 +303,10 @@ namespace ezBot
                 {
                     Generator.CreateRandomThread(Program.delay1, Program.delay2);
                     string queueType = strArray[3];
-                    ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), Program.lolPath, queueType, Program.LoLVersion, isLeader);
+                    if (IsGameModeValid(queueType))
+                    {
+                        ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), Program.lolPath, queueType, Program.LoLVersion, isLeader);
+                    }
                 }
                 else
                 {
@@ -316,6 +320,31 @@ namespace ezBot
                     break;
                 }
             }
+        }
+
+        public static bool IsGameModeValid(string gameMode)
+        {
+            switch(gameMode)
+            {
+                case "INTRO_BOT": return true;
+                case "BEGINNER_BOT": return true;
+                case "MEDIUM_BOT": return true;
+                case "BOT_3x3": return true;
+                case "NORMAL_5X5": return true;
+                case "NORMAL_3X3": return true;
+                case "ARAM": return true;
+            }
+
+            Tools.ConsoleMessage("Game Mode invalid, make sure you are using one of the following modes ( CASE SENSITIVE )", ConsoleColor.Red);
+            Tools.ConsoleMessage("INTRO_BOT", ConsoleColor.Red);
+            Tools.ConsoleMessage("BEGINNER_BOT", ConsoleColor.Red);
+            Tools.ConsoleMessage("MEDIUM_BOT", ConsoleColor.Red);
+            Tools.ConsoleMessage("BOT_3x3", ConsoleColor.Red);
+            Tools.ConsoleMessage("NORMAL_5X5", ConsoleColor.Red);
+            Tools.ConsoleMessage("NORMAL_3X3", ConsoleColor.Red);
+            Tools.ConsoleMessage("ARAM", ConsoleColor.Red);
+
+            return false;
         }
 
         public static void LoadConfigs()
@@ -400,9 +429,15 @@ namespace ezBot
         
         public static void AddGame(bool won)
         {
-            if (won) victory++;
-            else defeat++;
-            Console.Title = string.Format("ezBot - {0} Total - {1} Victory - {2} Defeat", victory + defeat, victory, defeat);
+            if (won)
+            {
+                victory++;
+            }
+            else
+            {
+                defeat++;
+            }
+            Console.Title = string.Format("ezBot - {0} Total - {1} Victory - {2} Defeat", (victory + defeat), victory, defeat);
         }
 
     }
