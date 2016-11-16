@@ -31,6 +31,7 @@ namespace ezBot
         public string Accountname;
         public string Password;
         public string ipath;
+        public bool useGarena;
         public ChampionDTO[] AvailableChampions;
         public DateTime? GameStartedAt = null;
 
@@ -55,27 +56,40 @@ namespace ezBot
         public string queueType { get; set; }
 
         public string actualQueueType { get; set; }
-        
+
         private bool ShouldBeInGame { get; set; }
         private bool IsInQueue { get; set; }
 
         private LobbyStatus Lobby { get; set; }
 
         private bool m_isLeader { get; set; }
-        
+
         private int pickAtTurn = 0;
         private int turn = 0;
-        
-        ConsoleEventDelegate handler;   // Keeps it from getting garbage collected
+
+        private ConsoleEventDelegate handler;   // Keeps it from getting garbage collected
 
         private delegate bool ConsoleEventDelegate(int eventType);
+
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern bool SetConsoleCtrlHandler(ConsoleEventDelegate callback, bool add);
 
         [DllImport("user32.dll", EntryPoint = "FindWindowEx")]
         public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
 
-        bool ConsoleEventCallback(int eventType)
+        //
+        [DllImport("user32.dll")]
+        private static extern bool EnumThreadWindows(int dwThreadId, EnumThreadDelegate lpfn, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        private static extern bool IsWindowVisible(int hWnd);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern int GetWindowText(int hWnd, StringBuilder title, int size);
+
+        private delegate bool EnumThreadDelegate(IntPtr hWnd, IntPtr lParam);
+
+        private bool ConsoleEventCallback(int eventType)
         {
             if (eventType == 2)
             {
@@ -93,9 +107,10 @@ namespace ezBot
             return false;
         }
 
-        public ezBot(string username, string password, string reg, string path, string queueType, string LoLVersion, bool isLeader)
+        public ezBot(string username, string password, string reg, string queueType, string LoLVersion, bool isLeader)
         {
-            this.ipath = path;
+            this.useGarena = Tools.ParseEnum<Region>(reg).UseGarena();
+            this.ipath = useGarena ? Program.lolGarenaPath : Program.lolPath;
             this.queueType = queueType;
             this.region = reg;
             this.connection = new LoLClient(username, password, Tools.ParseEnum<Region>(this.region), LoLVersion);
@@ -112,28 +127,61 @@ namespace ezBot
             handler = new ConsoleEventDelegate(ConsoleEventCallback);
             Program.OnInvite += OnReceiveInvite;
 
-            new Thread(async () =>
+            new Thread(() =>
             {
-                while(true)
+                while (true)
                 {
-                    if(exeProcess != null)
+                    if (exeProcess != null)
                     {
+                        foreach (ProcessThread processThread in exeProcess.Threads)
+                        {
+                            EnumThreadWindows(processThread.Id,
+                             (hWnd, lParam) =>
+                             {
+                                 //Check if Window is Visible or not.
+                                 if (!IsWindowVisible((int)hWnd))
+                                     return true;
+
+                                 //Get the Window's Title.
+                                 StringBuilder title = new StringBuilder(256);
+                                 GetWindowText((int)hWnd, title, 256);
+
+                                 //Check if Window has Title.
+                                 //if (title.Length == 0)
+                                     //return true;
+
+                                 //_childrenhWnd.Add(hWnd);
+
+                                 if(title.ToString().ToLower() == "network warning")
+                                 {
+                                     exeProcess.Kill();
+                                     //await Task.Delay(1000);
+                                     Thread.Sleep(1000);
+                                     if (exeProcess.Responding)
+                                         Process.Start("taskkill /F /PID " + exeProcess.Id);//Process.Start("taskkill /F /IM \"League of Legends.exe\"");
+                                 }
+
+                                 return true;
+                             }, IntPtr.Zero);
+                        }
+                        /*
                         var childCount = new WindowHandleInfo(exeProcess.MainWindowHandle).GetAllChildHandles().Count;
                         //if (exeProcess.HandleCount > 1)
-                        //Console.WriteLine(childCount);
-                        if(childCount > 0)
+                        //Console.WriteLine("Child Count = " + childCount);
+                        //Console.WriteLine("Handle Count = " + exeProcess.HandleCount);
+                        if (childCount > 0)
                         {
                             exeProcess.Kill();
                             await Task.Delay(1000);
                             if (exeProcess.Responding)
-                                Process.Start("taskkill /F /IM \"League of Legends.exe\"");
-                        }
+                                Process.Start("taskkill /F /PID " + exeProcess.Id);//Process.Start("taskkill /F /IM \"League of Legends.exe\"");
+                        }*/
                     }
                     Thread.Sleep(10 * 1000);
                 }
             }).Start();
         }
-        
+
         public string EncryptText(string input, string password)
         {
             var hasher = new SHA1CryptoServiceProvider();
@@ -145,9 +193,9 @@ namespace ezBot
 
         public async void OnReceiveInvite(string from, string to, string inviteId)
         {
-            if(to.ToLower() == sumName.ToLower())
+            if (to.ToLower() == sumName.ToLower())
             {
-                if(from.ToLower() == Program.leaderName.ToLower())
+                if (from.ToLower() == Program.leaderName.ToLower())
                 {
                     Tools.ConsoleMessage("Accepting lobby invite", ConsoleColor.Cyan);
                     await Task.Delay(new Random().Next(1, 3) * new Random().Next(800, 1200));
@@ -169,13 +217,13 @@ namespace ezBot
                 var json = webClient.DownloadString(string.Format("https://{0}.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/{0}1/{1}?api_key=RGAPI-4840c81c-2c7f-47bc-a370-11f73e20cf19", this.region, this.sumId));
                 return !json.Contains("\"status_code\": 404");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Tools.Log(ex.StackTrace);
             }
             return false;
         }
-        
+
         public async void connection_OnMessageReceived(object sender, object messageReceivedEventArgs)
         {
             try
@@ -188,8 +236,10 @@ namespace ezBot
                     Tools.ConsoleMessage(PGLC.Game.GameStateString, ConsoleColor.Gray);
                     PGLC = null;
                 }
+
                 #region LobbyStatus
-                if(message is LobbyStatus && !IsInQueue)
+
+                if (message is LobbyStatus && !IsInQueue)
                 {
                     Lobby = message as LobbyStatus;
                     if (Lobby.Members.Count == GetFriendsToInvite().Count + 1)
@@ -199,12 +249,14 @@ namespace ezBot
                     }
                     else
                     {
-                        Tools.ConsoleMessage(string.Format("{0}/{1} player(s) accepted, waiting till everybody accepted.", Lobby.Members.Count -1, GetFriendsToInvite().Count), ConsoleColor.Cyan);
+                        Tools.ConsoleMessage(string.Format("{0}/{1} player(s) accepted, waiting till everybody accepted.", Lobby.Members.Count - 1, GetFriendsToInvite().Count), ConsoleColor.Cyan);
                     }
                 }
-                #endregion
+
+                #endregion LobbyStatus
 
                 #region GameDTO
+
                 if (message is GameDTO)
                 {
                     GameDTO gameDTO = message as GameDTO;
@@ -216,6 +268,7 @@ namespace ezBot
                         {
                             case "IDLE":
                             break;
+
                             case "TEAM_SELECT":
                             if (firstTimeInCustom)
                             {
@@ -224,13 +277,14 @@ namespace ezBot
                                 firstTimeInCustom = false;
                             }
                             break;
+
                             case "CHAMP_SELECT":
                             {
                                 this.firstTimeInCustom = true;
                                 this.firstTimeInQueuePop = true;
                                 if (this.firstTimeInLobby)
                                 {
-                                    if(this.queueType != "ARAM")
+                                    if (this.queueType != "ARAM")
                                     {
                                         if (pickAtTurn == 0)
                                         {
@@ -257,7 +311,8 @@ namespace ezBot
                                             turn++;
                                             return;
                                         }
-                                    }else
+                                    }
+                                    else
                                     {
                                         Tools.ConsoleMessage("You are in champion select.", ConsoleColor.White);
                                         try
@@ -271,7 +326,9 @@ namespace ezBot
                                         }
                                     }
                                     this.firstTimeInLobby = false;
+
                                     #region Not Aram
+
                                     if (this.queueType != "ARAM" && this.queueType != "ARAM_UNRANKED_1x1" && this.queueType != "ARAM_UNRANKED_2x2" && (this.queueType != "ARAM_UNRANKED_3x3" && this.queueType != "ARAM_UNRANKED_5x5") && this.queueType != "ARAM_UNRANKED_6x6")
                                     {
                                         List<ChampionDTO> ChampList = new List<ChampionDTO>(this.AvailableChampions);
@@ -281,7 +338,7 @@ namespace ezBot
                                             foreach (ChampionDTO championDto in ChampList)
                                             {
                                                 var freeToPlay = ((IEnumerable<int>)this.loginPacket.ClientSystemStates.freeToPlayChampionForNewPlayersIdList).Contains(championDto.ChampionId);
-                                                if(freeToPlay)
+                                                if (freeToPlay)
                                                 {
                                                     championDto.FreeToPlay = true;
                                                 }
@@ -318,7 +375,6 @@ namespace ezBot
                                                 var index = new Random().Next(0, champList.Count - 1);
                                                 var championString = champList[index];
                                                 champList.RemoveAt(index);
-
 
                                                 int championId = Enums.GetChampion(championString);
                                                 ChampionDTO champDto = ChampList.FirstOrDefault(c => c.ChampionId == championId);
@@ -422,8 +478,11 @@ namespace ezBot
                                         ChampList = null;
                                         championName = null;
                                     }
-                                    #endregion
+
+                                    #endregion Not Aram
+
                                     #region ARAM
+
                                     if (this.queueType == "ARAM" || this.queueType == "ARAM_UNRANKED_1x1" || this.queueType == "ARAM_UNRANKED_2x2" || (this.queueType == "ARAM_UNRANKED_3x3" || this.queueType == "ARAM_UNRANKED_5x5") || this.queueType == "ARAM_UNRANKED_6x6")
                                     {
                                         var champion = gameDTO.PlayerChampionSelections.FirstOrDefault(x => x.SummonerInternalName.ToLower() == sumName.ToLower().Replace(" ", ""));
@@ -463,7 +522,7 @@ namespace ezBot
                                             Spell1 = Convert.ToInt32(randomSpell1);
                                             Spell2 = Convert.ToInt32(randomSpell2);
                                         }
-                                        
+
                                         try
                                         {
                                             await Task.Delay(new Random().Next(1, 9) * new Random().Next(800, 1000));
@@ -477,10 +536,12 @@ namespace ezBot
                                         }
                                         Tools.ConsoleMessage("Waiting for other players to lockin.", ConsoleColor.White);
                                     }
-                                    #endregion
+
+                                    #endregion ARAM
                                 }
                             }
                             break;
+
                             case "POST_CHAMP_SELECT":
                             {
                                 firstTimeInLobby = false;
@@ -491,26 +552,34 @@ namespace ezBot
                                 }
                             }
                             break;
+
                             case "PRE_CHAMP_SELECT":
                             break;
+
                             case "START_REQUESTED":
                             {
                                 ShouldBeInGame = true;
                             }
                             break;
+
                             case "GAME_START_CLIENT":
                             break;
+
                             case "GameClientConnectedToServer":
                             break;
+
                             case "IN_PROGRESS":
                             break;
+
                             case "IN_QUEUE":
                             {
                                 Tools.ConsoleMessage("You are in queue.", ConsoleColor.White);
                             }
                             break;
+
                             case "POST_GAME":
                             break;
+
                             case "TERMINATED":
                             {
                                 pickAtTurn = 0;
@@ -538,15 +607,20 @@ namespace ezBot
                                 }
                             }
                             break;
+
                             case "TERMINATED_IN_ERROR":
                             break;
+
                             case "CHAMP_SELECT_CLIENT":
-                                //ShouldBeInGame = true;
+                            //ShouldBeInGame = true;
                             break;
+
                             case "GameReconnect":
                             break;
+
                             case "GAME_IN_PROGRESS":
                             break;
+
                             case "JOINING_CHAMP_SELECT":
                             {
                                 if (firstTimeInQueuePop)
@@ -582,15 +656,19 @@ namespace ezBot
                                 }
                             }
                             break;
+
                             case "WAITING":
                             break;
+
                             case "DISCONNECTED":
                             break;
+
                             case "LEAVER_BUSTED":
                             {
                                 Tools.ConsoleMessage("You have leave buster.", ConsoleColor.White);
                             }
                             break;
+
                             default:
                             break;
                         }
@@ -598,13 +676,16 @@ namespace ezBot
                     gameDTO = null;
                     gameState = null;
                 }
-                #endregion
+
+                #endregion GameDTO
+
                 #region PlayerCredentials
+
                 else if (message is PlayerCredentialsDto)
                 {
                     try
                     {
-                        if(GameStartedAt == null) GameStartedAt = DateTime.Now;
+                        if (GameStartedAt == null) GameStartedAt = DateTime.Now;
                         this.firstTimeInPostChampSelect = true;
                         PlayerCredentialsDto playerCredentialsDto = message as PlayerCredentialsDto;
                         ProcessStartInfo startInfo = new ProcessStartInfo();
@@ -626,7 +707,7 @@ namespace ezBot
                                 this.exeProcess.PriorityClass = !Program.LOWPriority ? ProcessPriorityClass.High : ProcessPriorityClass.Idle;
                                 this.exeProcess.EnableRaisingEvents = true;
                             }
-                            catch(InvocationException ex)
+                            catch (InvocationException ex)
                             {
                                 Tools.Log(ex.StackTrace);
                             }
@@ -636,7 +717,7 @@ namespace ezBot
                         ShouldBeInGame = true;
                         IsInQueue = false;
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Tools.Log(ex.StackTrace);
                         Console.WriteLine(ex.StackTrace);
@@ -644,7 +725,9 @@ namespace ezBot
                         //
                     }
                 }
-                #endregion
+
+                #endregion PlayerCredentials
+
                 else
                 {
                     if (message is GameNotification || message is SearchingForMatchNotification)
@@ -654,16 +737,16 @@ namespace ezBot
                     if (message is EndOfGameStats)
                     {
                         var match = message as EndOfGameStats;
-                        if(match.TeamPlayerParticipantStats != null && match.TeamPlayerParticipantStats.Count > 0)
+                        if (match.TeamPlayerParticipantStats != null && match.TeamPlayerParticipantStats.Count > 0)
                         {
                             var game = match.TeamPlayerParticipantStats.FirstOrDefault(x => x.SummonerName.ToLower() == sumName.ToLower().Replace(" ", ""));
-                            
+
                             if (game != null)
                             {
-                                if(Program.printGameStats) foreach (var stat1 in game.Statistics) Tools.ConsoleMessage(stat1.StatTypeName + " = " + stat1.Value.ToString(), ConsoleColor.White);
+                                if (Program.printGameStats) foreach (var stat1 in game.Statistics) Tools.ConsoleMessage(stat1.StatTypeName + " = " + stat1.Value.ToString(), ConsoleColor.White);
                                 var statWin = game.Statistics.FirstOrDefault(x => x.StatTypeName == "WIN");
                                 bool win = statWin != null && statWin.Value == 1;
-                                
+
                                 Program.AddGame(win);
 
                                 var kills = 0;
@@ -671,7 +754,7 @@ namespace ezBot
                                 var assists = 0;
 
                                 var k = game.Statistics.FirstOrDefault(x => x.StatTypeName == "CHAMPIONS_KILLED");
-                                if (k != null) kills = (int) k.Value;
+                                if (k != null) kills = (int)k.Value;
 
                                 var d = game.Statistics.FirstOrDefault(x => x.StatTypeName == "NUM_DEATHS");
                                 if (d != null) deaths = (int)d.Value;
@@ -681,7 +764,6 @@ namespace ezBot
 
                                 Tools.ConsoleMessage(string.Format("{4} - {0} - {1}/{2}/{3}", win ? "Victory" : "Defeat", kills, deaths, assists, sumName), ConsoleColor.Magenta);
                             }
-
                         }
                         ShouldBeInGame = false;
                         GameStartedAt = null;
@@ -702,7 +784,7 @@ namespace ezBot
                     }
                     else
                     {
-                        if(message is AsObject)
+                        if (message is AsObject)
                         {
                             var temp = (AsObject)message;
                             //Console.WriteLine(temp.TypeName);
@@ -721,14 +803,14 @@ namespace ezBot
                     }
                 }
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 Tools.Log(exc.StackTrace);
                 //Tools.ConsoleMessage(exc.StackTrace, ConsoleColor.Red);
             }
         }
 
-        static string UcFirst(string s)
+        private static string UcFirst(string s)
         {
             if (string.IsNullOrEmpty(s))
             {
@@ -739,7 +821,7 @@ namespace ezBot
             return new string(a);
         }
 
-        object locker = new object();
+        private object locker = new object();
 
         private async Task CloseGame()
         {
@@ -755,7 +837,8 @@ namespace ezBot
                 this.exeProcess.Kill();
                 await Task.Delay(1000);
                 if (this.exeProcess.Responding)
-                    Process.Start("taskkill /F /IM \"League of Legends.exe\"");
+                    Process.Start("taskkill /F /PID " + exeProcess.Id); //Process.Start("taskkill /F /IM \"League of Legends.exe\"");
+                this.exeProcess = null;
                 this.loginPacket = await this.connection.GetLoginDataPacketForUser();
                 this.archiveSumLevel = this.sumLevel;
                 this.sumLevel = this.loginPacket.AllSummonerData.SummonerLevel.Level;
@@ -820,7 +903,7 @@ namespace ezBot
                 var queues = await connection.GetAvailableQueues();
 
                 matchMakerParams.QueueIds = new int[1] { (int)Enum.Parse(typeof(QueueTypeId), this.queueType) };
-                if(Lobby != null && Program.queueWithFriends)
+                if (Lobby != null && Program.queueWithFriends)
                 {
                     matchMakerParams.InvitationId = Lobby.InvitationID;
                     matchMakerParams.Team = Lobby.Members.Select(stats => Convert.ToInt32(stats.SummonerId)).ToList();
@@ -839,13 +922,13 @@ namespace ezBot
                     Tools.Log(ex.StackTrace);
                     Console.WriteLine("Got an exception where we should not!");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Tools.Log(ex.StackTrace);
                     Console.WriteLine(ex.StackTrace);
                 }
 
-                if(searchingForMatchNotification == null)
+                if (searchingForMatchNotification == null)
                 {
                     return;
                 }
@@ -891,7 +974,7 @@ namespace ezBot
                                         Command = "ack"
                                     });
                                 }
-                                catch(Exception ex)
+                                catch (Exception ex)
                                 {
                                     Tools.ConsoleMessage("Leaver Buster Tainted Warning error: " + ex.StackTrace, ConsoleColor.Red);
                                 }
@@ -911,9 +994,10 @@ namespace ezBot
                                 //Thread.Sleep(TimeSpan.FromMilliseconds(current.PenaltyRemainingTime));
                                 this.connection_OnMessageReceived(null, new EndOfGameStats());
                             }
-                            current = null; 
+                            current = null;
                             failedJoinPlayer = null;
-                        }else if(failedJoinPlayer.ReasonFailed == "LEAVER_BUSTER_TAINTED_WARNING")
+                        }
+                        else if (failedJoinPlayer.ReasonFailed == "LEAVER_BUSTER_TAINTED_WARNING")
                         {
                             try
                             {
@@ -940,9 +1024,9 @@ namespace ezBot
                         await Task.Delay(TimeSpan.FromMilliseconds(this.m_leaverBustedPenalty));
                         Dictionary<string, object> lbdic = new Dictionary<string, object>();
                         lbdic.Add("LEAVER_BUSTER_ACCESS_TOKEN", this.m_accessToken);
-                        
+
                         searchingForMatchNotification = await this.connection.AttachToQueue(matchMakerParams, new AsObject(lbdic));
-                        
+
                         if (searchingForMatchNotification.PlayerJoinFailures == null)
                         {
                             Tools.ConsoleMessage("Joined lower priority queue! as " + this.loginPacket.AllSummonerData.Summoner.Name + ".", ConsoleColor.Cyan);
@@ -959,7 +1043,7 @@ namespace ezBot
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Tools.Log(ex.StackTrace);
                 Tools.ConsoleMessage("Error occured: " + ex.StackTrace, ConsoleColor.Red);
@@ -969,16 +1053,20 @@ namespace ezBot
 
         private string FindLoLExe()
         {
-            string ipath = this.ipath;
             if (ipath.Contains("notfound"))
                 return ipath;
+            if(useGarena)
+            {
+                return ipath + "GAME\\";
+            }
+            else
             return Directory.EnumerateDirectories(ipath + "RADS\\solutions\\lol_game_client_sln\\releases\\").OrderBy(f => new DirectoryInfo(f).CreationTime).Last() + "\\deploy\\";
         }
 
         private async void RestartLeague()
         {
             var found = false;
-            while(!found)
+            while (!found)
             {
                 if (GameStartedAt == null)// || exeProcess != null)
                 {
@@ -986,7 +1074,7 @@ namespace ezBot
                     break;
                 }
                 var ellapsedTime = DateTime.Now.Subtract(GameStartedAt.Value).Minutes;
-                if (ellapsedTime >= 3)
+                if (ellapsedTime >= 0)
                 {
                     try
                     {
@@ -1032,17 +1120,18 @@ namespace ezBot
         {
             try
             {
+                this.exeProcess = null;
                 this.loginPacket = await connection.GetLoginDataPacketForUser();
                 if (this.loginPacket.ReconnectInfo != null || ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).Game != null)
                 {
                     var ellapsedTime = DateTime.Now.Subtract(GameStartedAt.Value).Minutes;
 
-                    if(ellapsedTime >= 1)
+                    if (ellapsedTime >= 0)
                     {
-
                         Tools.ConsoleMessage("Restarting League of Legends.", ConsoleColor.White);
                         connection_OnMessageReceived(sender, ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).PlayerCredentials);
-                    }else
+                    }
+                    else
                     {
                         Tools.ConsoleMessage("Restarting League of Legends at " + GameStartedAt.Value.AddMinutes(1).ToLongTimeString() + " please wait.", ConsoleColor.White);
                         new Thread(RestartLeague).Start();
@@ -1054,13 +1143,13 @@ namespace ezBot
                     connection_OnMessageReceived(sender, new EndOfGameStats());
                 }
             }
-            catch(InvocationException ex)
+            catch (InvocationException ex)
             {
                 Tools.Log(ex.StackTrace);
                 //Console.WriteLine("Got ClientDisconnected exception after the game has quit.");
                 //connection.ConnectAndLogin().Wait();
             }
-            catch(NullReferenceException ex)
+            catch (NullReferenceException ex)
             {
                 Tools.Log(ex.StackTrace);
                 //Console.WriteLine("Got ClientDisconnected exception after the game has quit.");
@@ -1169,9 +1258,9 @@ namespace ezBot
                     this.queueType = "BEGINNER_BOT";
                     this.actualQueueType = "NORMAL_3X3";
                 }
-                
-                Tools.ConsoleMessage("Welcome " + this.loginPacket.AllSummonerData.Summoner.Name + " - lvl (" + (object)this.loginPacket.AllSummonerData.SummonerLevel.Level + ") IP: (" + this.ipBalance.ToString() + ") - XP: (" + this.loginPacket.AllSummonerData.SummonerLevelAndPoints.ExpPoints + " / " + this.loginPacket.AllSummonerData.SummonerLevel.ExpToNextLevel +")", ConsoleColor.White);
-                
+
+                Tools.ConsoleMessage("Welcome " + this.loginPacket.AllSummonerData.Summoner.Name + " - lvl (" + (object)this.loginPacket.AllSummonerData.SummonerLevel.Level + ") IP: (" + this.ipBalance.ToString() + ") - XP: (" + this.loginPacket.AllSummonerData.SummonerLevelAndPoints.ExpPoints + " / " + this.loginPacket.AllSummonerData.SummonerLevel.ExpToNextLevel + ")", ConsoleColor.White);
+
                 PlayerDto player = await this.connection.CreatePlayer();
                 if (this.loginPacket.ReconnectInfo != null && ((PlatformGameLifecycleDTO)this.loginPacket.ReconnectInfo).Game != null)
                     this.connection_OnMessageReceived((object)this, (object)((PlatformGameLifecycleDTO)this.loginPacket.ReconnectInfo).PlayerCredentials);
@@ -1181,13 +1270,13 @@ namespace ezBot
                     {
                         await this.connection.DestroyGroupFinderLobby();
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Tools.Log(ex.StackTrace);
                     }
-                    if(Program.queueWithFriends)
+                    if (Program.queueWithFriends)
                     {
-                        if(this.m_isLeader)
+                        if (this.m_isLeader)
                         {
                             Tools.ConsoleMessage("Sending game invites.", ConsoleColor.Cyan);
                             sendGameInvites();
@@ -1196,23 +1285,24 @@ namespace ezBot
                         {
                             Tools.ConsoleMessage(string.Format("Waiting game invite from {0}.", Program.leaderName), ConsoleColor.Cyan);
                         }
-                    }else
+                    }
+                    else
                     {
                         this.connection_OnMessageReceived((object)this, (object)new EndOfGameStats());
                     }
                 }
             }
         }
-        
+
         private async void sendGameInvites()
         {
             try
             {
-                if(queueType == "INTRO_BOT" || queueType == "BEGINNER_BOT")
+                if (queueType == "INTRO_BOT" || queueType == "BEGINNER_BOT")
                 {
                     var lobby = await connection.CreateArrangedBotTeamLobby(GetGameModeId(), "EASY");
                 }
-                else if(queueType == "MEDIUM_BOT" || queueType == "BOT_3x3")
+                else if (queueType == "MEDIUM_BOT" || queueType == "BOT_3x3")
                 {
                     var lobby = await connection.CreateArrangedBotTeamLobby(GetGameModeId(), "MEDIUM");
                 }
@@ -1232,7 +1322,7 @@ namespace ezBot
                         Program.OnInvite?.Invoke(sumName, Program.firstFriend.ToLower(), Lobby.InvitationID);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Tools.Log(ex.StackTrace);
                     Program.firstFriend = null;
@@ -1286,11 +1376,11 @@ namespace ezBot
                     Program.fourthFriend = null;
                 }
             }
-            catch(InvocationException ex)
+            catch (InvocationException ex)
             {
                 Tools.ConsoleMessage(ex.StackTrace, ConsoleColor.Red);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Tools.ConsoleMessage(ex.StackTrace, ConsoleColor.Red);
             }
@@ -1380,7 +1470,7 @@ namespace ezBot
         public List<string> GetFriendsToInvite()
         {
             var list = new List<string>();
-            if(!string.IsNullOrEmpty(Program.firstFriend))
+            if (!string.IsNullOrEmpty(Program.firstFriend))
             {
                 list.Add(Program.firstFriend);
             }

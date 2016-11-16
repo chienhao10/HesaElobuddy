@@ -40,6 +40,7 @@ namespace ezBot
         public static int lolWidth = 300;
         public static bool LOWPriority = true;
         public static string lolPath;
+        public static string lolGarenaPath;
         //Friends...
         public static bool queueWithFriends = false;
         public static string leaderName = "";
@@ -69,6 +70,7 @@ namespace ezBot
             Tools.ConsoleMessage("Skype: wisahesa", ConsoleColor.Magenta);
             Tools.ConsoleMessage("Paypal: h3xc0r3@gmail.com", ConsoleColor.Magenta);
             Tools.ConsoleMessage("Get support on discord: https://discord.gg/Fg2tQGa", ConsoleColor.Magenta);
+            Tools.ConsoleMessage("Garena now supported!", ConsoleColor.Cyan);
 
             Tools.ConsoleMessage("I uploaded the source code on github at github.com/hesa2020/HesaElobuddy.", ConsoleColor.Cyan);
             Tools.ConsoleMessage("Please report issue(s) on the ezbot thread customized by hesa on Elobuddy.net.", ConsoleColor.Cyan);
@@ -130,14 +132,14 @@ namespace ezBot
                             }
                             if (IsGameModeValid(queueType))
                             {
-                                ezBot ezBot = new ezBot(strArray[0], password, strArray[2].ToUpper(), Program.lolPath, queueType, Program.LoLVersion, isLeader);
+                                ezBot ezBot = new ezBot(strArray[0], password, strArray[2].ToUpper(), queueType, Program.LoLVersion, isLeader);
                             }
                         }
                         else
                         {
                             Generator.CreateRandomThread(Program.delay1, Program.delay2);
                             string queueType = "ARAM";
-                            ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), Program.lolPath, queueType, Program.LoLVersion, isLeader);
+                            ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), queueType, Program.LoLVersion, isLeader);
                         }
                         if (num == Program.maxBots)
                         {
@@ -311,14 +313,14 @@ namespace ezBot
                     string queueType = strArray[3];
                     if (IsGameModeValid(queueType))
                     {
-                        ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), Program.lolPath, queueType, Program.LoLVersion, isLeader);
+                        ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), queueType, Program.LoLVersion, isLeader);
                     }
                 }
                 else
                 {
                     Generator.CreateRandomThread(Program.delay1, Program.delay2);
                     string queueType = "ARAM";
-                    ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), Program.lolPath, queueType, Program.LoLVersion, isLeader);
+                    ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), queueType, Program.LoLVersion, isLeader);
                 }
                 if (num == Program.maxBots)
                 {
@@ -403,6 +405,15 @@ namespace ezBot
                 catch (Exception ex)
                 {
                     iniFile.Write("GENERAL", "PrintGameStats", "false");
+                    Tools.Log(ex.StackTrace);
+                }
+                try
+                {
+                    lolGarenaPath = iniFile.Read("GENERAL", "GarenaLoLFolder");
+                }
+                catch (Exception ex)
+                {
+                    iniFile.Write("GENERAL", "GarenaLoLFolder", @"C:\GarenaLoL\GameData\Apps\LoL\");
                     Tools.Log(ex.StackTrace);
                 }
             }

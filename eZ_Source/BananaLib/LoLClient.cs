@@ -716,7 +716,13 @@ namespace BananaLib
                         RtmpClient.SubscribeAsync("my-rtmps", "messagingDestination", "bc", strArray[2])
                     }).ConfigureAwait(false);
 
-                    IsConnected = await RtmpClient.LoginAsync(Username.ToLower(), Session.Token).ConfigureAwait(false);
+
+                    if (_useGarena)
+                        IsConnected = await RtmpClient.LoginAsync(cred.Username, Session.Token).ConfigureAwait(false);
+                    else
+                        IsConnected = await RtmpClient.LoginAsync(Username.ToLower(), Session.Token).ConfigureAwait(false);
+
+                    //IsConnected = await RtmpClient.LoginAsync(Username.ToLower(), Session.Token).ConfigureAwait(false);
 
                     _heartbeatTimer = new Timer();
                     _heartbeatTimer.Elapsed += new ElapsedEventHandler(DoHeartBeat);
