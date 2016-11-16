@@ -107,6 +107,8 @@ namespace ezBot
             return false;
         }
 
+        private int notRespondingTick = 0;
+
         public ezBot(string username, string password, string reg, string queueType, string LoLVersion, bool isLeader)
         {
             this.useGarena = Tools.ParseEnum<Region>(reg).UseGarena();
@@ -133,6 +135,25 @@ namespace ezBot
                 {
                     if (exeProcess != null)
                     {
+                        if(!exeProcess.Responding)
+                        {
+                            notRespondingTick++;
+                            if(notRespondingTick == 2)
+                            {
+                                exeProcess.Kill();
+                                Thread.Sleep(1000);
+                                if (exeProcess.Responding)
+                                {
+                                    var processInfo = new ProcessStartInfo()
+                                    {
+                                        Arguments = "/f /PID " + exeProcess.Id,
+                                        FileName = "taskkill.exe",
+                                        WindowStyle = ProcessWindowStyle.Hidden
+                                    };
+                                    Process.Start(processInfo);
+                                }
+                            }
+                        }else notRespondingTick = 0;
                         foreach (ProcessThread processThread in exeProcess.Threads)
                         {
                             EnumThreadWindows(processThread.Id,
@@ -824,6 +845,7 @@ namespace ezBot
         {
             try
             {
+                Program.GameTerminated();
                 GameStartedAt = null;
                 ShouldBeInGame = false;
                 if (exeProcess == null) return;
@@ -834,7 +856,15 @@ namespace ezBot
                 this.exeProcess.Kill();
                 await Task.Delay(1000);
                 if (this.exeProcess.Responding)
-                    Process.Start("taskkill /F /PID " + exeProcess.Id); //Process.Start("taskkill /F /IM \"League of Legends.exe\"");
+                {
+                    var processInfo = new ProcessStartInfo()
+                    {
+                        Arguments = "/f /PID " + exeProcess.Id,
+                        FileName = "taskkill.exe",
+                        WindowStyle = ProcessWindowStyle.Hidden
+                    };
+                    Process.Start(processInfo);
+                }
                 this.exeProcess = null;
                 this.loginPacket = await this.connection.GetLoginDataPacketForUser();
                 this.archiveSumLevel = this.sumLevel;

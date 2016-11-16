@@ -480,34 +480,25 @@ namespace ezBot
 
         private static int victory = 0;
         private static int defeat = 0;
+        private static int gameTerminated;
 
         public static void GameStarted()
         {
             currentMatchCount++;
         }
-        
-        public static void AddGame(bool won)
-        {
-            currentMatchCount--;
-            if (won)
-            {
-                victory++;
-            }
-            else
-            {
-                defeat++;
-            }
-            var total = (victory + defeat);
-            Console.Title = string.Format("ezBot - {0} Total - {1} Victory - {2} Defeat", total, victory, defeat);
 
-            if(shutdownAfterXMatch != 0 && shutdownAfterXMatch >= total)
+        public static void GameTerminated()
+        {
+            gameTerminated++;
+            currentMatchCount--;
+            if (shutdownAfterXMatch != 0 && shutdownAfterXMatch >= gameTerminated)
             {
-                if(currentMatchCount != 0)
+                if (currentMatchCount != 0)
                 {
                     Tools.ConsoleMessage("Will shutdown once the current match ends.", ConsoleColor.Yellow);
                     return;
                 }
-                if(shutdownComputer)
+                if (shutdownComputer)
                 {
                     var processInfo = new ProcessStartInfo()
                     {
@@ -519,6 +510,20 @@ namespace ezBot
                 }
                 Environment.Exit(0);
             }
+        }
+        
+        public static void AddGame(bool won)
+        {
+            if (won)
+            {
+                victory++;
+            }
+            else
+            {
+                defeat++;
+            }
+            var total = (victory + defeat);
+            Console.Title = string.Format("ezBot - {0} Total - {1} Victory - {2} Defeat", total, victory, defeat);
         }
 
     }
