@@ -855,14 +855,21 @@ namespace ezBot
                             }
                             else if (current.ReasonFailed == "LEAVER_BUSTER_TAINTED_WARNING")
                             {
-                                object obj1 = await this.connection.ackLeaverBusterWarning();
-                                object obj2 = await this.connection.callPersistenceMessaging(new SimpleDialogMessageResponse()
+                                try
                                 {
-                                    AccountId = this.loginPacket.AllSummonerData.Summoner.SummonerId,
-                                    MessageId = this.loginPacket.AllSummonerData.Summoner.SummonerId.ToString(),
-                                    Command = "ack"
-                                });
-                                this.connection_OnMessageReceived((object)null, (object)new EndOfGameStats());
+                                    object obj1 = await this.connection.ackLeaverBusterWarning();
+                                    object obj2 = await this.connection.callPersistenceMessaging(new SimpleDialogMessageResponse()
+                                    {
+                                        AccountId = this.loginPacket.AllSummonerData.Summoner.SummonerId,
+                                        MessageId = this.loginPacket.AllSummonerData.Summoner.SummonerId.ToString(),
+                                        Command = "ack"
+                                    });
+                                }
+                                catch(Exception ex)
+                                {
+                                    Tools.ConsoleMessage("Leaver Buster Tainted Warning error: " + ex.StackTrace, ConsoleColor.Red);
+                                }
+                                this.connection_OnMessageReceived(null, new EndOfGameStats());
                             }
                             current = null;
                             failedJoinPlayer = null;
@@ -872,30 +879,37 @@ namespace ezBot
                             QueueDodger current = failedJoinPlayer as QueueDodger;
                             if (current.ReasonFailed == "QUEUE_DODGER")
                             {
-                                Tools.ConsoleMessage("Waiting queue dodger timer: " + (object)(float)(current.PenaltyRemainingTime / 1000.0 / 60.0) + " minutes!", ConsoleColor.White);
+                                Tools.ConsoleMessage("Waiting queue dodger timer: " + (float)(current.PenaltyRemainingTime / 1000.0 / 60.0) + " minutes!", ConsoleColor.White);
                                 //Thread.Sleep((int)(current.PenaltyRemainingTime));
                                 await Task.Delay(TimeSpan.FromMilliseconds(current.PenaltyRemainingTime));
                                 //Thread.Sleep(TimeSpan.FromMilliseconds(current.PenaltyRemainingTime));
-                                this.connection_OnMessageReceived((object)null, (object)new EndOfGameStats());
+                                this.connection_OnMessageReceived(null, new EndOfGameStats());
                             }
-                            current = (QueueDodger)null; 
-                            failedJoinPlayer = (FailedJoinPlayer)null;
+                            current = null; 
+                            failedJoinPlayer = null;
                         }else if(failedJoinPlayer.ReasonFailed == "LEAVER_BUSTER_TAINTED_WARNING")
                         {
-                            object obj1 = await this.connection.ackLeaverBusterWarning();
-                            object obj2 = await this.connection.callPersistenceMessaging(new SimpleDialogMessageResponse()
+                            try
                             {
-                                AccountId = this.loginPacket.AllSummonerData.Summoner.SummonerId,
-                                MessageId = this.loginPacket.AllSummonerData.Summoner.SummonerId.ToString(),
-                                Command = "ack"
-                            });
-                            this.connection_OnMessageReceived((object)null, (object)new EndOfGameStats());
+                                object obj1 = await this.connection.ackLeaverBusterWarning();
+                                object obj2 = await this.connection.callPersistenceMessaging(new SimpleDialogMessageResponse()
+                                {
+                                    AccountId = this.loginPacket.AllSummonerData.Summoner.SummonerId,
+                                    MessageId = this.loginPacket.AllSummonerData.Summoner.SummonerId.ToString(),
+                                    Command = "ack"
+                                });
+                            }
+                            catch (Exception ex)
+                            {
+                                Tools.ConsoleMessage("Leaver Buster Tainted Warning error: " + ex.StackTrace, ConsoleColor.Red);
+                            }
+                            this.connection_OnMessageReceived(null, new EndOfGameStats());
                         }
                     }
                     List<FailedJoinPlayer>.Enumerator enumerator = new List<FailedJoinPlayer>.Enumerator();
                     if (!string.IsNullOrEmpty(this.m_accessToken))
                     {
-                        Tools.ConsoleMessage("Waiting leaver buster timer: " + (object)(float)(this.m_leaverBustedPenalty / 1000.0 / 60.0) + " minutes!", ConsoleColor.White);
+                        Tools.ConsoleMessage("Waiting leaver buster timer: " + (float)(this.m_leaverBustedPenalty / 1000.0 / 60.0) + " minutes!", ConsoleColor.White);
                         //Thread.Sleep(TimeSpan.FromMilliseconds(this.m_leaverBustedPenalty));
                         await Task.Delay(TimeSpan.FromMilliseconds(this.m_leaverBustedPenalty));
                         Dictionary<string, object> lbdic = new Dictionary<string, object>();

@@ -183,7 +183,7 @@ namespace BananaLib.RestService
                     }
                     if (num == 1)
                         await Task.Delay(1000).ConfigureAwait(false);
-                    else if (this.AuthResult.Reason == null)
+                    else if (this.AuthResult.Reason == null && !this._useGarena)
                     {
                         if (retriesRemaining > 0)
                         {
@@ -194,6 +194,14 @@ namespace BananaLib.RestService
                             OnAuthFailed?.Invoke("Unable to get Auth Token.");
                             return false;
                         }
+                    }else if(this._useGarena)
+                    {
+                        if (this.AuthResult.Status == "LOGIN")
+                        {
+                            this.AuthToken = this.AuthResult.Lqt.ToString();
+                            return true;
+                        }
+                        await Task.Delay(1000).ConfigureAwait(false);
                     }
                     else
                     {
