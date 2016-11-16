@@ -140,18 +140,13 @@ namespace ezBot
                             notRespondingTick++;
                             if(notRespondingTick == 2)
                             {
-                                exeProcess.Kill();
-                                Thread.Sleep(1000);
-                                if (exeProcess.Responding)
+                                var processInfo = new ProcessStartInfo()
                                 {
-                                    var processInfo = new ProcessStartInfo()
-                                    {
-                                        Arguments = "/f /PID " + exeProcess.Id,
-                                        FileName = "taskkill.exe",
-                                        WindowStyle = ProcessWindowStyle.Hidden
-                                    };
-                                    Process.Start(processInfo);
-                                }
+                                    Arguments = "/f /PID " + exeProcess.Id,
+                                    FileName = "taskkill.exe",
+                                    WindowStyle = ProcessWindowStyle.Hidden
+                                };
+                                Process.Start(processInfo);
                             }
                         }else notRespondingTick = 0;
                         foreach (ProcessThread processThread in exeProcess.Threads)
