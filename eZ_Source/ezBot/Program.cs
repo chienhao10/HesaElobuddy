@@ -51,6 +51,8 @@ namespace ezBot
 
         public static string EzBotVersion = "Unknown";
         public static Action<string, string, string> OnInvite;
+        public static int shutdownAfterXMatch = 0;
+        public static bool shutdownComputer = false;
 
         private static void Main(string[] args)
         {
@@ -437,6 +439,17 @@ namespace ezBot
                     lolGarenaPath = "C:\\GarenaLoL\\GameData\\Apps\\LoL\\";
                     Tools.Log(ex.StackTrace);
                 }
+                try
+                {
+                    shutdownAfterXMatch = Convert.ToInt32(iniFile.Read("SHUTDOWN", "AfterXGames"));
+                    shutdownComputer = Convert.ToBoolean(iniFile.Read("SHUTDOWN", "AlsoCloseComputer"));
+                }
+                catch(Exception ex)
+                {
+                    iniFile.Write("SHUTDOWN", "AfterXGames", "0");
+                    iniFile.Write("SHUTDOWN", "AlsoCloseComputer", "false");
+                    Tools.Log(ex.StackTrace);
+                }
             }
             catch (Exception ex)
             {
@@ -477,7 +490,23 @@ namespace ezBot
             {
                 defeat++;
             }
-            Console.Title = string.Format("ezBot - {0} Total - {1} Victory - {2} Defeat", (victory + defeat), victory, defeat);
+            var total = (victory + defeat);
+            Console.Title = string.Format("ezBot - {0} Total - {1} Victory - {2} Defeat", total, victory, defeat);
+
+            if(shutdownAfterXMatch != 0 && shutdownAfterXMatch >= total)
+            {
+                if(shutdownComputer)
+                {
+                    var processInfo = new ProcessStartInfo()
+                    {
+                        Arguments = "-s -t 30 ",
+                        FileName = "shutdown.exe",
+                        WindowStyle = ProcessWindowStyle.Hidden
+                    };
+                    Process.Start(processInfo);
+                }
+                Environment.Exit(0);
+            }
         }
 
     }
