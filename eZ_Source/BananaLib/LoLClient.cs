@@ -3,6 +3,7 @@ using BananaLib.RestService;
 using BananaLib.RiotObjects.Exceptions;
 using BananaLib.RiotObjects.Platform;
 using BananaLib.RiotObjects.Team;
+using ezBot;
 using RtmpSharp.IO;
 using RtmpSharp.Messaging;
 using RtmpSharp.Net;
@@ -667,6 +668,7 @@ namespace BananaLib
                     }
                     catch (Exception ex)
                     {
+                        Tools.Log(ex.StackTrace);
                     }
                     await Task.Delay(5000).ConfigureAwait(false);
                     continue;
@@ -757,6 +759,7 @@ namespace BananaLib
             }
             catch (Exception ex)
             {
+                Tools.Log(ex.StackTrace);
             }
             finally
             {

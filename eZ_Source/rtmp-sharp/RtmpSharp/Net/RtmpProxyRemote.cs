@@ -6,6 +6,7 @@
 
 using Complete;
 using Complete.Threading;
+using ezBot;
 using RtmpSharp.IO;
 using RtmpSharp.Messaging;
 using RtmpSharp.Messaging.Events;
@@ -297,7 +298,8 @@ namespace RtmpSharp.Net
             }
             catch (ClientDisconnectedException ex)
             {
-                this.Close();
+                Tools.Log(ex.StackTrace);
+                Close();
             }
         }
 
@@ -307,10 +309,10 @@ namespace RtmpSharp.Net
             Method method = new Method("connect", parameters, true, CallStatus.Request);
             invokeAmf0.MethodCall = method;
             AsObject asObject = connectionParameters;
-            invokeAmf0.ConnectionParameters = (object)asObject;
+            invokeAmf0.ConnectionParameters = asObject;
             int num = invokeId;
             invokeAmf0.InvokeId = num;
-            return (AsObject)(await this.QueueCommandAsTask((Command)invokeAmf0, 3, 0, false)).Body;
+            return (AsObject)(await QueueCommandAsTask(invokeAmf0, 3, 0, false)).Body;
         }
 
         public async Task<T> InvokeAsync<T>(string endpoint, string destination, string method, object[] arguments)
@@ -580,16 +582,12 @@ namespace RtmpSharp.Net
                 }
                 catch (Exception ex)
                 {
-                    // ISSUE: reference to a compiler-generated field
-                    EventHandler<Exception> callbackException = this.CallbackException;
-                    if (callbackException == null)
-                        return;
-                    Exception e = ex;
-                    callbackException((object)this, e);
+                    CallbackException?.Invoke(this, ex);
                 }
             }
             catch (Exception ex)
             {
+                Tools.Log(ex.StackTrace);
             }
         }
 

@@ -78,12 +78,13 @@ namespace ezBot
             {
                 try
                 {
-                    this.connection.LeaveGroupFinderLobby();
-                    this.connection.DestroyGroupFinderLobby();
-                    this.connection.Disconnect();
+                    connection.LeaveGroupFinderLobby();
+                    connection.DestroyGroupFinderLobby();
+                    connection.Disconnect();
                 }
                 catch (Exception ex)
                 {
+                    Tools.Log(ex.StackTrace);
                 }
             }
             return false;
@@ -392,6 +393,7 @@ namespace ezBot
                                         }
                                         catch (Exception e)
                                         {
+                                            Tools.Log(e.StackTrace);
                                         }
                                         ChampList = null;
                                         championName = null;
@@ -447,7 +449,7 @@ namespace ezBot
                                         }
                                         catch (Exception ex)
                                         {
-
+                                            Tools.Log(ex.StackTrace);
                                         }
                                         Tools.ConsoleMessage("Waiting for other players to lockin.", ConsoleColor.White);
                                     }
@@ -906,7 +908,7 @@ namespace ezBot
                             this.connection_OnMessageReceived(null, new EndOfGameStats());
                         }
                     }
-                    List<FailedJoinPlayer>.Enumerator enumerator = new List<FailedJoinPlayer>.Enumerator();
+                    //List<FailedJoinPlayer>.Enumerator enumerator = new List<FailedJoinPlayer>.Enumerator();
                     if (!string.IsNullOrEmpty(this.m_accessToken))
                     {
                         Tools.ConsoleMessage("Waiting leaver buster timer: " + (float)(this.m_leaverBustedPenalty / 1000.0 / 60.0) + " minutes!", ConsoleColor.White);
@@ -1157,6 +1159,7 @@ namespace ezBot
                     }
                     catch(Exception ex)
                     {
+                        Tools.Log(ex.StackTrace);
                     }
                     if(Program.queueWithFriends)
                     {
@@ -1207,6 +1210,7 @@ namespace ezBot
                 }
                 catch(Exception ex)
                 {
+                    Tools.Log(ex.StackTrace);
                     Program.firstFriend = null;
                 }
                 //2
@@ -1220,8 +1224,9 @@ namespace ezBot
                         Program.OnInvite?.Invoke(sumName, Program.secondFriend.ToLower(), Lobby.InvitationID);
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Tools.Log(ex.StackTrace);
                     Program.secondFriend = null;
                 }
                 //3
@@ -1235,8 +1240,9 @@ namespace ezBot
                         Program.OnInvite?.Invoke(sumName, Program.thirdFriend.ToLower(), Lobby.InvitationID);
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Tools.Log(ex.StackTrace);
                     Program.thirdFriend = null;
                 }
                 //4
@@ -1250,8 +1256,9 @@ namespace ezBot
                         Program.OnInvite?.Invoke(sumName, Program.fourthFriend.ToLower(), Lobby.InvitationID);
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Tools.Log(ex.StackTrace);
                     Program.fourthFriend = null;
                 }
             }
@@ -1284,6 +1291,7 @@ namespace ezBot
                 }
                 catch (Exception ex)
                 {
+                    Tools.Log(ex.StackTrace);
                     Program.firstFriend = null;
                 }
                 //2
@@ -1298,8 +1306,9 @@ namespace ezBot
                             level = summonerData.SummonerLevel.Level;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Tools.Log(ex.StackTrace);
                     Program.secondFriend = null;
                 }
                 //3
@@ -1314,8 +1323,9 @@ namespace ezBot
                             level = summonerData.SummonerLevel.Level;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Tools.Log(ex.StackTrace);
                     Program.thirdFriend = null;
                 }
                 //4
@@ -1330,14 +1340,15 @@ namespace ezBot
                             level = summonerData.SummonerLevel.Level;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Tools.Log(ex.StackTrace);
                     Program.fourthFriend = null;
                 }
             }
             //Me
-            if (this.sumLevel < level)
-                level = this.sumLevel;
+            if (sumLevel < level)
+                level = sumLevel;
 
             return level;
         }

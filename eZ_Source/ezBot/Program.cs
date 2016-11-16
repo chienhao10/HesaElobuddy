@@ -170,6 +170,7 @@ namespace ezBot
             }
             catch (Exception ex)
             {
+                Tools.Log(ex.StackTrace);
             }
             return null;
         }
@@ -186,6 +187,7 @@ namespace ezBot
             }
             catch (Exception ex)
             {
+                Tools.Log(ex.StackTrace);
             }
             return null;
         }
@@ -205,10 +207,12 @@ namespace ezBot
             catch (UnauthorizedAccessException ex)
             {
                 isAdmin = false;
+                Tools.Log(ex.StackTrace);
             }
             catch (Exception ex)
             {
                 isAdmin = false;
+                Tools.Log(ex.StackTrace);
             }
             finally
             {
@@ -390,6 +394,7 @@ namespace ezBot
                     iniFile.Write("FRIENDS", "SecondFriend", "");
                     iniFile.Write("FRIENDS", "ThirdFriend", "");
                     iniFile.Write("FRIENDS", "FourthFriend", "");
+                    Tools.Log(ex.StackTrace);
                 }
                 try
                 {
@@ -398,6 +403,7 @@ namespace ezBot
                 catch (Exception ex)
                 {
                     iniFile.Write("GENERAL", "PrintGameStats", "false");
+                    Tools.Log(ex.StackTrace);
                 }
             }
             catch (Exception ex)

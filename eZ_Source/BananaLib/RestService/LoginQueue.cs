@@ -4,6 +4,7 @@
 // MVID: 75213AF3-E339-4AEB-B3FE-095F85BC5F53
 // Assembly location: C:\Users\Hesa\Desktop\eZ\BananaLib.dll
 
+using ezBot;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -136,49 +137,45 @@ namespace BananaLib.RestService
             return JsonConvert.DeserializeObject<AuthResult>(str);
         }
 
-        public async Task<string> GetToken()
+        public string GetToken()
         {
             WebClient client = new WebClient();
             var result = client.DownloadString("https://lol.auth.garenanow.com/login-queue/rest/queue/authToken/" + Username.ToLower());
-            
-            return null;
+            return result;
         }
 
         public async Task<bool> GetAuthToken()
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            int retriesRemaining = this.AuthRetries;
+            int retriesRemaining = AuthRetries;
             try
             {
-                while (sw.ElapsedMilliseconds / 1000L <= (long)this.TimeoutSeconds)
+                while (sw.ElapsedMilliseconds / 1000L <= TimeoutSeconds)
                 {
                     int num = 0;
                     try
                     {
-                        this.AuthResult = await this.GetAuthResult().ConfigureAwait(false);
-                        this.User = this.AuthResult.User;
-                        this.Token = AuthResult.Lqt.PartnerToken;
+                        AuthResult = await GetAuthResult().ConfigureAwait(false);
+                        User = AuthResult.User;
+                        Token = AuthResult.Lqt.PartnerToken;
                         //await GetToken();
                         //this.UserId = this.AuthResult.Lqt.AccountId;
                     }
                     catch (IpBannedException ex)
                     {
-                        // ISSUE: reference to a compiler-generated field
-                        LoginQueue.OnAuthFailedHandler onAuthFailed = this.OnAuthFailed;
-                        if (onAuthFailed != null)
-                        {
-                            string message = "Your IP has been banned due to too many requests.";
-                            onAuthFailed(message);
-                        }
+                        Tools.Log(ex.StackTrace);
+                        OnAuthFailed?.Invoke("Your IP has been banned due to too many requests.");
                         return false;
                     }
                     catch (JsonReaderException ex)
                     {
+                        Tools.Log(ex.StackTrace);
                         num = 1;
                     }
                     catch (Exception ex)
                     {
+                        Tools.Log(ex.StackTrace);
                         Console.WriteLine(ex.StackTrace);
                     }
                     if (num == 1)
@@ -221,84 +218,54 @@ namespace BananaLib.RestService
                                                 OnAuthFailed?.Invoke("Server is full. Try again later.");
                                                 return false;
                                             }
-                                            if (this.AuthResult.Status == "QUEUE" && this.AuthResult.Tickers != null)
+                                            if (AuthResult.Status == "QUEUE" && this.AuthResult.Tickers != null)
                                             {
-                                                await this.WaitInQueue().ConfigureAwait(false);
-                                                this.AuthResult.Lqt.Resources = (string)null;
-                                                this.AuthResult.Lqt.Other = (string)null;
-                                                HttpResponseMessage httpResponseMessage = await this._httpClient.PostAsync(this._tokenUrl, this.AuthResult.Lqt.ToString(), true).ConfigureAwait(false);
+                                                await WaitInQueue().ConfigureAwait(false);
+                                                AuthResult.Lqt.Resources = null;
+                                                AuthResult.Lqt.Other = null;
+                                                HttpResponseMessage httpResponseMessage = await _httpClient.PostAsync(_tokenUrl, AuthResult.Lqt.ToString(), true).ConfigureAwait(false);
                                                 if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
                                                 {
-                                                    this.AuthToken = JsonConvert.DeserializeObject<AuthResult>(await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false)).Lqt.ToString();
+                                                    AuthToken = JsonConvert.DeserializeObject<AuthResult>(await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false)).Lqt.ToString();
                                                     return true;
                                                 }
                                             }
-                                            if (this.AuthResult.Status == "LOGIN")
+                                            if (AuthResult.Status == "LOGIN")
                                             {
-                                                this.AuthToken = this.AuthResult.Lqt.ToString();
+                                                AuthToken = AuthResult.Lqt.ToString();
                                                 return true;
                                             }
                                             await Task.Delay(1000).ConfigureAwait(false);
                                         }
                                         else
                                         {
-                                            // ISSUE: reference to a compiler-generated field
-                                            LoginQueue.OnAuthFailedHandler onAuthFailed = this.OnAuthFailed;
-                                            if (onAuthFailed != null)
-                                            {
-                                                string message = "Account currently inactive.";
-                                                onAuthFailed(message);
-                                            }
+                                            OnAuthFailed?.Invoke("Account currently inactive.");
                                             return false;
                                         }
                                     }
                                     else
                                     {
-                                        // ISSUE: reference to a compiler-generated field
-                                        LoginQueue.OnAuthFailedHandler onAuthFailed = this.OnAuthFailed;
-                                        if (onAuthFailed != null)
-                                        {
-                                            string message = string.Format("Account transferred {0}", (object)this.AuthResult.Destination).Trim();
-                                            onAuthFailed(message);
-                                        }
+                                        OnAuthFailed?.Invoke(string.Format("Account transferred {0}", AuthResult.Destination).Trim());
                                         return false;
                                     }
                                 }
                                 else
                                 {
-                                    DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddMilliseconds(this.AuthResult.Banned);
-                                    // ISSUE: reference to a compiler-generated field
-                                    LoginQueue.OnAuthFailedHandler onAuthFailed = this.OnAuthFailed;
-                                    if (onAuthFailed != null)
-                                    {
-                                        string message = string.Format("Account banned {0}", (object)dateTime.ToString("d", (IFormatProvider)CultureInfo.CurrentCulture));
-                                        onAuthFailed(message);
-                                    }
+                                    DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddMilliseconds(AuthResult.Banned);
+                                    OnAuthFailed?.Invoke(string.Format("Account banned {0}", dateTime.ToString("d", (IFormatProvider)CultureInfo.CurrentCulture)));
                                     return false;
                                 }
                             }
                             else
                             {
-                                // ISSUE: reference to a compiler-generated field
-                                LoginQueue.OnAuthFailedHandler onAuthFailed = this.OnAuthFailed;
-                                if (onAuthFailed != null)
-                                {
-                                    string message = "Incorrect username or password.";
-                                    onAuthFailed(message);
-                                }
+                                OnAuthFailed?.Invoke("Incorrect username or password.");
                                 return false;
                             }
                         }
                         else
                         {
-                            // ISSUE: reference to a compiler-generated field
-                            LoginQueue.StatusMessageUpdateHandler updateStatusMessage = this.OnUpdateStatusMessage;
-                            if (updateStatusMessage != null)
-                            {
-                                string e = string.Format("Login rate too fast. Waiting {0} s.", (object)this.AuthResult.RetryWait);
-                                updateStatusMessage((object)this, e);
-                            }
-                            await Task.Delay(TimeSpan.FromSeconds((double)this.AuthResult.RetryWait)).ConfigureAwait(false);
+                            OnUpdateStatusMessage?.Invoke(this, string.Format("Login rate too fast. Waiting {0} s.", AuthResult.RetryWait));
+                            await Task.Delay(TimeSpan.FromSeconds(AuthResult.RetryWait)).ConfigureAwait(false);
                             sw.Restart();
                         }
                     }
@@ -308,13 +275,8 @@ namespace BananaLib.RestService
             }
             catch (TimeoutException ex)
             {
-                // ISSUE: reference to a compiler-generated field
-                LoginQueue.OnAuthFailedHandler onAuthFailed = this.OnAuthFailed;
-                if (onAuthFailed != null)
-                {
-                    string message = "Timeout: queue time too long.";
-                    onAuthFailed(message);
-                }
+                Tools.Log(ex.StackTrace);
+                OnAuthFailed?.Invoke("Timeout: queue time too long.");
             }
             finally
             {
@@ -327,7 +289,7 @@ namespace BananaLib.RestService
         {
             int id = -1;
             int current = -1;
-            using (IEnumerator<Ticker> enumerator = this.AuthResult.Tickers.Where<Ticker>((Func<Ticker, bool>)(ticker => ticker.Node == this.AuthResult.Node)).GetEnumerator())
+            using (IEnumerator<Ticker> enumerator = AuthResult.Tickers.Where(ticker => ticker.Node == AuthResult.Node).GetEnumerator())
             {
                 if (enumerator.MoveNext())
                 {
@@ -341,32 +303,21 @@ namespace BananaLib.RestService
             while (id - current > 0)
             {
                 DateTime cycleStartTime = DateTime.Now;
-                HttpResponseMessage httpResponseMessage = await this._httpClient.GetAsync(this._tickerUrl + this.AuthResult.Champ).ConfigureAwait(false);
+                HttpResponseMessage httpResponseMessage = await _httpClient.GetAsync(_tickerUrl + AuthResult.Champ).ConfigureAwait(false);
                 if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
                 {
                     try
                     {
-                        current = int.Parse((string)JsonConvert.DeserializeObject<Dictionary<string, object>>(await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false))[this.AuthResult.Node.ToString()], NumberStyles.HexNumber);
+                        current = int.Parse((string)JsonConvert.DeserializeObject<Dictionary<string, object>>(await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false))[AuthResult.Node.ToString()], NumberStyles.HexNumber);
                         int num = Math.Max(0, id - current);
                         if (num == 0)
                             break;
-                        // ISSUE: reference to a compiler-generated field
-                        LoginQueue.OnLoginQueueUpdateHandler loginQueueUpdate = this.OnLoginQueueUpdate;
-                        if (loginQueueUpdate != null)
-                        {
-                            int positionInLine = num;
-                            loginQueueUpdate(positionInLine);
-                        }
-                        // ISSUE: reference to a compiler-generated field
-                        LoginQueue.StatusMessageUpdateHandler updateStatusMessage = this.OnUpdateStatusMessage;
-                        if (updateStatusMessage != null)
-                        {
-                            string e = string.Format("In login queue at position {0}", (object)num);
-                            updateStatusMessage((object)this, e);
-                        }
+                        OnLoginQueueUpdate?.Invoke(num);
+                        OnUpdateStatusMessage?.Invoke(this, string.Format("In login queue at position {0}", num));
                     }
                     catch (Exception ex)
                     {
+                        Tools.Log(ex.StackTrace);
                     }
                     await Task.Delay(this.AuthResult.Delay).ConfigureAwait(false);
                 }
@@ -374,7 +325,7 @@ namespace BananaLib.RestService
                 averageMillisPerCycle = averageMillisPerCycle > 0.0 ? (averageMillisPerCycle + totalMilliseconds) / 2.0 : totalMilliseconds;
                 if (cycleNum == 2)
                 {
-                    double num = averageMillisPerCycle / (double)(1 / this.AuthResult.Rate * 60);
+                    double num = averageMillisPerCycle / (1 / AuthResult.Rate * 60);
                     if ((int)(averageMillisPerCycle * (num / (1.0 - num)) * ((1.0 + Math.Pow(1.333, 2.0)) / 2.0) / 1000.0) > this.TimeoutSeconds)
                         throw new TimeoutException();
                 }

@@ -606,54 +606,22 @@ namespace ezBot
         {
             switch(name.ToUpper())
             {
-                case "POROTHROW":
-                    return 31;
-                break;
-                case "SMITE":
-                    return 11;
-                break;
-                case "GHOST":
-                    return 6;
-                break;
-                case "IGNITE":
-                    return 14;
-                break;
-                case "HEAL":
-                    return 7;
-                break;
-                case "TELEPORT":
-                    return 12;
-                break;
-                case "GARRISON":
-                    return 17;
-                break;
-                case "CLAIRVOYANCE":
-                    return 2;
-                break;
-                case "EXHAUST":
-                    return 3;
-                break;
-                case "BARRIER":
-                    return 21;
-                break;
-                case "SNOWBALL":
-                    return 11;
-                break;
-                case "FLASH":
-                    return 4;
-                break;
-                case "REVIVE":
-                    return 10;
-                break;
-                case "PORORECALL":
-                    return 30;
-                break;
-                case "CLARITY":
-                    return 13;
-                break;
-                case "CLEANSE":
-                    return 1;
-                break;
+                case "POROTHROW": return 31;
+                case "SMITE": return 11;
+                case "GHOST": return 6;
+                case "IGNITE": return 14;
+                case "HEAL": return 7;
+                case "TELEPORT": return 12;
+                case "GARRISON": return 17;
+                case "CLAIRVOYANCE": return 2;
+                case "EXHAUST": return 3;
+                case "BARRIER": return 21;
+                case "SNOWBALL": return 11;
+                case "FLASH": return 4;
+                case "REVIVE": return 10;
+                case "PORORECALL": return 30;
+                case "CLARITY": return 13;
+                case "CLEANSE": return 1;
             }
             return 0;
         }

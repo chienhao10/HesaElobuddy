@@ -6,6 +6,7 @@
 
 using Complete;
 using Complete.Threading;
+using ezBot;
 using RtmpSharp.IO;
 using RtmpSharp.Messaging;
 using RtmpSharp.Messaging.Events;
@@ -304,7 +305,8 @@ namespace RtmpSharp.Net
             }
             catch (ClientDisconnectedException ex)
             {
-                this.Close();
+                Tools.Log(ex.StackTrace);
+                Close();
             }
         }
 
@@ -966,15 +968,10 @@ namespace RtmpSharp.Net
                 }
                 catch (Exception ex)
                 {
-                    // ISSUE: reference to a compiler-generated field
-                    EventHandler<Exception> callbackException = this.CallbackException;
-                    if (callbackException == null)
-                        return;
-                    Exception e = ex;
-                    callbackException((object)this, e);
+                    CallbackException?.Invoke(this, ex);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
         }
@@ -982,8 +979,7 @@ namespace RtmpSharp.Net
         private static Task<AcknowledgeMessageExt> CreateExceptedTask(Exception exception)
         {
             TaskCompletionSource<AcknowledgeMessageExt> completionSource = new TaskCompletionSource<AcknowledgeMessageExt>();
-            Exception exception1 = exception;
-            completionSource.SetException(exception1);
+            completionSource.SetException(exception);
             return completionSource.Task;
         }
     }
