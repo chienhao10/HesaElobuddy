@@ -678,8 +678,12 @@ namespace ezBot
                 {
                     try
                     {
-                        if (GameStartedAt == null) GameStartedAt = DateTime.Now;
-                        this.firstTimeInPostChampSelect = true;
+                        if (GameStartedAt == null)
+                        {
+                            GameStartedAt = DateTime.Now;
+                            Program.GameStarted();
+                        }
+                        firstTimeInPostChampSelect = true;
                         PlayerCredentialsDto playerCredentialsDto = message as PlayerCredentialsDto;
                         ProcessStartInfo startInfo = new ProcessStartInfo();
                         startInfo.CreateNoWindow = false;

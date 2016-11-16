@@ -53,6 +53,7 @@ namespace ezBot
         public static Action<string, string, string> OnInvite;
         public static int shutdownAfterXMatch = 0;
         public static bool shutdownComputer = false;
+        public static int currentMatchCount = 0;
 
         private static void Main(string[] args)
         {
@@ -479,9 +480,15 @@ namespace ezBot
 
         private static int victory = 0;
         private static int defeat = 0;
+
+        public static void GameStarted()
+        {
+            currentMatchCount++;
+        }
         
         public static void AddGame(bool won)
         {
+            currentMatchCount--;
             if (won)
             {
                 victory++;
@@ -495,6 +502,11 @@ namespace ezBot
 
             if(shutdownAfterXMatch != 0 && shutdownAfterXMatch >= total)
             {
+                if(currentMatchCount != 0)
+                {
+                    Tools.ConsoleMessage("Will shutdown once the current match ends.", ConsoleColor.Yellow);
+                    return;
+                }
                 if(shutdownComputer)
                 {
                     var processInfo = new ProcessStartInfo()
