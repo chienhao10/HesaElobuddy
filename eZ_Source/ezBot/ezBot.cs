@@ -72,6 +72,9 @@ namespace ezBot
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern bool SetConsoleCtrlHandler(ConsoleEventDelegate callback, bool add);
 
+        [DllImport("user32.dll", EntryPoint = "FindWindowEx")]
+        public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+
         bool ConsoleEventCallback(int eventType)
         {
             if (eventType == 2)
@@ -108,6 +111,27 @@ namespace ezBot
 
             handler = new ConsoleEventDelegate(ConsoleEventCallback);
             Program.OnInvite += OnReceiveInvite;
+
+            new Thread(async () =>
+            {
+                while(true)
+                {
+                    if(exeProcess != null)
+                    {
+                        var childCount = new WindowHandleInfo(exeProcess.MainWindowHandle).GetAllChildHandles().Count;
+                        //if (exeProcess.HandleCount > 1)
+                        //Console.WriteLine(childCount);
+                        if(childCount > 0)
+                        {
+                            exeProcess.Kill();
+                            await Task.Delay(1000);
+                            if (exeProcess.Responding)
+                                Process.Start("taskkill /F /IM \"League of Legends.exe\"");
+                        }
+                    }
+                    Thread.Sleep(10 * 1000);
+                }
+            }).Start();
         }
         
         public string EncryptText(string input, string password)
@@ -729,7 +753,7 @@ namespace ezBot
                 this.connection_OnMessageReceived(this, eog);
                 this.exeProcess.Exited -= new EventHandler(exeProcess_Exited);
                 this.exeProcess.Kill();
-                await Task.Delay(500);
+                await Task.Delay(1000);
                 if (this.exeProcess.Responding)
                     Process.Start("taskkill /F /IM \"League of Legends.exe\"");
                 this.loginPacket = await this.connection.GetLoginDataPacketForUser();
