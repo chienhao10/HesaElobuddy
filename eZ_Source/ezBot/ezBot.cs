@@ -147,35 +147,28 @@ namespace ezBot
                                  GetWindowText((int)hWnd, title, 256);
 
                                  //Check if Window has Title.
-                                 //if (title.Length == 0)
-                                     //return true;
-
-                                 //_childrenhWnd.Add(hWnd);
-
-                                 if(title.ToString().ToLower() == "network warning")
+                                 if (title.Length == 0)
+                                     return true;
+                                 
+                                 if(title.ToString().ToLower() == "network warning" || title.ToString().ToLower() == "failed to connect")
                                  {
                                      exeProcess.Kill();
-                                     //await Task.Delay(1000);
                                      Thread.Sleep(1000);
                                      if (exeProcess.Responding)
-                                         Process.Start("taskkill /F /PID " + exeProcess.Id);//Process.Start("taskkill /F /IM \"League of Legends.exe\"");
+                                     {
+                                         var processInfo = new ProcessStartInfo()
+                                         {
+                                             Arguments = "/f /PID "+ exeProcess.Id,
+                                             FileName = "taskkill.exe",
+                                             WindowStyle = ProcessWindowStyle.Hidden
+                                         };
+                                         Process.Start(processInfo);
+                                     }
                                  }
 
                                  return true;
                              }, IntPtr.Zero);
                         }
-                        /*
-                        var childCount = new WindowHandleInfo(exeProcess.MainWindowHandle).GetAllChildHandles().Count;
-                        //if (exeProcess.HandleCount > 1)
-                        //Console.WriteLine("Child Count = " + childCount);
-                        //Console.WriteLine("Handle Count = " + exeProcess.HandleCount);
-                        if (childCount > 0)
-                        {
-                            exeProcess.Kill();
-                            await Task.Delay(1000);
-                            if (exeProcess.Responding)
-                                Process.Start("taskkill /F /PID " + exeProcess.Id);//Process.Start("taskkill /F /IM \"League of Legends.exe\"");
-                        }*/
                     }
                     Thread.Sleep(10 * 1000);
                 }
