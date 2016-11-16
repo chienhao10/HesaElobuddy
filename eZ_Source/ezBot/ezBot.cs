@@ -591,6 +591,7 @@ namespace ezBot
 
                             case "TERMINATED":
                             {
+                                if (Program.DontQueue) return;
                                 pickAtTurn = 0;
                                 Tools.ConsoleMessage("Re-queued: " + this.queueType + " as " + this.sumName + ".", ConsoleColor.Cyan);
                                 firstTimeInQueuePop = true;
