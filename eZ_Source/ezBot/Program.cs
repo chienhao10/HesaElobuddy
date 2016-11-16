@@ -481,6 +481,7 @@ namespace ezBot
         private static int victory = 0;
         private static int defeat = 0;
         private static int gameTerminated;
+        public static bool DontQueue = false;
 
         public static void GameStarted()
         {
@@ -495,6 +496,7 @@ namespace ezBot
             {
                 if (currentMatchCount != 0)
                 {
+                    DontQueue = true;
                     Tools.ConsoleMessage("Will shutdown once the current match ends.", ConsoleColor.Yellow);
                     return;
                 }

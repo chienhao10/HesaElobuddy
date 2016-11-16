@@ -897,6 +897,8 @@ namespace ezBot
         {
             if (IsInQueue)
                 return;
+            if (Program.DontQueue) return;
+
             IsInQueue = true;
 
             ShouldBeInGame = false;
