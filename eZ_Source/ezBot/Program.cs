@@ -360,6 +360,21 @@ namespace ezBot
             try
             {
                 IniFile iniFile = new IniFile(AppDomain.CurrentDomain.BaseDirectory + "configs\\settings.ini");
+                try
+                {
+                    lolPath = iniFile.Read("GENERAL", "LauncherPath");
+                    if (string.IsNullOrEmpty(lolPath))
+                    {
+                        iniFile.Write("GENERAL", "LauncherPath", "C:\\Riot Games\\League of Legends\\");
+                        lolPath = "C:\\Riot Games\\League of Legends\\";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    iniFile.Write("GENERAL", "LauncherPath", "C:\\Riot Games\\League of Legends\\");
+                    lolPath = "C:\\Riot Games\\League of Legends\\";
+                    Tools.Log(ex.StackTrace);
+                }
                 lolPath = iniFile.Read("GENERAL", "LauncherPath");
                 maxBots = Convert.ToInt32(iniFile.Read("GENERAL", "MaxBots"));
                 maxLevel = Convert.ToInt32(iniFile.Read("GENERAL", "MaxLevel"));
@@ -410,10 +425,16 @@ namespace ezBot
                 try
                 {
                     lolGarenaPath = iniFile.Read("GENERAL", "GarenaLoLFolder");
+                    if(string.IsNullOrEmpty(lolGarenaPath))
+                    {
+                        iniFile.Write("GENERAL", "GarenaLoLFolder", "C:\\GarenaLoL\\GameData\\Apps\\LoL\\");
+                        lolGarenaPath = "C:\\GarenaLoL\\GameData\\Apps\\LoL\\";
+                    }
                 }
                 catch (Exception ex)
                 {
-                    iniFile.Write("GENERAL", "GarenaLoLFolder", @"C:\GarenaLoL\GameData\Apps\LoL\");
+                    iniFile.Write("GENERAL", "GarenaLoLFolder", "C:\\GarenaLoL\\GameData\\Apps\\LoL\\");
+                    lolGarenaPath = "C:\\GarenaLoL\\GameData\\Apps\\LoL\\";
                     Tools.Log(ex.StackTrace);
                 }
             }
