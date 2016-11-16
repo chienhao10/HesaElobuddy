@@ -138,7 +138,7 @@ namespace ezBot
                         if(!exeProcess.Responding)
                         {
                             notRespondingTick++;
-                            if(notRespondingTick == 2)
+                            if(notRespondingTick == 4)
                             {
                                 var processInfo = new ProcessStartInfo()
                                 {
