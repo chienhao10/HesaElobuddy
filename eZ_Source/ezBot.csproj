@@ -86,6 +86,9 @@
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationIcon>ic_child_care_black_24dp_2x.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -431,6 +434,7 @@
     <Content Include="BananaLib\obj\Release\BananaLib.csproj.FileListAbsolute.txt" />
     <Content Include="BananaLib\obj\Release\BananaLib.dll" />
     <Content Include="BananaLib\obj\Release\BananaLib.pdb" />
+    <Content Include="ic_child_care_black_24dp_2x.ico" />
     <Content Include="rtmp-sharp\bin\Debug\rtmp-sharp.dll" />
     <Content Include="rtmp-sharp\bin\Debug\rtmp-sharp.pdb" />
     <Content Include="rtmp-sharp\bin\Release\rtmp-sharp.dll" />

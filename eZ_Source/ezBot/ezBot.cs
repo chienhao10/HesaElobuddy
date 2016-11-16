@@ -1037,14 +1037,14 @@ namespace ezBot
                 {
                     var ellapsedTime = DateTime.Now.Subtract(GameStartedAt.Value).Minutes;
 
-                    if(ellapsedTime >= 3)
+                    if(ellapsedTime >= 1)
                     {
 
                         Tools.ConsoleMessage("Restarting League of Legends.", ConsoleColor.White);
                         connection_OnMessageReceived(sender, ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).PlayerCredentials);
                     }else
                     {
-                        Tools.ConsoleMessage("Restarting League of Legends when the match will start, please wait.", ConsoleColor.White);
+                        Tools.ConsoleMessage("Restarting League of Legends at " + GameStartedAt.Value.AddMinutes(1).ToLongTimeString() + " please wait.", ConsoleColor.White);
                         new Thread(RestartLeague).Start();
                     }
                 }
