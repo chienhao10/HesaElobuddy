@@ -1,7 +1,7 @@
 using BananaLib;
 using BananaLib.RiotObjects.Platform;
 using BananaLib.RiotObjects.Team;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RtmpSharp.IO;
 using RtmpSharp.Messaging;
 using System;
@@ -667,7 +667,7 @@ namespace ezBot
                                         Tools.ConsoleMessage("Queue popped.", ConsoleColor.White);
                                         firstTimeInQueuePop = false;
                                         firstTimeInLobby = true;
-                                        await Task.Delay(new Random().Next(1, Program.queueWithFriends ? (GetFriendsToInvite().ToList().Count > 3 ? 2 : 4) : 8) * new Random().Next(800, 1000));
+                                        await Task.Delay(new Random().Next(1, Program.queueWithFriends ? (GetFriendsToInvite().ToList().Count > 3 ? 2 : 3) : 3) * new Random().Next(800, 1000));
                                         Tools.ConsoleMessage("Accepted Queue!", ConsoleColor.White);
                                         try
                                         {
@@ -678,6 +678,9 @@ namespace ezBot
                                         {
                                             Tools.Log(ex.StackTrace);
                                             Tools.ConsoleMessage("Fault Code: " + ex.FaultCode + " Fault String" + ex.FaultString + " Fault Detail:" + ex.FaultDetail + "Root Cause:" + ex.RootCause, ConsoleColor.White);
+                                            firstTimeInQueuePop = true;
+                                            firstTimeInPostChampSelect = true;
+                                            firstTimeInLobby = false;
                                         }
                                         catch (InvalidCastException ex)
                                         {
@@ -1917,6 +1920,223 @@ namespace ezBot
 
         private async void SetMasteries(int level, string championName)
         {
+            bool updatedFromChampionGG = false;
+            try
+            {
+                List<MasteriesTreeGG> masteries = new List<MasteriesTreeGG>();
+                using (WebClient webClient = new WebClient())
+                {
+                    var json = webClient.DownloadString("http://api.champion.gg/champion/" + championName + "/?api_key=48fa37068e223a93d88868c4c8b4909a");
+                    json = json.Remove(0, 1);
+                    json = json.Remove(json.Length - 1, 1);
+
+                    var test = JObject.Parse(json);
+                    
+                    foreach (var masteryTree in test["masteries"]["highestWinPercent"]["masteries"])
+                    {
+                        var mastery = new MasteriesTreeGG()
+                        {
+                            tree = masteryTree["tree"].Value<string>(),
+                            total = masteryTree["total"].Value<int>(),
+                            data = new List<MasteryGG>()
+                        };
+                        foreach (var masteryData in masteryTree["data"])
+                        {
+                            mastery.data.Add(new MasteryGG()
+                            {
+                                mastery = masteryData["mastery"].Value<int>(),
+                                points = masteryData["points"].Value<int>()
+                            });
+                        }
+                        mastery.data = mastery.data.OrderBy(o => o.mastery).ToList();
+
+                        masteries.Add(mastery);
+                    }
+                    masteries = masteries.OrderByDescending(o => o.total).ToList();
+                }
+
+                if(masteries.Count != 0)
+                {
+                    var masteryBook = await connection.GetMasteryBook(sumId);
+                    var firstPage = masteryBook.BookPages.First();
+
+                    if (firstPage == null)
+                    {
+                        masteryBook.BookPages.Add(new MasteryBookPageDTO()
+                        {
+                            Current = true,
+                            Name = "Generic",
+                            SummonerId = sumId,
+                            TalentEntries = new List<TalentEntry>()
+                        });
+                        firstPage = masteryBook.BookPages.First();
+                    }
+
+                    firstPage.TalentEntries.Clear();
+
+                    int masterySet = 0;
+                    while(masterySet != level)
+                    {
+                        foreach(var masteryTree in masteries)
+                        {
+                            if(masteryTree.total != 0)
+                            {
+                                foreach(var mastery in masteryTree.data)
+                                {
+                                    if(masterySet + mastery.points <= level)
+                                    {
+                                        firstPage.TalentEntries.Add(new TalentEntry()
+                                        {
+                                            Rank = mastery.points,
+                                            SummonerId = -1,
+                                            TalentId = mastery.mastery
+                                        });
+                                        masterySet += mastery.points;
+                                    }else
+                                    {
+                                        switch(mastery.points)
+                                        {
+                                            case 5:
+                                            {
+                                                if(masterySet + 4 <= level)
+                                                {
+                                                    firstPage.TalentEntries.Add(new TalentEntry()
+                                                    {
+                                                        Rank = 4,
+                                                        SummonerId = -1,
+                                                        TalentId = mastery.mastery
+                                                    });
+                                                    masterySet += 4;
+                                                }
+                                                else if (masterySet + 3 <= level)
+                                                {
+                                                    firstPage.TalentEntries.Add(new TalentEntry()
+                                                    {
+                                                        Rank = 3,
+                                                        SummonerId = -1,
+                                                        TalentId = mastery.mastery
+                                                    });
+                                                    masterySet += 3;
+                                                }
+                                                else if (masterySet + 2 <= level)
+                                                {
+                                                    firstPage.TalentEntries.Add(new TalentEntry()
+                                                    {
+                                                        Rank = 2,
+                                                        SummonerId = -1,
+                                                        TalentId = mastery.mastery
+                                                    });
+                                                    masterySet += 2;
+                                                }
+                                                else if (masterySet + 1 <= level)
+                                                {
+                                                    firstPage.TalentEntries.Add(new TalentEntry()
+                                                    {
+                                                        Rank = 1,
+                                                        SummonerId = -1,
+                                                        TalentId = mastery.mastery
+                                                    });
+                                                    masterySet += 1;
+                                                }
+                                            }
+                                            break;
+                                            case 4:
+                                            {
+                                                if (masterySet + 3 <= level)
+                                                {
+                                                    firstPage.TalentEntries.Add(new TalentEntry()
+                                                    {
+                                                        Rank = 3,
+                                                        SummonerId = -1,
+                                                        TalentId = mastery.mastery
+                                                    });
+                                                    masterySet += 3;
+                                                }
+                                                else if (masterySet + 2 <= level)
+                                                {
+                                                    firstPage.TalentEntries.Add(new TalentEntry()
+                                                    {
+                                                        Rank = 2,
+                                                        SummonerId = -1,
+                                                        TalentId = mastery.mastery
+                                                    });
+                                                    masterySet += 2;
+                                                }
+                                                else if (masterySet + 1 <= level)
+                                                {
+                                                    firstPage.TalentEntries.Add(new TalentEntry()
+                                                    {
+                                                        Rank = 1,
+                                                        SummonerId = -1,
+                                                        TalentId = mastery.mastery
+                                                    });
+                                                    masterySet += 1;
+                                                }
+                                            }
+                                            break;
+                                            case 3:
+                                            {
+                                                if (masterySet + 2 <= level)
+                                                {
+                                                    firstPage.TalentEntries.Add(new TalentEntry()
+                                                    {
+                                                        Rank = 2,
+                                                        SummonerId = -1,
+                                                        TalentId = mastery.mastery
+                                                    });
+                                                    masterySet += 2;
+                                                }
+                                                else if (masterySet + 1 <= level)
+                                                {
+                                                    firstPage.TalentEntries.Add(new TalentEntry()
+                                                    {
+                                                        Rank = 1,
+                                                        SummonerId = -1,
+                                                        TalentId = mastery.mastery
+                                                    });
+                                                    masterySet += 1;
+                                                }
+                                            }
+                                            break;
+                                            case 2:
+                                            {
+                                                if (masterySet + 1 <= level)
+                                                {
+                                                    firstPage.TalentEntries.Add(new TalentEntry()
+                                                    {
+                                                        Rank = 1,
+                                                        SummonerId = -1,
+                                                        TalentId = mastery.mastery
+                                                    });
+                                                    masterySet += 1;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    //Set our page as the current...
+                    foreach (var page in masteryBook.BookPages)
+                    {
+                        page.Current = false;
+                    }
+                    firstPage.Current = true;
+                    masteryBook.BookPages[0] = firstPage;
+                    //save the page
+                    var newBook = await connection.SaveMasteryBook(masteryBook);
+                    updatedFromChampionGG = true;
+                }
+            }
+            catch(Exception ex)
+            {
+                Tools.Log(ex.StackTrace);
+            }
+
+            if (updatedFromChampionGG) return;
             Tools.ConsoleMessage("Updating masteries", ConsoleColor.White);
             try
             {
@@ -3234,4 +3454,18 @@ namespace ezBot
             return stringBuilder.ToString();
         }
     }
+    
+    public class MasteriesTreeGG
+    {
+        public string tree { get; set; }
+        public int total { get; set; }
+        public List<MasteryGG> data { get; set; }
+    }
+
+    public class MasteryGG
+    {
+        public int points { get; set; }
+        public int mastery { get; set; }
+    }
+
 }
