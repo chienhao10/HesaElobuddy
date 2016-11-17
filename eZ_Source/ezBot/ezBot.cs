@@ -1924,6 +1924,7 @@ namespace ezBot
             bool updatedFromChampionGG = false;
             try
             {
+                Tools.ConsoleMessage("Downloading masteries from champion.gg", ConsoleColor.White);
                 List<MasteriesTreeGG> masteries = new List<MasteriesTreeGG>();
                 using (WebClient webClient = new WebClient())
                 {
@@ -2131,6 +2132,7 @@ namespace ezBot
                     }
                     firstPage.Current = true;
                     masteryBook.BookPages[0] = firstPage;
+                    Tools.ConsoleMessage("Updating masteries", ConsoleColor.White);
                     //save the page
                     var newBook = await connection.SaveMasteryBook(masteryBook);
                     updatedFromChampionGG = true;
