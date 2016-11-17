@@ -4,6 +4,15 @@ namespace BananaLib.RestService
 {
     public class AuthResult
     {
+        public int AccountId { get; set; }
+        public bool Connected { get; set; }
+        public string Error { get; set; }
+        public bool IsNewPlayer { get; set; }
+        public string QueueStatus { get; set; }
+        public int SummonerId { get; set; }
+        public string UserAuthToken { get; set; }
+        public string Username { get; set; }
+        
         public int Delay { get; set; }
 
         public GasToken GasToken { get; set; }
@@ -37,5 +46,9 @@ namespace BananaLib.RestService
         public double Banned { get; set; }
 
         public string Destination { get; set; }
+
+        public string Puuid { get; set; }
+
+        public string State { get; set; }
     }
 }

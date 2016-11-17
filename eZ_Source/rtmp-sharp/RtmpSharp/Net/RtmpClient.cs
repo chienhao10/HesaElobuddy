@@ -66,8 +66,7 @@ namespace RtmpSharp.Net
             this._callbackManager = new TaskCallbackManager<int, AcknowledgeMessageExt>();
         }
 
-        public RtmpClient(Uri uri, SerializationContext serializationContext, ObjectEncoding objectEncoding)
-          : this(uri, serializationContext)
+        public RtmpClient(Uri uri, SerializationContext serializationContext, ObjectEncoding objectEncoding) : this(uri, serializationContext)
         {
             this._objectEncoding = objectEncoding;
         }

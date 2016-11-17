@@ -191,7 +191,8 @@ namespace BananaLib.RestService
                             OnAuthFailed?.Invoke("Unable to get Auth Token.");
                             return false;
                         }
-                    }else if(this._useGarena)
+                    }
+                    else if (this._useGarena)
                     {
                         if (this.AuthResult.Status == "LOGIN")
                         {

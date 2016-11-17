@@ -446,7 +446,7 @@ namespace BananaLib
             {
                 return this.RtmpClient.InvokeAsync<T>("my-rtmps", destination, method, arguments);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.StackTrace);
             }
@@ -483,7 +483,7 @@ namespace BananaLib
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.StackTrace);
             }
@@ -628,7 +628,7 @@ namespace BananaLib
                 return;
             ConnectTimeoutSeconds = 60;
         }
-        
+
         public async Task<bool> ConnectAndLogin()
         {
             if (_useGarena)
@@ -643,13 +643,13 @@ namespace BananaLib
             LoginQueue loginQueue = new LoginQueue(Username, Password, Region);
             loginQueue.OnAuthFailed += message => RaiseError(message, ErrorType.Login);
             loginQueue.OnUpdateStatusMessage += (sender, s) =>
-           {
-               if (OnUpdateStatusMessage == null)
-                   return;
-               object sender1 = sender;
-               string e = s;
-               OnUpdateStatusMessage(sender1, e);
-           };
+            {
+                if (OnUpdateStatusMessage == null)
+                    return;
+                object sender1 = sender;
+                string e = s;
+                OnUpdateStatusMessage(sender1, e);
+            };
             if (!await loginQueue.GetAuthToken().ConfigureAwait(false))
                 return false;
             this.AuthToken = loginQueue.AuthToken;
@@ -730,7 +730,7 @@ namespace BananaLib
                     _heartbeatTimer.Start();
 
                     _uptime = DateTime.Now;
-                    
+
                     OnLogin?.Invoke(Username);
                     return true;
                 }
@@ -813,7 +813,7 @@ namespace BananaLib
             if (heartbeatTimer != null)
                 heartbeatTimer.Stop();
             IsConnected = false;
-            
+
             OnDisconnect?.Invoke(this, EventArgs.Empty);
         }
 
