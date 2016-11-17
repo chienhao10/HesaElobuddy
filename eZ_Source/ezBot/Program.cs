@@ -61,8 +61,8 @@ namespace ezBot
             var remoteVersion = LoadRemoteVersion();
             if (string.IsNullOrEmpty(EzBotVersion) || string.IsNullOrEmpty(remoteVersion) || EzBotVersion != remoteVersion)
             {
-                //Process.Start("AutoUpdater.exe");
-                //Environment.Exit(0);
+                Process.Start("AutoUpdater.exe");
+                Environment.Exit(0);
             }
 
             Program.LoadLeagueVersion();
@@ -112,10 +112,8 @@ namespace ezBot
             int num = 0;
             lock(accounts)
             {
-                //while(accountsNew.Count != 0)
                 foreach (string account in accounts)
                 {
-                    //var account = accounts[0].ToString();
                     try
                     {
                         accountsNew.RemoveAt(0);
@@ -124,7 +122,7 @@ namespace ezBot
                         var isLeader = strArray[4] != null ? (strArray[4].ToLower() == "leader" ? true : false) : true;
                         if (strArray[3] != null)
                         {
-                            Generator.CreateRandomThread(Program.delay1, Program.delay2);
+                            Generator.CreateRandomThread(delay1, delay2);
                             string queueType = strArray[3];
 
                             var region = Tools.ParseEnum<Region>(strArray[2].ToUpper());
@@ -135,18 +133,18 @@ namespace ezBot
                             }
                             if (IsGameModeValid(queueType))
                             {
-                                ezBot ezBot = new ezBot(strArray[0], password, strArray[2].ToUpper(), queueType, Program.LoLVersion, isLeader);
+                                ezBot ezBot = new ezBot(strArray[0], password, strArray[2].ToUpper(), queueType, LoLVersion, isLeader);
                             }
                         }
                         else
                         {
-                            Generator.CreateRandomThread(Program.delay1, Program.delay2);
+                            Generator.CreateRandomThread(delay1, delay2);
                             string queueType = "ARAM";
-                            ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), queueType, Program.LoLVersion, isLeader);
+                            ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), queueType, LoLVersion, isLeader);
                         }
-                        if (num == Program.maxBots)
+                        if (num == maxBots)
                         {
-                            Tools.ConsoleMessage("Maximum bots running: " + Program.maxBots, ConsoleColor.Red);
+                            Tools.ConsoleMessage("Maximum bots running: " + maxBots, ConsoleColor.Red);
                             break;
                         }
                     }
