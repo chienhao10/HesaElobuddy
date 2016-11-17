@@ -1,6 +1,7 @@
 using BananaLib;
 using BananaLib.RiotObjects.Platform;
 using BananaLib.RiotObjects.Team;
+using Newtonsoft.Json;
 using RtmpSharp.IO;
 using RtmpSharp.Messaging;
 using System;
@@ -473,6 +474,16 @@ namespace ezBot
                                         {
                                             Tools.Log(e.StackTrace);
                                         }
+
+                                        try
+                                        {
+                                            SetMasteries(loginPacket.AllSummonerData.SummonerLevel.Level);
+                                        }
+                                        catch(Exception e)
+                                        {
+                                            Tools.Log(e.StackTrace);
+                                        }
+                                        
                                         ChampList = null;
                                         championName = null;
                                     }
@@ -535,6 +546,16 @@ namespace ezBot
                                         {
                                             Tools.Log(ex.StackTrace);
                                         }
+                                        
+                                        try
+                                        {
+                                            SetMasteries(loginPacket.AllSummonerData.SummonerLevel.Level);
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            Tools.Log(e.StackTrace);
+                                        }
+                                        
                                         Tools.ConsoleMessage("Waiting for other players to lockin.", ConsoleColor.White);
                                     }
 
@@ -1880,6 +1901,1314 @@ namespace ezBot
             }
         }
 
+        private async void SetMasteries(int level)
+        {
+            Tools.ConsoleMessage("Updating masteries", ConsoleColor.White);
+            try
+            {
+                var masteryBook = await connection.GetMasteryBook(sumId);
+                var firstPage = masteryBook.BookPages.First();
+
+                if (firstPage == null)
+                {
+                    masteryBook.BookPages.Add(new MasteryBookPageDTO()
+                    {
+                        Current = true,
+                        Name = "Generic",
+                        SummonerId = sumId,
+                        TalentEntries = new List<TalentEntry>()
+                    });
+                    firstPage = masteryBook.BookPages.First();
+                }
+
+                firstPage.TalentEntries.Clear();
+                switch (level)
+                {
+                    case 1:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                    }
+                    break;
+                    case 2:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 2,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                    }
+                    break;
+                    case 3:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 3,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                    }
+                    break;
+                    case 4:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 4,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                    }
+                    break;
+                    case 5:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                    }
+                    break;
+                    case 6:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                    }
+                    break;
+                    case 7:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                    }
+                    break;
+                    case 8:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 2,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                    }
+                    break;
+                    case 9:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 3,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                    }
+                    break;
+                    case 10:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 4,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                    }
+                    break;
+                    case 11:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                    }
+                    break;
+                    case 12:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                    }
+                    break;
+                    case 13:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                    }
+                    break;
+                    case 14:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 2,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                    }
+                    break;
+                    case 15:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 3,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                    }
+                    break;
+                    case 16:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 4,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                    }
+                    break;
+                    case 17:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                    }
+                    break;
+                    case 18:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                        //Thunderlord's Decree
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6362
+                        });
+                    }
+                    break;
+                    case 19:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                        //Thunderlord's Decree
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6362
+                        });
+                        //Fury
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6111
+                        });
+                    }
+                    break;
+                    case 20:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                        //Thunderlord's Decree
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6362
+                        });
+                        //Fury
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 2,
+                            SummonerId = -1,
+                            TalentId = 6111
+                        });
+                    }
+                    break;
+                    case 21:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                        //Thunderlord's Decree
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6362
+                        });
+                        //Fury
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 3,
+                            SummonerId = -1,
+                            TalentId = 6111
+                        });
+                    }
+                    break;
+                    case 22:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                        //Thunderlord's Decree
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6362
+                        });
+                        //Fury
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 3,
+                            SummonerId = -1,
+                            TalentId = 6111
+                        });
+                        //Sorcery
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6114
+                        });
+                    }
+                    break;
+                    case 23:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                        //Thunderlord's Decree
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6362
+                        });
+                        //Fury
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 3,
+                            SummonerId = -1,
+                            TalentId = 6111
+                        });
+                        //Sorcery
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 2,
+                            SummonerId = -1,
+                            TalentId = 6114
+                        });
+                    }
+                    break;
+                    case 24:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                        //Thunderlord's Decree
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6362
+                        });
+                        //Fury
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 3,
+                            SummonerId = -1,
+                            TalentId = 6111
+                        });
+                        //Sorcery
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 2,
+                            SummonerId = -1,
+                            TalentId = 6114
+                        });
+                        //Expose Weakness
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6123
+                        });
+                    }
+                    break;
+                    case 25:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                        //Thunderlord's Decree
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6362
+                        });
+                        //Fury
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 3,
+                            SummonerId = -1,
+                            TalentId = 6111
+                        });
+                        //Sorcery
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 2,
+                            SummonerId = -1,
+                            TalentId = 6114
+                        });
+                        //Expose Weakness
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6123
+                        });
+                        //Natural Talent
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6134
+                        });
+                    }
+                    break;
+                    case 26:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                        //Thunderlord's Decree
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6362
+                        });
+                        //Fury
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 3,
+                            SummonerId = -1,
+                            TalentId = 6111
+                        });
+                        //Sorcery
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 2,
+                            SummonerId = -1,
+                            TalentId = 6114
+                        });
+                        //Expose Weakness
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6123
+                        });
+                        //Natural Talent
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 2,
+                            SummonerId = -1,
+                            TalentId = 6134
+                        });
+                    }
+                    break;
+                    case 27:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                        //Thunderlord's Decree
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6362
+                        });
+                        //Fury
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 3,
+                            SummonerId = -1,
+                            TalentId = 6111
+                        });
+                        //Sorcery
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 2,
+                            SummonerId = -1,
+                            TalentId = 6114
+                        });
+                        //Expose Weakness
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6123
+                        });
+                        //Natural Talent
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 3,
+                            SummonerId = -1,
+                            TalentId = 6134
+                        });
+                    }
+                    break;
+                    case 28:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                        //Thunderlord's Decree
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6362
+                        });
+                        //Fury
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 3,
+                            SummonerId = -1,
+                            TalentId = 6111
+                        });
+                        //Sorcery
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 2,
+                            SummonerId = -1,
+                            TalentId = 6114
+                        });
+                        //Expose Weakness
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6123
+                        });
+                        //Natural Talent
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 4,
+                            SummonerId = -1,
+                            TalentId = 6134
+                        });
+                    }
+                    break;
+                    case 29:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                        //Thunderlord's Decree
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6362
+                        });
+                        //Fury
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 3,
+                            SummonerId = -1,
+                            TalentId = 6111
+                        });
+                        //Sorcery
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 2,
+                            SummonerId = -1,
+                            TalentId = 6114
+                        });
+                        //Expose Weakness
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6123
+                        });
+                        //Natural Talent
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6134
+                        });
+                    }
+                    break;
+                    case 30:
+                    {
+                        //Wanderer
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6311
+                        });
+                        //Secret Stash
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6322
+                        });
+                        //Merciless
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6331
+                        });
+                        //Dangerous Game
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6343
+                        });
+                        //Precision
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6351
+                        });
+                        //Thunderlord's Decree
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6362
+                        });
+                        //Fury
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 3,
+                            SummonerId = -1,
+                            TalentId = 6111
+                        });
+                        //Sorcery
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 2,
+                            SummonerId = -1,
+                            TalentId = 6114
+                        });
+                        //Expose Weakness
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6123
+                        });
+                        //Natural Talent
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 5,
+                            SummonerId = -1,
+                            TalentId = 6134
+                        });
+                        //Bounty Hunter
+                        firstPage.TalentEntries.Add(new TalentEntry()
+                        {
+                            Rank = 1,
+                            SummonerId = -1,
+                            TalentId = 6141
+                        });
+                    }
+                    break;
+                }
+                //Set our page as the current...
+                foreach(var page in masteryBook.BookPages)
+                {
+                    page.Current = false;
+                }
+                firstPage.Current = true;
+                masteryBook.BookPages[0] = firstPage;
+                //save the page
+                var newBook = await connection.SaveMasteryBook(masteryBook);
+            }
+            catch (Exception e)
+            {
+                Tools.Log(e.StackTrace);
+            }
+        }
+        
         private string RandomString(int size)
         {
             StringBuilder stringBuilder = new StringBuilder();
