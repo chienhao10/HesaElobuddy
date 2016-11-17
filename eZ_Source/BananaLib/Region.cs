@@ -21,7 +21,7 @@
         [FullName("Singapore/Malaysia"), GameServerAddress("prod.lol.garenanow.com"), LoginQueue("https://lq.lol.garenanow.com/"), Locale("en_US"), UseGarena(true)] SGMY,
         [FullName("Taiwan"), GameServerAddress("prodtw1.lol.garenanow.com"), LoginQueue("https://lqtw1.lol.garenanow.com/"), Locale("en_US"), UseGarena(true)] TW,
         [FullName("Thailand"), GameServerAddress("prodth.lol.garenanow.com"), LoginQueue("https://lqth.lol.garenanow.com/"), Locale("en_US"), UseGarena(true)] TH,
-        [FullName("Phillipines"), GameServerAddress("prodph.lol.garenanow.com"), LoginQueue("https://storeph.lol.garenanow.com/"), Locale("en_US"), UseGarena(true)] PH,
+        [FullName("Phillipines"), GameServerAddress("prodph.lol.garenanow.com"), LoginQueue("https://lqph.lol.garenanow.com/"), Locale("en_US"), UseGarena(true)] PH,
         [FullName("Vietnam"), GameServerAddress("prodvn1.lol.garenanow.com"), LoginQueue("https://lqvn1.lol.garenanow.com/"), Locale("en_US"), UseGarena(true)] VN
     }
 }
