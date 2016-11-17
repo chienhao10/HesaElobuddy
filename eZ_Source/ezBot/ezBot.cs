@@ -583,7 +583,7 @@ namespace ezBot
                                 if (firstTimeInPostChampSelect)
                                 {
                                     firstTimeInPostChampSelect = false;
-                                    Tools.ConsoleMessage("Waiting champ select timer to reach 0", ConsoleColor.White);
+                                    Tools.ConsoleMessage(Program.Translator.WaitingChampSelectTimer, ConsoleColor.White);
                                 }
                             }
                             break;
@@ -608,7 +608,7 @@ namespace ezBot
 
                             case "IN_QUEUE":
                             {
-                                Tools.ConsoleMessage("You are in queue.", ConsoleColor.White);
+                                Tools.ConsoleMessage(Program.Translator.YouAreInQueue, ConsoleColor.White);
                             }
                             break;
 
@@ -619,7 +619,7 @@ namespace ezBot
                             {
                                 if (Program.DontQueue) return;
                                 pickAtTurn = 0;
-                                Tools.ConsoleMessage("Re-queued: " + queueType + " as " + sumName + ".", ConsoleColor.Cyan);
+                                Tools.ConsoleMessage(string.Format(Program.Translator.ReQueued, queueType, sumName), ConsoleColor.Cyan);
                                 firstTimeInQueuePop = true;
                                 firstTimeInPostChampSelect = true;
                                 //ShouldBeInGame = false;
@@ -663,11 +663,11 @@ namespace ezBot
                                 {
                                     if (gameDTO.StatusOfParticipants.Contains("1"))
                                     {
-                                        Tools.ConsoleMessage("Queue popped.", ConsoleColor.White);
+                                        Tools.ConsoleMessage(Program.Translator.QueuePopped, ConsoleColor.White);
                                         firstTimeInQueuePop = false;
                                         firstTimeInLobby = true;
                                         await Task.Delay(new Random().Next(1, Program.queueWithFriends ? (GetFriendsToInvite().ToList().Count > 3 ? 2 : 3) : 3) * new Random().Next(800, 1000));
-                                        Tools.ConsoleMessage("Accepted Queue!", ConsoleColor.White);
+                                        Tools.ConsoleMessage(Program.Translator.AcceptedQueue, ConsoleColor.White);
                                         try
                                         {
                                             await connection.AcceptPoppedGame(true);
@@ -680,7 +680,7 @@ namespace ezBot
                                             firstTimeInQueuePop = true;
                                             firstTimeInPostChampSelect = true;
                                             firstTimeInLobby = false;
-                                            Tools.ConsoleMessage("Re-queued: " + queueType + " as " + sumName + ".", ConsoleColor.Cyan);
+                                            Tools.ConsoleMessage(string.Format(Program.Translator.ReQueued, queueType, sumName), ConsoleColor.Cyan);
                                         }
                                         catch (InvalidCastException ex)
                                         {
@@ -705,7 +705,7 @@ namespace ezBot
 
                             case "LEAVER_BUSTED":
                             {
-                                Tools.ConsoleMessage("You have leave buster.", ConsoleColor.White);
+                                Tools.ConsoleMessage(Program.Translator.YouHaveLeaverBuster, ConsoleColor.White);
                             }
                             break;
 
@@ -756,7 +756,7 @@ namespace ezBot
                                 Tools.Log(ex.StackTrace);
                             }
                         }).Start();
-                        Tools.ConsoleMessage("Launching League of Legends.", ConsoleColor.White);
+                        Tools.ConsoleMessage(Program.Translator.LaunchingLeagueOfLegends, ConsoleColor.White);
                         playerCredentialsDto = null;
                         ShouldBeInGame = true;
                         IsInQueue = false;
@@ -875,7 +875,7 @@ namespace ezBot
                 GameStartedAt = null;
                 ShouldBeInGame = false;
                 if (exeProcess == null) return;
-                Tools.ConsoleMessage("Closing game client.", ConsoleColor.White);
+                Tools.ConsoleMessage(Program.Translator.ClosingGameClient, ConsoleColor.White);
                 EndOfGameStats eog = new EndOfGameStats();
                 connection_OnMessageReceived(this, eog);
                 exeProcess.Exited -= new EventHandler(exeProcess_Exited);
@@ -993,11 +993,10 @@ namespace ezBot
                     if (searchingForMatchNotification.JoinedQueues.Count == 0)
                     {
                         IsInQueue = false;
-                        //Tools.ConsoleMessage("Cannot queue for: " + queueType.ToString() + " at the moment.", ConsoleColor.Red);
                     }
                     else
                     {
-                        Tools.ConsoleMessage("In Queue: " + queueType.ToString() + " as " + loginPacket.AllSummonerData.Summoner.Name + ".", ConsoleColor.Cyan);
+                        Tools.ConsoleMessage(string.Format(Program.Translator.InQueueAs, queueType, loginPacket.AllSummonerData.Summoner.Name), ConsoleColor.Cyan);
                         IsInQueue = true;
                     }
                 }
@@ -1007,7 +1006,7 @@ namespace ezBot
                     {
                         IsInQueue = false;
                         FailedJoinPlayer failedJoinPlayer = playerJoinFailure;
-                        Tools.ConsoleMessage("Queue failed, reason: " + failedJoinPlayer.ReasonFailed + ".", ConsoleColor.Red);
+                        Tools.ConsoleMessage(string.Format(Program.Translator.QueueFailedReason, failedJoinPlayer.ReasonFailed), ConsoleColor.Red);
                         if (failedJoinPlayer is BustedLeaver)
                         {
                             BustedLeaver current = failedJoinPlayer as BustedLeaver;
@@ -1031,7 +1030,7 @@ namespace ezBot
                                 }
                                 catch (Exception ex)
                                 {
-                                    Tools.ConsoleMessage("Leaver Buster Tainted Warning error: " + ex.StackTrace, ConsoleColor.Red);
+                                    Tools.ConsoleMessage(string.Format(Program.Translator.LeaverBusterTaintedWarningError, ex.StackTrace), ConsoleColor.Red);
                                 }
                                 connection_OnMessageReceived(null, new EndOfGameStats());
                             }
@@ -1043,10 +1042,8 @@ namespace ezBot
                             QueueDodger current = failedJoinPlayer as QueueDodger;
                             if (current.ReasonFailed == "QUEUE_DODGER")
                             {
-                                Tools.ConsoleMessage("Waiting queue dodger timer: " + (float)(current.PenaltyRemainingTime / 1000.0 / 60.0) + " minutes!", ConsoleColor.White);
-                                //Thread.Sleep((int)(current.PenaltyRemainingTime));
+                                Tools.ConsoleMessage(string.Format(Program.Translator.WaitingDodgeTimer, (float)(current.PenaltyRemainingTime / 1000.0 / 60.0)), ConsoleColor.White);
                                 await Task.Delay(TimeSpan.FromMilliseconds(current.PenaltyRemainingTime));
-                                //Thread.Sleep(TimeSpan.FromMilliseconds(current.PenaltyRemainingTime));
                                 connection_OnMessageReceived(null, new EndOfGameStats());
                             }
                             current = null;
@@ -1066,7 +1063,7 @@ namespace ezBot
                             }
                             catch (Exception ex)
                             {
-                                Tools.ConsoleMessage("Leaver Buster Tainted Warning error: " + ex.StackTrace, ConsoleColor.Red);
+                                Tools.ConsoleMessage(string.Format(Program.Translator.LeaverBusterTaintedWarningError, ex.StackTrace), ConsoleColor.Red);
                             }
                             connection_OnMessageReceived(null, new EndOfGameStats());
                         }
@@ -1074,7 +1071,7 @@ namespace ezBot
                     //List<FailedJoinPlayer>.Enumerator enumerator = new List<FailedJoinPlayer>.Enumerator();
                     if (!string.IsNullOrEmpty(m_accessToken))
                     {
-                        Tools.ConsoleMessage("Waiting leaver buster timer: " + (float)(m_leaverBustedPenalty / 1000.0 / 60.0) + " minutes!", ConsoleColor.White);
+                        Tools.ConsoleMessage(string.Format(Program.Translator.WaitingLeaverTimer, (float)(m_leaverBustedPenalty / 1000.0 / 60.0)), ConsoleColor.White);
                         //Thread.Sleep(TimeSpan.FromMilliseconds(m_leaverBustedPenalty));
                         await Task.Delay(TimeSpan.FromMilliseconds(m_leaverBustedPenalty));
                         Dictionary<string, object> lbdic = new Dictionary<string, object>();
@@ -1084,12 +1081,12 @@ namespace ezBot
 
                         if (searchingForMatchNotification.PlayerJoinFailures == null)
                         {
-                            Tools.ConsoleMessage("Joined lower priority queue! as " + loginPacket.AllSummonerData.Summoner.Name + ".", ConsoleColor.Cyan);
+                            Tools.ConsoleMessage(string.Format(Program.Translator.JoinedLowPriorityQueue, loginPacket.AllSummonerData.Summoner.Name), ConsoleColor.Cyan);
                             IsInQueue = true;
                         }
                         else
                         {
-                            Tools.ConsoleMessage("There was an error in joining lower priority queue.\nDisconnecting.", ConsoleColor.White);
+                            Tools.ConsoleMessage(Program.Translator.ErrorJoiningLowPriorityQueue, ConsoleColor.White);
                             connection.Disconnect();
                             Thread.Sleep(500);
                             connection.ConnectAndLogin().Wait();
@@ -1101,7 +1098,7 @@ namespace ezBot
             catch (Exception ex)
             {
                 Tools.Log(ex.StackTrace);
-                Tools.ConsoleMessage("Error occured: " + ex.StackTrace, ConsoleColor.Red);
+                Tools.ConsoleMessage(string.Format(Program.Translator.ErrorOccured, ex.StackTrace), ConsoleColor.Red);
                 connection.ConnectAndLogin().Wait();
             }
         }
@@ -1136,7 +1133,7 @@ namespace ezBot
                         loginPacket = await connection.GetLoginDataPacketForUser();
                         if (loginPacket.ReconnectInfo != null || ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).Game != null)
                         {
-                            Tools.ConsoleMessage("Restarting League of Legends.", ConsoleColor.White);
+                            Tools.ConsoleMessage(Program.Translator.RestartingLeagueOfLegends, ConsoleColor.White);
                             connection_OnMessageReceived(this, ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).PlayerCredentials);
                         }
                         else
@@ -1183,12 +1180,12 @@ namespace ezBot
 
                     if (ellapsedTime >= 0)
                     {
-                        Tools.ConsoleMessage("Restarting League of Legends.", ConsoleColor.White);
+                        Tools.ConsoleMessage(Program.Translator.RestartingLeagueOfLegends, ConsoleColor.White);
                         connection_OnMessageReceived(sender, ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).PlayerCredentials);
                     }
                     else
                     {
-                        Tools.ConsoleMessage("Restarting League of Legends at " + GameStartedAt.Value.AddMinutes(1).ToLongTimeString() + " please wait.", ConsoleColor.White);
+                        Tools.ConsoleMessage(string.Format(Program.Translator.RestartingLeagueOfLegendsAt, GameStartedAt.Value.AddMinutes(1).ToLongTimeString()), ConsoleColor.White);
                         new Thread(RestartLeague).Start();
                     }
                 }
@@ -1222,7 +1219,7 @@ namespace ezBot
         private void connection_OnLoginQueueUpdate(int positionInLine)
         {
             if (positionInLine <= 0) return;
-            Tools.ConsoleMessage("Position to login: " + positionInLine, ConsoleColor.White);
+            Tools.ConsoleMessage(string.Format(Program.Translator.PositionInLoginQueue, positionInLine), ConsoleColor.White);
         }
 
         private async void connection_OnLogin(string username)
@@ -1241,19 +1238,19 @@ namespace ezBot
 
         private async Task InitializeLogin()
         {
-            Tools.ConsoleMessage("Logging in to your account...", ConsoleColor.White);
+            Tools.ConsoleMessage(Program.Translator.LoggingIntoAccount, ConsoleColor.White);
             loginPacket = await connection.GetLoginDataPacketForUser();
             AvailableChampions = await connection.GetAvailableChampions();
 
             if (loginPacket.AllSummonerData == null)
             {
-                Tools.ConsoleMessage("Summoner not found in account.", ConsoleColor.Red);
-                Tools.ConsoleMessage("Creating Summoner...", ConsoleColor.Red);
+                Tools.ConsoleMessage(Program.Translator.SummonerDoesntExist, ConsoleColor.Red);
+                Tools.ConsoleMessage(Program.Translator.CreatingSummoner, ConsoleColor.Red);
                 Random random = new Random();
                 string text = Accountname;
                 if (text.Length > 16) text = text.Substring(0, 12) + new Random().Next(1000, 9999).ToString();
                 loginPacket.AllSummonerData = await connection.CreateDefaultSummoner(text);
-                Tools.ConsoleMessage("Created Summoner: " + text, ConsoleColor.White);
+                Tools.ConsoleMessage(string.Format(Program.Translator.CreatedSummoner, text), ConsoleColor.White);
                 text = null;
             }
             sumLevel = loginPacket.AllSummonerData.SummonerLevel.Level;
@@ -1265,16 +1262,16 @@ namespace ezBot
             ipBalance = loginPacket.IpBalance;
             if (sumLevel >= Program.maxLevel)
             {
-                Tools.ConsoleMessage("Summoner: " + sumName + " is already max level.", ConsoleColor.White);
+                Tools.ConsoleMessage(string.Format(Program.Translator.AlreadyMaxLevel, sumName), ConsoleColor.White);
                 connection.Disconnect();
-                Tools.ConsoleMessage("Log into new account.", ConsoleColor.White);
+                Tools.ConsoleMessage(Program.Translator.LogIntoNewAccount, ConsoleColor.White);
                 Program.LognNewAccount();
             }
             else
             {
                 if (rpBalance >= 400.0 && Program.buyExpBoost)
                 {
-                    Tools.ConsoleMessage("Buying XP Boost", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.BuyingXpBoost, ConsoleColor.White);
                     try
                     {
                         Task task = new Task(new Action(buyBoost));
@@ -1284,33 +1281,33 @@ namespace ezBot
                     catch (Exception ex)
                     {
                         Tools.Log(ex.StackTrace);
-                        Tools.ConsoleMessage("Couldn't buy RP Boost.\n" + ex.Message.ToString(), ConsoleColor.White);
+                        Tools.ConsoleMessage(string.Format(Program.Translator.CouldntBuyBoost, ex.Message.ToString()), ConsoleColor.White);
                     }
                 }
                 var queueLevel = await GetQueueLevel();
                 if (queueLevel < 3.0 && queueType == "NORMAL_5X5")
                 {
-                    Tools.ConsoleMessage("Need to be Level 3 before NORMAL_5X5 queue.", ConsoleColor.White);
-                    Tools.ConsoleMessage("Joins Co-Op vs AI (Beginner) queue until 3", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.Normal5Requirements, ConsoleColor.White);
+                    Tools.ConsoleMessage(string.Format(Program.Translator.JoinCoopBeginnerUntil, 3), ConsoleColor.White);
                     queueType = "BEGINNER_BOT";
                     actualQueueType = "NORMAL_5X5";
                 }
                 else if (queueLevel < 6.0 && queueType == "ARAM")
                 {
-                    Tools.ConsoleMessage("Need to be Level 6 before ARAM queue.", ConsoleColor.White);
-                    Tools.ConsoleMessage("Joins Co-Op vs AI (Beginner) queue until 6", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.NeedLevel6BeforeAram, ConsoleColor.White);
+                    Tools.ConsoleMessage(string.Format(Program.Translator.JoinCoopBeginnerUntil, 6), ConsoleColor.White);
                     queueType = "BEGINNER_BOT";
                     actualQueueType = "ARAM";
                 }
                 else if (queueLevel < 7.0 && queueType == "NORMAL_3X3")
                 {
-                    Tools.ConsoleMessage("Need to be Level 7 before NORMAL_3X3 queue.", ConsoleColor.White);
-                    Tools.ConsoleMessage("Joins Co-Op vs AI (Beginner) queue until 7", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.NeedLevel7Before3v3, ConsoleColor.White);
+                    Tools.ConsoleMessage(string.Format(Program.Translator.JoinCoopBeginnerUntil, 7), ConsoleColor.White);
                     queueType = "BEGINNER_BOT";
                     actualQueueType = "NORMAL_3X3";
                 }
-
-                Tools.ConsoleMessage("Welcome " + loginPacket.AllSummonerData.Summoner.Name + " - lvl (" + loginPacket.AllSummonerData.SummonerLevel.Level + ") IP: (" + ipBalance.ToString() + ") - XP: (" + loginPacket.AllSummonerData.SummonerLevelAndPoints.ExpPoints + " / " + loginPacket.AllSummonerData.SummonerLevel.ExpToNextLevel + ")", ConsoleColor.White);
+                
+                Tools.ConsoleMessage(string.Format(Program.Translator.Welcome, loginPacket.AllSummonerData.Summoner.Name, loginPacket.AllSummonerData.SummonerLevel.Level, ipBalance.ToString(), loginPacket.AllSummonerData.SummonerLevelAndPoints.ExpPoints, loginPacket.AllSummonerData.SummonerLevel.ExpToNextLevel), ConsoleColor.White);
 
                 PlayerDto player = await connection.CreatePlayer();
                 if (loginPacket.ReconnectInfo != null && ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).Game != null)
@@ -1329,12 +1326,12 @@ namespace ezBot
                     {
                         if (m_isLeader)
                         {
-                            Tools.ConsoleMessage("Sending game invites.", ConsoleColor.Cyan);
+                            Tools.ConsoleMessage(Program.Translator.SendingGameInvites, ConsoleColor.Cyan);
                             sendGameInvites();
                         }
                         else
                         {
-                            Tools.ConsoleMessage(string.Format("Waiting game invite from {0}.", Program.leaderName), ConsoleColor.Cyan);
+                            Tools.ConsoleMessage(string.Format(Program.Translator.WaitingGameInviteFrom, Program.leaderName), ConsoleColor.Cyan);
                         }
                     }
                     else
@@ -1579,13 +1576,13 @@ namespace ezBot
                 return;
             }
             else
-                Tools.ConsoleMessage("error received:\n" + error.Message, ConsoleColor.White);
+                Tools.ConsoleMessage(string.Format(Program.Translator.ErrorOccured, error.Message), ConsoleColor.White);
         }
 
         private void connection_OnDisconnect(object sender, EventArgs e)
         {
             Console.Title = "ezBot - Offline";
-            Tools.ConsoleMessage("Disconnected", ConsoleColor.White);
+            Tools.ConsoleMessage(Program.Translator.Disconnected, ConsoleColor.White);
         }
 
         private void connection_OnConnect(object sender, EventArgs e)
@@ -1620,7 +1617,7 @@ namespace ezBot
                     HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
                     await httpClient.PostAsync(purchaseURL, httpContent);
 
-                    Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.BoughtXpBoost3Days, ConsoleColor.White);
                     httpClient.Dispose();
                 }
                 else if (region == "EUNE")
@@ -1646,7 +1643,7 @@ namespace ezBot
                     HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
                     await httpClient.PostAsync(purchaseURL, httpContent);
 
-                    Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.BoughtXpBoost3Days, ConsoleColor.White);
                     httpClient.Dispose();
                 }
                 else if (region == "NA")
@@ -1672,7 +1669,7 @@ namespace ezBot
                     HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
                     await httpClient.PostAsync(purchaseURL, httpContent);
 
-                    Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.BoughtXpBoost3Days, ConsoleColor.White);
                     httpClient.Dispose();
                 }
                 else if (region == "KR")
@@ -1698,7 +1695,7 @@ namespace ezBot
                     HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
                     await httpClient.PostAsync(purchaseURL, httpContent);
 
-                    Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.BoughtXpBoost3Days, ConsoleColor.White);
                     httpClient.Dispose();
                 }
                 else if (region == "BR")
@@ -1724,7 +1721,7 @@ namespace ezBot
                     HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
                     await httpClient.PostAsync(purchaseURL, httpContent);
 
-                    Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.BoughtXpBoost3Days, ConsoleColor.White);
                     httpClient.Dispose();
                 }
                 else if (region == "RU")
@@ -1750,7 +1747,7 @@ namespace ezBot
                     HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
                     await httpClient.PostAsync(purchaseURL, httpContent);
 
-                    Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.BoughtXpBoost3Days, ConsoleColor.White);
                     httpClient.Dispose();
                 }
                 else if (region == "TR")
@@ -1776,7 +1773,7 @@ namespace ezBot
                     HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
                     await httpClient.PostAsync(purchaseURL, httpContent);
 
-                    Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.BoughtXpBoost3Days, ConsoleColor.White);
                     httpClient.Dispose();
                 }
                 else if (region == "LAS")
@@ -1802,7 +1799,7 @@ namespace ezBot
                     HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
                     await httpClient.PostAsync(purchaseURL, httpContent);
 
-                    Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.BoughtXpBoost3Days, ConsoleColor.White);
                     httpClient.Dispose();
                 }
                 else if (region == "LAN")
@@ -1828,7 +1825,7 @@ namespace ezBot
                     HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
                     await httpClient.PostAsync(purchaseURL, httpContent);
 
-                    Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.BoughtXpBoost3Days, ConsoleColor.White);
                     httpClient.Dispose();
                 }
                 else if (region == "OCE")
@@ -1854,7 +1851,7 @@ namespace ezBot
                     HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
                     await httpClient.PostAsync(purchaseURL, httpContent);
 
-                    Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.BoughtXpBoost3Days, ConsoleColor.White);
                     httpClient.Dispose();
                 }
                 else if (region == "JP")
@@ -1880,7 +1877,7 @@ namespace ezBot
                     HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
                     await httpClient.PostAsync(purchaseURL, httpContent);
 
-                    Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.BoughtXpBoost3Days, ConsoleColor.White);
                     httpClient.Dispose();
                 }
             }
@@ -1892,14 +1889,14 @@ namespace ezBot
 
         public void levelUp()
         {
-            Tools.ConsoleMessage("Level Up: " + sumLevel, ConsoleColor.Yellow);
+            Tools.ConsoleMessage(string.Format(Program.Translator.LevelUp, sumLevel), ConsoleColor.Yellow);
             rpBalance = loginPacket.RpBalance;
             ipBalance = loginPacket.IpBalance;
-            Tools.ConsoleMessage("Your Current RP: " + rpBalance, ConsoleColor.Yellow);
-            Tools.ConsoleMessage("Your Current IP: " + ipBalance, ConsoleColor.Yellow);
+            Tools.ConsoleMessage(string.Format(Program.Translator.CurrentRp, rpBalance), ConsoleColor.Yellow);
+            Tools.ConsoleMessage(string.Format(Program.Translator.CurrentIp, ipBalance), ConsoleColor.Yellow);
             if (sumLevel >= Program.maxLevel)
             {
-                Tools.ConsoleMessage("Your character reached the max level: " + Program.maxLevel, ConsoleColor.Red);
+                Tools.ConsoleMessage(string.Format(Program.Translator.CharacterReachedMaxLevel, Program.maxLevel), ConsoleColor.Red);
                 connection.Disconnect();
                 return;
             }
@@ -1907,7 +1904,7 @@ namespace ezBot
             {
                 if (rpBalance >= 400.0 && Program.buyExpBoost)
                 {
-                    Tools.ConsoleMessage("Buying XP Boost", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.BuyingXpBoost, ConsoleColor.White);
                     try
                     {
                         Task t = new Task(buyBoost);
@@ -1915,7 +1912,7 @@ namespace ezBot
                     }
                     catch (Exception exception)
                     {
-                        Tools.ConsoleMessage("Couldn't buy RP Boost.\n" + exception, ConsoleColor.Red);
+                        Tools.ConsoleMessage(string.Format(Program.Translator.CouldntBuyBoost, exception), ConsoleColor.Red);
                     }
                 }
             }
@@ -1930,7 +1927,7 @@ namespace ezBot
             bool updatedFromChampionGG = false;
             try
             {
-                Tools.ConsoleMessage("Downloading masteries from champion.gg", ConsoleColor.White);
+                Tools.ConsoleMessage(Program.Translator.DownloadingMasteries, ConsoleColor.White);
                 List<MasteriesTreeGG> masteries = new List<MasteriesTreeGG>();
                 using (WebClient webClient = new WebClient())
                 {
@@ -2138,7 +2135,7 @@ namespace ezBot
                     }
                     firstPage.Current = true;
                     masteryBook.BookPages[0] = firstPage;
-                    Tools.ConsoleMessage("Updating masteries", ConsoleColor.White);
+                    Tools.ConsoleMessage(Program.Translator.UpdatingMasteries, ConsoleColor.White);
                     //save the page
                     var newBook = await connection.SaveMasteryBook(masteryBook);
                     updatedFromChampionGG = true;
@@ -2150,7 +2147,7 @@ namespace ezBot
             }
 
             if (updatedFromChampionGG) return;
-            Tools.ConsoleMessage("Updating masteries", ConsoleColor.White);
+            Tools.ConsoleMessage(Program.Translator.UpdatingMasteries, ConsoleColor.White);
             try
             {
                 var masteryBook = await connection.GetMasteryBook(sumId);
