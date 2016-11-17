@@ -2,6 +2,14 @@
 {
     public class FrenchTranslator : ITranslator
     {
+        public string EzBot { get { return "ezBot - Auto Queue pour LOL: {0}"; } }
+        public string By { get { return "Fabriqué par Tryller mis à jour, personnalisé et pris en charge par Hesa."; } }
+        public string Version { get { return "Version: {0}"; } }
+        public string Support { get { return "Obtenir de l'aide sur discord: https://discord.gg/Fg2tQGa"; } }
+        public string Garena { get { return "Garena maintenant pris en charge!"; } }
+        public string SourceCode { get { return "J'ai mis le code source sur github à github.com/hesa2020/HesaElobuddy."; } }
+        public string Issues { get { return "S'il vous plaît signaler les problèmes sur le fil ezbot personnalisé par hesa sur Elobuddy.net."; } }
+        public string AdministratorRequired { get { return "ezBot doit être démarré avec des privilèges d'administrateur."; } }
         public string ConfigLoaded { get { return "Configuration chargée."; } }
         public string LauncherPathInvalid { get { return "Votre LauncherPath n'est pas valide."; } }
         public string PleaseTryThis { get { return "Veuillez essayer ceci:"; } }
@@ -35,9 +43,9 @@
         public string ReQueued { get { return "Mis en file d'attente: {0} as {1}."; } }
         public string QueuePopped { get { return "File d'attente prête."; } }
         public string AcceptedQueue { get { return "File d'attente acceptée!"; } }
-        public string YouHaveLeaverBuster { get { return "You have leaver buster."; } }
-        public string LaunchingLeagueOfLegends { get { return "Launching League of Legends."; } }
-        public string ClosingGameClient { get { return "Closing game client."; } }
+        public string YouHaveLeaverBuster { get { return "Vous avez une probation de type leaverbuster."; } }
+        public string LaunchingLeagueOfLegends { get { return "Lancement de League of Legends."; } }
+        public string ClosingGameClient { get { return "Fermeture du client de jeu."; } }
         public string InQueueAs { get { return "Dans la file d'attente: {0} en tant que {1}."; } }
         public string QueueFailedReason { get { return "Échec de la file d'attente, raison: {0}."; } }
         public string LeaverBusterTaintedWarningError { get { return "Avertissement Leaver Buster, erreur:\n{0}"; } }

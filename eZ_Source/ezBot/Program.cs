@@ -88,28 +88,28 @@ namespace ezBot
             
             LoadLeagueVersion();
 
-            Console.Title = "ezBot";
-            Tools.TitleMessage("ezBot - Auto Queue for LOL: " + Program.LoLVersion.Substring(0, 4));
-            Tools.TitleMessage("Made by Tryller updated, customized and supported by Hesa.");
-            Tools.TitleMessage("Version: " + EzBotVersion);
-            Tools.ConsoleMessage("Skype: wisahesa", ConsoleColor.Magenta);
-            Tools.ConsoleMessage("Paypal: h3xc0r3@gmail.com", ConsoleColor.Magenta);
-            Tools.ConsoleMessage("Get support on discord: https://discord.gg/Fg2tQGa", ConsoleColor.Magenta);
-            Tools.ConsoleMessage("Garena now supported!", ConsoleColor.Cyan);
-
-            Tools.ConsoleMessage("I uploaded the source code on github at github.com/hesa2020/HesaElobuddy.", ConsoleColor.Cyan);
-            Tools.ConsoleMessage("Please report issue(s) on the ezbot thread customized by hesa on Elobuddy.net.", ConsoleColor.Cyan);
-
-            if (!IsUserAdministrator())
-            {
-                Tools.ConsoleMessage("ezBot must be started with administrator privileges.", ConsoleColor.Red);
-                Console.ReadKey(true);
-                return;
-            }
-
             LoadConfigs();
 
             LoadTranslator();
+
+            Console.Title = "ezBot";
+            Tools.TitleMessage(string.Format(Translator.EzBot, LoLVersion.Substring(0, 4)));
+            Tools.TitleMessage(Translator.By);
+            Tools.TitleMessage(string.Format(Translator.Version, EzBotVersion));
+            Tools.ConsoleMessage("Skype: wisahesa", ConsoleColor.Magenta);
+            Tools.ConsoleMessage("Paypal: h3xc0r3@gmail.com", ConsoleColor.Magenta);
+            Tools.ConsoleMessage(Translator.Support, ConsoleColor.Magenta);
+            Tools.ConsoleMessage(Translator.Garena, ConsoleColor.Cyan);
+
+            Tools.ConsoleMessage(Translator.SourceCode, ConsoleColor.Cyan);
+            Tools.ConsoleMessage(Translator.Issues, ConsoleColor.Cyan);
+
+            if (!IsUserAdministrator())
+            {
+                Tools.ConsoleMessage(Translator.AdministratorRequired, ConsoleColor.Red);
+                Console.ReadKey(true);
+                return;
+            }
 
             Tools.ConsoleMessage(Translator.ConfigLoaded, ConsoleColor.White);
             

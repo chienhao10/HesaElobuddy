@@ -2,6 +2,14 @@
 {
     public class EnglishTranslator : ITranslator
     {
+        public string EzBot { get { return "ezBot - Auto Queue for LOL: {0}"; } }
+        public string By { get { return "Made by Tryller updated, customized and supported by Hesa."; } }
+        public string Version { get { return "Version: {0}"; } }
+        public string Support { get { return "Get support on discord: https://discord.gg/Fg2tQGa"; } }
+        public string Garena { get { return "Garena now supported!"; } }
+        public string SourceCode { get { return "I uploaded the source code on github at github.com/hesa2020/HesaElobuddy."; } }
+        public string Issues { get { return "Please report issue(s) on the ezbot thread customized by hesa on Elobuddy.net."; } }
+        public string AdministratorRequired { get { return "ezBot must be started with administrator privileges."; } }
         public string ConfigLoaded { get { return "Config loaded."; } }
         public string LauncherPathInvalid { get { return "Your LauncherPath is invalid."; } }
         public string PleaseTryThis { get { return "Please try this:"; } }

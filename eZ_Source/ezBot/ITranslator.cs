@@ -2,6 +2,14 @@
 {
     interface ITranslator
     {
+        string EzBot { get; }
+        string By { get; }
+        string Version { get; }
+        string Support { get; }
+        string Garena { get; }
+        string SourceCode { get; }
+        string Issues { get; }
+        string AdministratorRequired { get; }
         string ConfigLoaded { get; }
         string LauncherPathInvalid { get; }
         string PleaseTryThis { get; }
