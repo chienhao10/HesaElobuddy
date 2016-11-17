@@ -1,4 +1,5 @@
 ﻿using BananaLib;
+using ezBot.Languages;
 using ezBot.Utils;
 using System;
 using System.Collections;
@@ -54,6 +55,21 @@ namespace ezBot
         public static int shutdownAfterXMatch = 0;
         public static bool shutdownComputer = false;
         public static int currentMatchCount = 0;
+        public static string language = "en";
+        public static ITranslator Translator;
+
+        private static void LoadTranslator()
+        {
+            switch(language)
+            {
+                default:
+                case "en":
+                {
+                    Translator = new EnglishTranslator();
+                }
+                break;
+            }
+        }
 
         private static void Main(string[] args)
         {
@@ -65,7 +81,6 @@ namespace ezBot
                 Environment.Exit(0);
             }
 
-            Program.LoadLeagueVersion();
             Console.Title = "ezBot";
             Tools.TitleMessage("ezBot - Auto Queue for LOL: " + Program.LoLVersion.Substring(0, 4));
             Tools.TitleMessage("Made by Tryller updated, customized and supported by Hesa.");
@@ -86,28 +101,33 @@ namespace ezBot
             }
 
             LoadConfigs();
-            Tools.ConsoleMessage("Config loaded.", ConsoleColor.White);
+
+            LoadTranslator();
+
+            Tools.ConsoleMessage(Translator.ConfigLoaded, ConsoleColor.White);
+
+            LoadLeagueVersion();
 
             try
             {
                 var dir = Directory.EnumerateDirectories(lolPath + "RADS\\solutions\\lol_game_client_sln\\releases\\").OrderBy(f => new DirectoryInfo(f).CreationTime).Last() + "\\deploy\\";
             }catch(Exception)
             {
-                Tools.ConsoleMessage("Your LauncherPath is invalid.", ConsoleColor.Red);
-                Tools.ConsoleMessage("Please try this:", ConsoleColor.Red);
-                Tools.ConsoleMessage("1. Make sure the path point to the FOLDER where we can find the launcher for league of legends and not to any exe file.", ConsoleColor.Red);
-                Tools.ConsoleMessage("2. Make sure the LauncherPath ends with a \\", ConsoleColor.Red);
-                Tools.ConsoleMessage("3. Browse to the LauncherPath", ConsoleColor.Red);
-                Tools.ConsoleMessage("4. Browse to RADS\\solutions\\lol_game_client_sln\\releases\\", ConsoleColor.Red);
-                Tools.ConsoleMessage("5. Delete all folder in here except: 0.0.1.152", ConsoleColor.Red);
+                Tools.ConsoleMessage(Translator.LauncherPathInvalid, ConsoleColor.Red);
+                Tools.ConsoleMessage(Translator.PleaseTryThis, ConsoleColor.Red);
+                Tools.ConsoleMessage(Translator.LauncherFix1, ConsoleColor.Red);
+                Tools.ConsoleMessage(Translator.LauncherFix2, ConsoleColor.Red);
+                Tools.ConsoleMessage(Translator.LauncherFix3, ConsoleColor.Red);
+                Tools.ConsoleMessage(Translator.LauncherFix4, ConsoleColor.Red);
+                Tools.ConsoleMessage(Translator.LauncherFix5, ConsoleColor.Red);
             }
             
             if (replaceConfig)
             {
-                Tools.ConsoleMessage("Changing Game Config.", ConsoleColor.White);
+                Tools.ConsoleMessage(Translator.ChangingGameConfig, ConsoleColor.White);
                 ChangeGameConfig();
             }
-            Tools.ConsoleMessage("Loading accounts.", ConsoleColor.White);
+            Tools.ConsoleMessage(Translator.LoadingAccounts, ConsoleColor.White);
             LoadAccounts();
             int num = 0;
             lock(accounts)
@@ -144,15 +164,15 @@ namespace ezBot
                         }
                         if (num == maxBots)
                         {
-                            Tools.ConsoleMessage("Maximum bots running: " + maxBots, ConsoleColor.Red);
+                            Tools.ConsoleMessage(string.Format(Translator.MaximumBotsRunning, maxBots), ConsoleColor.Red);
                             break;
                         }
                     }
                     catch (Exception ex)
                     {
                         Tools.ConsoleMessage(ex.Message + " " + ex.StackTrace, ConsoleColor.Green);
-                        Tools.ConsoleMessage("You may have an issue in your accounts.txt", ConsoleColor.Red);
-                        Tools.ConsoleMessage("Accounts structure ACCOUNT|PASSWORD|REGION|QUEUE_TYPE|IS_LEADER", ConsoleColor.Red);
+                        Tools.ConsoleMessage(Translator.YouMayHaveAnIssueInAccountsFile, ConsoleColor.Red);
+                        Tools.ConsoleMessage(Translator.AccountsStructure, ConsoleColor.Red);
                         Console.ReadKey(true);
                     }
                 }
@@ -247,7 +267,7 @@ namespace ezBot
                     }
                     catch (Win32Exception ex)
                     {
-                        Console.WriteLine("Error Get Garena Token");
+                        Console.WriteLine(Translator.ErrorGetGarenaToken);
                         if ((uint)ex.ErrorCode != 0x80004005)
                         {
                             throw;
@@ -290,7 +310,7 @@ namespace ezBot
                 }
                 catch (Exception ex)
                 {
-                    Tools.Log("Regular League game.cfg Error: If using VMWare Shared Folder, make sure it is not set to Read-Only.\nException:" + ex.Message);
+                    Tools.Log(string.Format(Translator.ErrorLeagueGameCfgRegular, ex.Message));
                 }
             }
             if (string.IsNullOrEmpty(lolGarenaPath)) return;
@@ -303,24 +323,24 @@ namespace ezBot
             }
             catch (Exception ex)
             {
-                Tools.Log("Garena game.cfg Error: If using VMWare Shared Folder, make sure it is not set to Read-Only.\nException:" + ex.Message);
+                Tools.Log(string.Format(Translator.ErrorLeagueGameCfgGarena, ex.Message));
             }
         }
 
         public static void LognNewAccount()
         {
-            if (Program.accounts.Count == 0)
+            if (accounts.Count == 0)
             {
-                Tools.ConsoleMessage("No more accounts to login", ConsoleColor.Red);
+                Tools.ConsoleMessage(Translator.NoMoreAccountsToLogin, ConsoleColor.Red);
                 return;
             }
             
-            Program.accounts = Program.accountsNew;
+            accounts = accountsNew;
             int num = 0;
             
-            foreach (string account in Program.accountsNew)
+            foreach (string account in accountsNew)
             {
-                Program.accounts.RemoveAt(0);
+                accounts.RemoveAt(0);
                 string[] strArray = account.Split(new string[1] { "|" }, StringSplitOptions.None);
                 ++num;
                 var isLeader = string.IsNullOrEmpty(strArray[4]) ? true : (strArray[4].ToLower() == "leader" ? true : false);
@@ -330,18 +350,18 @@ namespace ezBot
                     string queueType = strArray[3];
                     if (IsGameModeValid(queueType))
                     {
-                        ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), queueType, Program.LoLVersion, isLeader);
+                        ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), queueType, LoLVersion, isLeader);
                     }
                 }
                 else
                 {
-                    Generator.CreateRandomThread(Program.delay1, Program.delay2);
+                    Generator.CreateRandomThread(delay1, delay2);
                     string queueType = "ARAM";
-                    ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), queueType, Program.LoLVersion, isLeader);
+                    ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), queueType, LoLVersion, isLeader);
                 }
-                if (num == Program.maxBots)
+                if (num == maxBots)
                 {
-                    Tools.ConsoleMessage("Maximum bots running: " + (object)Program.maxBots, ConsoleColor.Red);
+                    Tools.ConsoleMessage(string.Format(Translator.MaximumBotsRunning, maxBots), ConsoleColor.Red);
                     break;
                 }
             }
@@ -360,7 +380,7 @@ namespace ezBot
                 case "ARAM": return true;
             }
 
-            Tools.ConsoleMessage("Game Mode invalid, make sure you are using one of the following modes ( CASE SENSITIVE )", ConsoleColor.Red);
+            Tools.ConsoleMessage(Translator.GameModeInvalid, ConsoleColor.Red);
             Tools.ConsoleMessage("INTRO_BOT", ConsoleColor.Red);
             Tools.ConsoleMessage("BEGINNER_BOT", ConsoleColor.Red);
             Tools.ConsoleMessage("MEDIUM_BOT", ConsoleColor.Red);
@@ -392,25 +412,32 @@ namespace ezBot
                     lolPath = "C:\\Riot Games\\League of Legends\\";
                     Tools.Log(ex.StackTrace);
                 }
-                lolPath = iniFile.Read("GENERAL", "LauncherPath");
-                maxBots = Convert.ToInt32(iniFile.Read("GENERAL", "MaxBots"));
-                maxLevel = Convert.ToInt32(iniFile.Read("GENERAL", "MaxLevel"));
-                randomSpell = Convert.ToBoolean(iniFile.Read("GENERAL", "RandomSpell"));
-                spell1 = iniFile.Read("GENERAL", "Spell1").ToUpper();
-                spell2 = iniFile.Read("GENERAL", "Spell2").ToUpper();
-                delay1 = Convert.ToInt32(iniFile.Read("ACCOUNT", "MinDelay"));
-                delay2 = Convert.ToInt32(iniFile.Read("ACCOUNT", "MaxDelay"));
-                buyExpBoost = Convert.ToBoolean(iniFile.Read("ACCOUNT", "BuyExpBoost"));
-                randomChampionPick = Convert.ToBoolean(iniFile.Read("CHAMPIONS", "PickRandomlyFromThisList"));
-                firstChampionPick = iniFile.Read("CHAMPIONS", "FirstChampionPick");
-                secondChampionPick = iniFile.Read("CHAMPIONS", "SecondChampionPick");
-                thirdChampionPick = iniFile.Read("CHAMPIONS", "ThirdChampionPick");
-                fourthChampionPick = iniFile.Read("CHAMPIONS", "FourthChampionPick");
-                fifthChampionPick = iniFile.Read("CHAMPIONS", "FifthChampionPick");
-                replaceConfig = Convert.ToBoolean(iniFile.Read("LOLSCREEN", "ReplaceLoLConfig"));
-                lolHeight = Convert.ToInt32(iniFile.Read("LOLSCREEN", "SreenHeight"));
-                lolWidth = Convert.ToInt32(iniFile.Read("LOLSCREEN", "SreenWidth"));
-                LOWPriority = Convert.ToBoolean(iniFile.Read("LOLSCREEN", "LOWPriority"));
+                try
+                {
+                    lolPath = iniFile.Read("GENERAL", "LauncherPath");
+                    maxBots = Convert.ToInt32(iniFile.Read("GENERAL", "MaxBots"));
+                    maxLevel = Convert.ToInt32(iniFile.Read("GENERAL", "MaxLevel"));
+                    randomSpell = Convert.ToBoolean(iniFile.Read("GENERAL", "RandomSpell"));
+                    spell1 = iniFile.Read("GENERAL", "Spell1").ToUpper();
+                    spell2 = iniFile.Read("GENERAL", "Spell2").ToUpper();
+                    delay1 = Convert.ToInt32(iniFile.Read("ACCOUNT", "MinDelay"));
+                    delay2 = Convert.ToInt32(iniFile.Read("ACCOUNT", "MaxDelay"));
+                    buyExpBoost = Convert.ToBoolean(iniFile.Read("ACCOUNT", "BuyExpBoost"));
+                    randomChampionPick = Convert.ToBoolean(iniFile.Read("CHAMPIONS", "PickRandomlyFromThisList"));
+                    firstChampionPick = iniFile.Read("CHAMPIONS", "FirstChampionPick");
+                    secondChampionPick = iniFile.Read("CHAMPIONS", "SecondChampionPick");
+                    thirdChampionPick = iniFile.Read("CHAMPIONS", "ThirdChampionPick");
+                    fourthChampionPick = iniFile.Read("CHAMPIONS", "FourthChampionPick");
+                    fifthChampionPick = iniFile.Read("CHAMPIONS", "FifthChampionPick");
+                    replaceConfig = Convert.ToBoolean(iniFile.Read("LOLSCREEN", "ReplaceLoLConfig"));
+                    lolHeight = Convert.ToInt32(iniFile.Read("LOLSCREEN", "SreenHeight"));
+                    lolWidth = Convert.ToInt32(iniFile.Read("LOLSCREEN", "SreenWidth"));
+                    LOWPriority = Convert.ToBoolean(iniFile.Read("LOLSCREEN", "LOWPriority"));
+                }
+                catch(Exception ex)
+                {
+                    Tools.ConsoleMessage(ex.StackTrace, ConsoleColor.Red, false);
+                }
                 try
                 {
                     queueWithFriends = Convert.ToBoolean(iniFile.Read("FRIENDS", "QueueWithFriends"));
@@ -465,6 +492,22 @@ namespace ezBot
                     iniFile.Write("SHUTDOWN", "AlsoCloseComputer", "false");
                     Tools.Log(ex.StackTrace);
                 }
+
+                try
+                {
+                    language = iniFile.Read("GENERAL", "Language");
+                    if(string.IsNullOrEmpty(language))
+                    {
+                        iniFile.Write("GENERAL", "Language", "en");
+                        language = "en";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    iniFile.Write("GENERAL", "Language", "en");
+                    Tools.Log(ex.StackTrace);
+                    language = "en";
+                }
             }
             catch (Exception ex)
             {
@@ -511,7 +554,7 @@ namespace ezBot
                 if (currentMatchCount != 0)
                 {
                     DontQueue = true;
-                    Tools.ConsoleMessage("Will shutdown once the current match ends.", ConsoleColor.Yellow);
+                    Tools.ConsoleMessage(Translator.WillShutdownOnceCurrentMatchEnds, ConsoleColor.Yellow);
                     return;
                 }
                 if (shutdownComputer)
@@ -539,8 +582,7 @@ namespace ezBot
                 defeat++;
             }
             var total = (victory + defeat);
-            Console.Title = string.Format("ezBot - {0} Total - {1} Victory - {2} Defeat", total, victory, defeat);
+            Console.Title = string.Format(Translator.EzBotGameStatus, total, victory, defeat);
         }
-
     }
 }

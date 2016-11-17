@@ -220,7 +220,7 @@ namespace ezBot
             {
                 if (from.ToLower() == Program.leaderName.ToLower())
                 {
-                    Tools.ConsoleMessage("Accepting lobby invite", ConsoleColor.Cyan);
+                    Tools.ConsoleMessage(Program.Translator.AcceptingLobbyInvite, ConsoleColor.Cyan);
                     await Task.Delay(new Random().Next(1, 3) * new Random().Next(800, 1200));
                     await connection.AcceptLobbyInvite(inviteId);
                 }
@@ -267,12 +267,12 @@ namespace ezBot
                     Lobby = message as LobbyStatus;
                     if (Lobby.Members.Count == GetFriendsToInvite().Count + 1)
                     {
-                        Tools.ConsoleMessage("All players accepted, starting queue.", ConsoleColor.Cyan);
+                        Tools.ConsoleMessage(Program.Translator.AllPlayersAccepted, ConsoleColor.Cyan);
                         EnterQueue();
                     }
                     else
                     {
-                        Tools.ConsoleMessage(string.Format("{0}/{1} player(s) accepted, waiting till everybody accepted.", Lobby.Members.Count - 1, GetFriendsToInvite().Count), ConsoleColor.Cyan);
+                        Tools.ConsoleMessage(string.Format(Program.Translator.PlayersAcceptedCount, Lobby.Members.Count - 1, GetFriendsToInvite().Count), ConsoleColor.Cyan);
                     }
                 }
 
@@ -286,7 +286,6 @@ namespace ezBot
                     string gameState;
                     if ((gameState = gameDTO.GameState) != null)
                     {
-                        //Tools.ConsoleMessage("Game state=" + gameState, ConsoleColor.Cyan);
                         switch (gameState)
                         {
                             case "IDLE":
@@ -295,7 +294,7 @@ namespace ezBot
                             case "TEAM_SELECT":
                             if (firstTimeInCustom)
                             {
-                                Tools.ConsoleMessage("Entering champion selection", ConsoleColor.White);
+                                Tools.ConsoleMessage(Program.Translator.EnteringChampionSelect, ConsoleColor.White);
                                 await connection.StartChampionSelection(gameDTO.Id, gameDTO.OptimisticLock);
                                 firstTimeInCustom = false;
                             }
@@ -311,7 +310,7 @@ namespace ezBot
                                     {
                                         if (pickAtTurn == 0)
                                         {
-                                            Tools.ConsoleMessage("You are in champion select.", ConsoleColor.White);
+                                            Tools.ConsoleMessage(Program.Translator.YouAreInChampionSelect, ConsoleColor.White);
 
                                             try
                                             {
@@ -337,7 +336,7 @@ namespace ezBot
                                     }
                                     else
                                     {
-                                        Tools.ConsoleMessage("You are in champion select.", ConsoleColor.White);
+                                        Tools.ConsoleMessage(Program.Translator.YouAreInChampionSelect, ConsoleColor.White);
                                         try
                                         {
                                             await connection.SetClientReceivedGameMessage(gameDTO.Id, "CHAMP_SELECT_CLIENT");
@@ -441,13 +440,13 @@ namespace ezBot
                                         catch (InvocationException ex)
                                         {
                                             Tools.Log(ex.StackTrace);
-                                            Tools.ConsoleMessage(string.Format("Champion '{0}' is not owned, is not free to play or has already been choosen.", championName), ConsoleColor.Red);
+                                            Tools.ConsoleMessage(string.Format(Program.Translator.ChampionNotAvailable, championName), ConsoleColor.Red);
                                             Console.WriteLine(ex.StackTrace);
                                         }
-                                        Tools.ConsoleMessage("Selected Champion: " + championName, ConsoleColor.DarkYellow);
+                                        Tools.ConsoleMessage(string.Format(Program.Translator.SelectedChampion, championName), ConsoleColor.DarkYellow);
                                         await Task.Delay(new Random().Next(1, 9) * new Random().Next(800, 1000));
                                         await connection.ChampionSelectCompleted();
-                                        Tools.ConsoleMessage("Waiting for other players to lockin.", ConsoleColor.White);
+                                        Tools.ConsoleMessage(Program.Translator.WaitingForOtherPlayersLockin, ConsoleColor.White);
 
                                         //Select Summoners Spell
                                         int spellOneId;
@@ -514,7 +513,7 @@ namespace ezBot
                                             championName = Enums.GetChampionById(champion.ChampionId);
                                             if (!string.IsNullOrEmpty(championName))
                                             {
-                                                Tools.ConsoleMessage("Selected Champion: " + UcFirst(championName.ToLower()), ConsoleColor.DarkYellow);
+                                                Tools.ConsoleMessage(string.Format(Program.Translator.SelectedChampion, UcFirst(championName.ToLower())), ConsoleColor.DarkYellow);
                                             }
                                         }
 
@@ -570,7 +569,7 @@ namespace ezBot
                                             Tools.Log(e.StackTrace);
                                         }
                                         
-                                        Tools.ConsoleMessage("Waiting for other players to lockin.", ConsoleColor.White);
+                                        Tools.ConsoleMessage(Program.Translator.WaitingForOtherPlayersLockin, ConsoleColor.White);
                                     }
 
                                     #endregion ARAM
@@ -1904,18 +1903,25 @@ namespace ezBot
                 connection.Disconnect();
                 return;
             }
-            if (rpBalance >= 400.0 && Program.buyExpBoost)
+            try
             {
-                Tools.ConsoleMessage("Buying XP Boost", ConsoleColor.White);
-                try
+                if (rpBalance >= 400.0 && Program.buyExpBoost)
                 {
-                    Task t = new Task(buyBoost);
-                    t.Start();
+                    Tools.ConsoleMessage("Buying XP Boost", ConsoleColor.White);
+                    try
+                    {
+                        Task t = new Task(buyBoost);
+                        t.Start();
+                    }
+                    catch (Exception exception)
+                    {
+                        Tools.ConsoleMessage("Couldn't buy RP Boost.\n" + exception, ConsoleColor.Red);
+                    }
                 }
-                catch (Exception exception)
-                {
-                    Tools.ConsoleMessage("Couldn't buy RP Boost.\n" + exception, ConsoleColor.Red);
-                }
+            }
+            catch(Exception ex)
+            {
+                Tools.Log(ex.StackTrace);
             }
         }
 

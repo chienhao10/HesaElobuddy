@@ -5,11 +5,12 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 
 namespace ezBot
 {
-	internal static class Tools
+    internal static class Tools
 	{
 		public static string ezVersion = Application.ProductVersion;
         static object lockerLog = new object();
@@ -68,7 +69,7 @@ namespace ezBot
 		}
 
         private static object locker = new object();
-		public static void ConsoleMessage(string message, ConsoleColor color)
+		public static void ConsoleMessage(string message, ConsoleColor color, bool translate = true)
 		{
             lock(locker)
             {
