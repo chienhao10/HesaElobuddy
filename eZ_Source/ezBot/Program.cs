@@ -68,6 +68,11 @@ namespace ezBot
                     Translator = new EnglishTranslator();
                 }
                 break;
+                case "fr":
+                {
+                    Translator = new FrenchTranslator();
+                }
+                break;
             }
         }
 
