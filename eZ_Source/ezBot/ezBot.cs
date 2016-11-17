@@ -681,6 +681,7 @@ namespace ezBot
                                             firstTimeInQueuePop = true;
                                             firstTimeInPostChampSelect = true;
                                             firstTimeInLobby = false;
+                                            Tools.ConsoleMessage("Re-queued: " + queueType + " as " + sumName + ".", ConsoleColor.Cyan);
                                         }
                                         catch (InvalidCastException ex)
                                         {
@@ -1975,7 +1976,7 @@ namespace ezBot
                     firstPage.TalentEntries.Clear();
 
                     int masterySet = 0;
-                    while(masterySet != level)
+                    //while(masterySet != level)
                     {
                         foreach(var masteryTree in masteries)
                         {
@@ -1983,135 +1984,139 @@ namespace ezBot
                             {
                                 foreach(var mastery in masteryTree.data)
                                 {
-                                    if(masterySet + mastery.points <= level)
+                                    if(mastery.points != 0)
                                     {
-                                        firstPage.TalentEntries.Add(new TalentEntry()
+                                        if (masterySet + mastery.points <= level)
                                         {
-                                            Rank = mastery.points,
-                                            SummonerId = -1,
-                                            TalentId = mastery.mastery
-                                        });
-                                        masterySet += mastery.points;
-                                    }else
-                                    {
-                                        switch(mastery.points)
+                                            firstPage.TalentEntries.Add(new TalentEntry()
+                                            {
+                                                Rank = mastery.points,
+                                                SummonerId = -1,
+                                                TalentId = mastery.mastery
+                                            });
+                                            masterySet += mastery.points;
+                                        }
+                                        else
                                         {
-                                            case 5:
+                                            switch (mastery.points)
                                             {
-                                                if(masterySet + 4 <= level)
+                                                case 5:
                                                 {
-                                                    firstPage.TalentEntries.Add(new TalentEntry()
+                                                    if (masterySet + 4 <= level)
                                                     {
-                                                        Rank = 4,
-                                                        SummonerId = -1,
-                                                        TalentId = mastery.mastery
-                                                    });
-                                                    masterySet += 4;
+                                                        firstPage.TalentEntries.Add(new TalentEntry()
+                                                        {
+                                                            Rank = 4,
+                                                            SummonerId = -1,
+                                                            TalentId = mastery.mastery
+                                                        });
+                                                        masterySet += 4;
+                                                    }
+                                                    else if (masterySet + 3 <= level)
+                                                    {
+                                                        firstPage.TalentEntries.Add(new TalentEntry()
+                                                        {
+                                                            Rank = 3,
+                                                            SummonerId = -1,
+                                                            TalentId = mastery.mastery
+                                                        });
+                                                        masterySet += 3;
+                                                    }
+                                                    else if (masterySet + 2 <= level)
+                                                    {
+                                                        firstPage.TalentEntries.Add(new TalentEntry()
+                                                        {
+                                                            Rank = 2,
+                                                            SummonerId = -1,
+                                                            TalentId = mastery.mastery
+                                                        });
+                                                        masterySet += 2;
+                                                    }
+                                                    else if (masterySet + 1 <= level)
+                                                    {
+                                                        firstPage.TalentEntries.Add(new TalentEntry()
+                                                        {
+                                                            Rank = 1,
+                                                            SummonerId = -1,
+                                                            TalentId = mastery.mastery
+                                                        });
+                                                        masterySet += 1;
+                                                    }
                                                 }
-                                                else if (masterySet + 3 <= level)
+                                                break;
+                                                case 4:
                                                 {
-                                                    firstPage.TalentEntries.Add(new TalentEntry()
+                                                    if (masterySet + 3 <= level)
                                                     {
-                                                        Rank = 3,
-                                                        SummonerId = -1,
-                                                        TalentId = mastery.mastery
-                                                    });
-                                                    masterySet += 3;
+                                                        firstPage.TalentEntries.Add(new TalentEntry()
+                                                        {
+                                                            Rank = 3,
+                                                            SummonerId = -1,
+                                                            TalentId = mastery.mastery
+                                                        });
+                                                        masterySet += 3;
+                                                    }
+                                                    else if (masterySet + 2 <= level)
+                                                    {
+                                                        firstPage.TalentEntries.Add(new TalentEntry()
+                                                        {
+                                                            Rank = 2,
+                                                            SummonerId = -1,
+                                                            TalentId = mastery.mastery
+                                                        });
+                                                        masterySet += 2;
+                                                    }
+                                                    else if (masterySet + 1 <= level)
+                                                    {
+                                                        firstPage.TalentEntries.Add(new TalentEntry()
+                                                        {
+                                                            Rank = 1,
+                                                            SummonerId = -1,
+                                                            TalentId = mastery.mastery
+                                                        });
+                                                        masterySet += 1;
+                                                    }
                                                 }
-                                                else if (masterySet + 2 <= level)
+                                                break;
+                                                case 3:
                                                 {
-                                                    firstPage.TalentEntries.Add(new TalentEntry()
+                                                    if (masterySet + 2 <= level)
                                                     {
-                                                        Rank = 2,
-                                                        SummonerId = -1,
-                                                        TalentId = mastery.mastery
-                                                    });
-                                                    masterySet += 2;
+                                                        firstPage.TalentEntries.Add(new TalentEntry()
+                                                        {
+                                                            Rank = 2,
+                                                            SummonerId = -1,
+                                                            TalentId = mastery.mastery
+                                                        });
+                                                        masterySet += 2;
+                                                    }
+                                                    else if (masterySet + 1 <= level)
+                                                    {
+                                                        firstPage.TalentEntries.Add(new TalentEntry()
+                                                        {
+                                                            Rank = 1,
+                                                            SummonerId = -1,
+                                                            TalentId = mastery.mastery
+                                                        });
+                                                        masterySet += 1;
+                                                    }
                                                 }
-                                                else if (masterySet + 1 <= level)
+                                                break;
+                                                case 2:
                                                 {
-                                                    firstPage.TalentEntries.Add(new TalentEntry()
+                                                    if (masterySet + 1 <= level)
                                                     {
-                                                        Rank = 1,
-                                                        SummonerId = -1,
-                                                        TalentId = mastery.mastery
-                                                    });
-                                                    masterySet += 1;
+                                                        firstPage.TalentEntries.Add(new TalentEntry()
+                                                        {
+                                                            Rank = 1,
+                                                            SummonerId = -1,
+                                                            TalentId = mastery.mastery
+                                                        });
+                                                        masterySet += 1;
+                                                    }
                                                 }
+                                                break;
                                             }
-                                            break;
-                                            case 4:
-                                            {
-                                                if (masterySet + 3 <= level)
-                                                {
-                                                    firstPage.TalentEntries.Add(new TalentEntry()
-                                                    {
-                                                        Rank = 3,
-                                                        SummonerId = -1,
-                                                        TalentId = mastery.mastery
-                                                    });
-                                                    masterySet += 3;
-                                                }
-                                                else if (masterySet + 2 <= level)
-                                                {
-                                                    firstPage.TalentEntries.Add(new TalentEntry()
-                                                    {
-                                                        Rank = 2,
-                                                        SummonerId = -1,
-                                                        TalentId = mastery.mastery
-                                                    });
-                                                    masterySet += 2;
-                                                }
-                                                else if (masterySet + 1 <= level)
-                                                {
-                                                    firstPage.TalentEntries.Add(new TalentEntry()
-                                                    {
-                                                        Rank = 1,
-                                                        SummonerId = -1,
-                                                        TalentId = mastery.mastery
-                                                    });
-                                                    masterySet += 1;
-                                                }
-                                            }
-                                            break;
-                                            case 3:
-                                            {
-                                                if (masterySet + 2 <= level)
-                                                {
-                                                    firstPage.TalentEntries.Add(new TalentEntry()
-                                                    {
-                                                        Rank = 2,
-                                                        SummonerId = -1,
-                                                        TalentId = mastery.mastery
-                                                    });
-                                                    masterySet += 2;
-                                                }
-                                                else if (masterySet + 1 <= level)
-                                                {
-                                                    firstPage.TalentEntries.Add(new TalentEntry()
-                                                    {
-                                                        Rank = 1,
-                                                        SummonerId = -1,
-                                                        TalentId = mastery.mastery
-                                                    });
-                                                    masterySet += 1;
-                                                }
-                                            }
-                                            break;
-                                            case 2:
-                                            {
-                                                if (masterySet + 1 <= level)
-                                                {
-                                                    firstPage.TalentEntries.Add(new TalentEntry()
-                                                    {
-                                                        Rank = 1,
-                                                        SummonerId = -1,
-                                                        TalentId = mastery.mastery
-                                                    });
-                                                    masterySet += 1;
-                                                }
-                                            }
-                                            break;
                                         }
                                     }
                                 }
