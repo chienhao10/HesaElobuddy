@@ -1,5 +1,5 @@
-﻿using EloBuddy;
-using EloBuddy.SDK.Events;
+﻿using EloBuddy.SDK.Events;
+using System;
 
 namespace AutoShop
 {
@@ -12,7 +12,14 @@ namespace AutoShop
 
         private static void OnLoaded(System.EventArgs args)
         {
-            new AutoShop();
+            try
+            {
+                new AutoShop();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
         }
     }
 }
