@@ -1230,28 +1230,28 @@ namespace ezBot
                 text = null;
                 allSummonerData1 = null;
             }
-            this.sumLevel = (double)this.loginPacket.AllSummonerData.SummonerLevel.Level;
-            sumName = this.loginPacket.AllSummonerData.Summoner.Name;
-            sumId = this.loginPacket.AllSummonerData.Summoner.SummonerId;
+            sumLevel = loginPacket.AllSummonerData.SummonerLevel.Level;
+            sumName = loginPacket.AllSummonerData.Summoner.Name;
+            sumId = loginPacket.AllSummonerData.Summoner.SummonerId;
 
-            double summonerId = this.loginPacket.AllSummonerData.Summoner.SummonerId;
-            this.rpBalance = this.loginPacket.RpBalance;
-            this.ipBalance = this.loginPacket.IpBalance;
-            if (this.sumLevel >= (double)Program.maxLevel)
+            double summonerId = loginPacket.AllSummonerData.Summoner.SummonerId;
+            rpBalance = loginPacket.RpBalance;
+            ipBalance = loginPacket.IpBalance;
+            if (sumLevel >= Program.maxLevel)
             {
                 Tools.ConsoleMessage("Summoner: " + sumName + " is already max level.", ConsoleColor.White);
-                this.connection.Disconnect();
+                connection.Disconnect();
                 Tools.ConsoleMessage("Log into new account.", ConsoleColor.White);
                 Program.LognNewAccount();
             }
             else
             {
-                if (this.rpBalance == 400.0 && Program.buyExpBoost)
+                if (rpBalance >= 400.0 && Program.buyExpBoost)
                 {
                     Tools.ConsoleMessage("Buying XP Boost", ConsoleColor.White);
                     try
                     {
-                        Task task = new Task(new Action(this.buyBoost));
+                        Task task = new Task(new Action(buyBoost));
                         task.Start();
                         task = null;
                     }
@@ -1262,29 +1262,29 @@ namespace ezBot
                     }
                 }
                 var queueLevel = await GetQueueLevel();
-                if (queueLevel < 3.0 && this.queueType == "NORMAL_5X5")
+                if (queueLevel < 3.0 && queueType == "NORMAL_5X5")
                 {
                     Tools.ConsoleMessage("Need to be Level 3 before NORMAL_5X5 queue.", ConsoleColor.White);
                     Tools.ConsoleMessage("Joins Co-Op vs AI (Beginner) queue until 3", ConsoleColor.White);
-                    this.queueType = "BEGINNER_BOT";
-                    this.actualQueueType = "NORMAL_5X5";
+                    queueType = "BEGINNER_BOT";
+                    actualQueueType = "NORMAL_5X5";
                 }
-                else if (queueLevel < 6.0 && this.queueType == "ARAM")
+                else if (queueLevel < 6.0 && queueType == "ARAM")
                 {
                     Tools.ConsoleMessage("Need to be Level 6 before ARAM queue.", ConsoleColor.White);
                     Tools.ConsoleMessage("Joins Co-Op vs AI (Beginner) queue until 6", ConsoleColor.White);
-                    this.queueType = "BEGINNER_BOT";
-                    this.actualQueueType = "ARAM";
+                    queueType = "BEGINNER_BOT";
+                    actualQueueType = "ARAM";
                 }
-                else if (queueLevel < 7.0 && this.queueType == "NORMAL_3X3")
+                else if (queueLevel < 7.0 && queueType == "NORMAL_3X3")
                 {
                     Tools.ConsoleMessage("Need to be Level 7 before NORMAL_3X3 queue.", ConsoleColor.White);
                     Tools.ConsoleMessage("Joins Co-Op vs AI (Beginner) queue until 7", ConsoleColor.White);
-                    this.queueType = "BEGINNER_BOT";
-                    this.actualQueueType = "NORMAL_3X3";
+                    queueType = "BEGINNER_BOT";
+                    actualQueueType = "NORMAL_3X3";
                 }
 
-                Tools.ConsoleMessage("Welcome " + this.loginPacket.AllSummonerData.Summoner.Name + " - lvl (" + (object)this.loginPacket.AllSummonerData.SummonerLevel.Level + ") IP: (" + this.ipBalance.ToString() + ") - XP: (" + this.loginPacket.AllSummonerData.SummonerLevelAndPoints.ExpPoints + " / " + this.loginPacket.AllSummonerData.SummonerLevel.ExpToNextLevel + ")", ConsoleColor.White);
+                Tools.ConsoleMessage("Welcome " + loginPacket.AllSummonerData.Summoner.Name + " - lvl (" + loginPacket.AllSummonerData.SummonerLevel.Level + ") IP: (" + ipBalance.ToString() + ") - XP: (" + loginPacket.AllSummonerData.SummonerLevelAndPoints.ExpPoints + " / " + loginPacket.AllSummonerData.SummonerLevel.ExpToNextLevel + ")", ConsoleColor.White);
 
                 PlayerDto player = await this.connection.CreatePlayer();
                 if (this.loginPacket.ReconnectInfo != null && ((PlatformGameLifecycleDTO)this.loginPacket.ReconnectInfo).Game != null)
@@ -1571,370 +1571,323 @@ namespace ezBot
         {
             try
             {
-                if (this.region == "EUW")
+                if (region == "EUW")
                 {
-                    string str = await this.connection.GetStoreUrl();
-                    string text = str;
-                    str = (string)null;
+                    string url = await connection.GetStoreUrl();
                     HttpClient httpClient = new HttpClient();
-                    Console.WriteLine(text);
-                    string stringAsync1 = await httpClient.GetStringAsync(text);
-                    string requestUri = "https://store.euw1.lol.riotgames.com/store/tabs/view/boosts/1";
-                    string stringAsync2 = await httpClient.GetStringAsync(requestUri);
-                    string requestUri2 = "https://store.euw1.lol.riotgames.com/store/purchase/item";
-                    HttpContent content = (HttpContent)new FormUrlEncodedContent((IEnumerable<KeyValuePair<string, string>>)new List<KeyValuePair<string, string>>()
-          {
-            new KeyValuePair<string, string>("item_id", "boosts_2"),
-            new KeyValuePair<string, string>("currency_type", "rp"),
-            new KeyValuePair<string, string>("quantity", "1"),
-            new KeyValuePair<string, string>("rp", "260"),
-            new KeyValuePair<string, string>("ip", "null"),
-            new KeyValuePair<string, string>("duration_type", "PURCHASED"),
-            new KeyValuePair<string, string>("duration", "3")
-          });
-                    HttpResponseMessage httpResponseMessage = await httpClient.PostAsync(requestUri2, content);
+                    Console.WriteLine(url);
+                    await httpClient.GetStringAsync(url);
+
+                    string storeURL = "https://store.euw1.lol.riotgames.com/store/tabs/view/boosts/1";
+                    await httpClient.GetStringAsync(storeURL);
+
+                    string purchaseURL = "https://store.euw1.lol.riotgames.com/store/purchase/item";
+
+                    List<KeyValuePair<string, string>> storeItemList = new List<KeyValuePair<string, string>>();
+                    storeItemList.Add(new KeyValuePair<string, string>("item_id", "boosts_2"));
+                    storeItemList.Add(new KeyValuePair<string, string>("currency_type", "rp"));
+                    storeItemList.Add(new KeyValuePair<string, string>("quantity", "1"));
+                    storeItemList.Add(new KeyValuePair<string, string>("rp", "260"));
+                    storeItemList.Add(new KeyValuePair<string, string>("ip", "null"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration_type", "PURCHASED"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration", "3"));
+                    HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
+                    await httpClient.PostAsync(purchaseURL, httpContent);
+
                     Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
                     httpClient.Dispose();
-                    text = (string)null;
-                    httpClient = (HttpClient)null;
-                    requestUri = (string)null;
-                    requestUri2 = (string)null;
-                    content = (HttpContent)null;
                 }
-                else if (this.region == "EUNE")
+                else if (region == "EUNE")
                 {
-                    string str = await this.connection.GetStoreUrl();
-                    string text2 = str;
-                    str = (string)null;
-                    HttpClient httpClient2 = new HttpClient();
-                    Console.WriteLine(text2);
-                    string stringAsync1 = await httpClient2.GetStringAsync(text2);
-                    string requestUri3 = "https://store.eun1.lol.riotgames.com/store/tabs/view/boosts/1";
-                    string stringAsync2 = await httpClient2.GetStringAsync(requestUri3);
-                    string requestUri4 = "https://store.eun1.lol.riotgames.com/store/purchase/item";
-                    HttpContent content2 = (HttpContent)new FormUrlEncodedContent((IEnumerable<KeyValuePair<string, string>>)new List<KeyValuePair<string, string>>()
-          {
-            new KeyValuePair<string, string>("item_id", "boosts_2"),
-            new KeyValuePair<string, string>("currency_type", "rp"),
-            new KeyValuePair<string, string>("quantity", "1"),
-            new KeyValuePair<string, string>("rp", "260"),
-            new KeyValuePair<string, string>("ip", "null"),
-            new KeyValuePair<string, string>("duration_type", "PURCHASED"),
-            new KeyValuePair<string, string>("duration", "3")
-          });
-                    HttpResponseMessage httpResponseMessage = await httpClient2.PostAsync(requestUri4, content2);
+                    string url = await connection.GetStoreUrl();
+                    HttpClient httpClient = new HttpClient();
+                    Console.WriteLine(url);
+                    await httpClient.GetStringAsync(url);
+
+                    string storeURL = "https://store.eun1.lol.riotgames.com/store/tabs/view/boosts/1";
+                    await httpClient.GetStringAsync(storeURL);
+
+                    string purchaseURL = "https://store.eun1.lol.riotgames.com/store/purchase/item";
+
+                    List<KeyValuePair<string, string>> storeItemList = new List<KeyValuePair<string, string>>();
+                    storeItemList.Add(new KeyValuePair<string, string>("item_id", "boosts_2"));
+                    storeItemList.Add(new KeyValuePair<string, string>("currency_type", "rp"));
+                    storeItemList.Add(new KeyValuePair<string, string>("quantity", "1"));
+                    storeItemList.Add(new KeyValuePair<string, string>("rp", "260"));
+                    storeItemList.Add(new KeyValuePair<string, string>("ip", "null"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration_type", "PURCHASED"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration", "3"));
+                    HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
+                    await httpClient.PostAsync(purchaseURL, httpContent);
+
                     Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
-                    httpClient2.Dispose();
-                    text2 = (string)null;
-                    httpClient2 = (HttpClient)null;
-                    requestUri3 = (string)null;
-                    requestUri4 = (string)null;
-                    content2 = (HttpContent)null;
+                    httpClient.Dispose();
                 }
-                else if (this.region == "NA")
+                else if (region == "NA")
                 {
-                    string str = await this.connection.GetStoreUrl();
-                    string text3 = str;
-                    str = (string)null;
-                    HttpClient httpClient3 = new HttpClient();
-                    Console.WriteLine(text3);
-                    string stringAsync1 = await httpClient3.GetStringAsync(text3);
-                    string requestUri5 = "https://store.na2.lol.riotgames.com/store/tabs/view/boosts/1";
-                    string stringAsync2 = await httpClient3.GetStringAsync(requestUri5);
-                    string requestUri6 = "https://store.na2.lol.riotgames.com/store/purchase/item";
-                    HttpContent content3 = (HttpContent)new FormUrlEncodedContent((IEnumerable<KeyValuePair<string, string>>)new List<KeyValuePair<string, string>>()
-          {
-            new KeyValuePair<string, string>("item_id", "boosts_2"),
-            new KeyValuePair<string, string>("currency_type", "rp"),
-            new KeyValuePair<string, string>("quantity", "1"),
-            new KeyValuePair<string, string>("rp", "260"),
-            new KeyValuePair<string, string>("ip", "null"),
-            new KeyValuePair<string, string>("duration_type", "PURCHASED"),
-            new KeyValuePair<string, string>("duration", "3")
-          });
-                    HttpResponseMessage httpResponseMessage = await httpClient3.PostAsync(requestUri6, content3);
+                    string url = await connection.GetStoreUrl();
+                    HttpClient httpClient = new HttpClient();
+                    Console.WriteLine(url);
+                    await httpClient.GetStringAsync(url);
+
+                    string storeURL = "https://store.na2.lol.riotgames.com/store/tabs/view/boosts/1";
+                    await httpClient.GetStringAsync(storeURL);
+
+                    string purchaseURL = "https://store.na2.lol.riotgames.com/store/purchase/item";
+
+                    List<KeyValuePair<string, string>> storeItemList = new List<KeyValuePair<string, string>>();
+                    storeItemList.Add(new KeyValuePair<string, string>("item_id", "boosts_2"));
+                    storeItemList.Add(new KeyValuePair<string, string>("currency_type", "rp"));
+                    storeItemList.Add(new KeyValuePair<string, string>("quantity", "1"));
+                    storeItemList.Add(new KeyValuePair<string, string>("rp", "260"));
+                    storeItemList.Add(new KeyValuePair<string, string>("ip", "null"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration_type", "PURCHASED"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration", "3"));
+                    HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
+                    await httpClient.PostAsync(purchaseURL, httpContent);
+
                     Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
-                    httpClient3.Dispose();
-                    text3 = (string)null;
-                    httpClient3 = (HttpClient)null;
-                    requestUri5 = (string)null;
-                    requestUri6 = (string)null;
-                    content3 = (HttpContent)null;
+                    httpClient.Dispose();
                 }
-                else if (this.region == "KR")
+                else if (region == "KR")
                 {
-                    string str = await this.connection.GetStoreUrl();
-                    string text4 = str;
-                    str = (string)null;
-                    HttpClient httpClient4 = new HttpClient();
-                    Console.WriteLine(text4);
-                    string stringAsync1 = await httpClient4.GetStringAsync(text4);
-                    string requestUri7 = "https://store.kr.lol.riotgames.com/store/tabs/view/boosts/1";
-                    string stringAsync2 = await httpClient4.GetStringAsync(requestUri7);
-                    string requestUri8 = "https://store.kr.lol.riotgames.com/store/purchase/item";
-                    HttpContent content4 = (HttpContent)new FormUrlEncodedContent((IEnumerable<KeyValuePair<string, string>>)new List<KeyValuePair<string, string>>()
-          {
-            new KeyValuePair<string, string>("item_id", "boosts_2"),
-            new KeyValuePair<string, string>("currency_type", "rp"),
-            new KeyValuePair<string, string>("quantity", "1"),
-            new KeyValuePair<string, string>("rp", "260"),
-            new KeyValuePair<string, string>("ip", "null"),
-            new KeyValuePair<string, string>("duration_type", "PURCHASED"),
-            new KeyValuePair<string, string>("duration", "3")
-          });
-                    HttpResponseMessage httpResponseMessage = await httpClient4.PostAsync(requestUri8, content4);
+                    string url = await connection.GetStoreUrl();
+                    HttpClient httpClient = new HttpClient();
+                    Console.WriteLine(url);
+                    await httpClient.GetStringAsync(url);
+
+                    string storeURL = "https://store.kr.lol.riotgames.com/store/tabs/view/boosts/1";
+                    await httpClient.GetStringAsync(storeURL);
+
+                    string purchaseURL = "https://store.kr.lol.riotgames.com/store/purchase/item";
+
+                    List<KeyValuePair<string, string>> storeItemList = new List<KeyValuePair<string, string>>();
+                    storeItemList.Add(new KeyValuePair<string, string>("item_id", "boosts_2"));
+                    storeItemList.Add(new KeyValuePair<string, string>("currency_type", "rp"));
+                    storeItemList.Add(new KeyValuePair<string, string>("quantity", "1"));
+                    storeItemList.Add(new KeyValuePair<string, string>("rp", "260"));
+                    storeItemList.Add(new KeyValuePair<string, string>("ip", "null"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration_type", "PURCHASED"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration", "3"));
+                    HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
+                    await httpClient.PostAsync(purchaseURL, httpContent);
+
                     Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
-                    httpClient4.Dispose();
-                    text4 = (string)null;
-                    httpClient4 = (HttpClient)null;
-                    requestUri7 = (string)null;
-                    requestUri8 = (string)null;
-                    content4 = (HttpContent)null;
+                    httpClient.Dispose();
                 }
-                else if (this.region == "BR")
+                else if (region == "BR")
                 {
-                    string str = await this.connection.GetStoreUrl();
-                    string text5 = str;
-                    str = (string)null;
-                    HttpClient httpClient5 = new HttpClient();
-                    Console.WriteLine(text5);
-                    string stringAsync1 = await httpClient5.GetStringAsync(text5);
-                    string requestUri9 = "https://store.br.lol.riotgames.com/store/tabs/view/boosts/1";
-                    string stringAsync2 = await httpClient5.GetStringAsync(requestUri9);
-                    string requestUri10 = "https://store.br.lol.riotgames.com/store/purchase/item";
-                    HttpContent content5 = (HttpContent)new FormUrlEncodedContent((IEnumerable<KeyValuePair<string, string>>)new List<KeyValuePair<string, string>>()
-          {
-            new KeyValuePair<string, string>("item_id", "boosts_2"),
-            new KeyValuePair<string, string>("currency_type", "rp"),
-            new KeyValuePair<string, string>("quantity", "1"),
-            new KeyValuePair<string, string>("rp", "260"),
-            new KeyValuePair<string, string>("ip", "null"),
-            new KeyValuePair<string, string>("duration_type", "PURCHASED"),
-            new KeyValuePair<string, string>("duration", "3")
-          });
-                    HttpResponseMessage httpResponseMessage = await httpClient5.PostAsync(requestUri10, content5);
+                    string url = await connection.GetStoreUrl();
+                    HttpClient httpClient = new HttpClient();
+                    Console.WriteLine(url);
+                    await httpClient.GetStringAsync(url);
+
+                    string storeURL = "https://store.br.lol.riotgames.com/store/tabs/view/boosts/1";
+                    await httpClient.GetStringAsync(storeURL);
+
+                    string purchaseURL = "https://store.br.lol.riotgames.com/store/purchase/item";
+
+                    List<KeyValuePair<string, string>> storeItemList = new List<KeyValuePair<string, string>>();
+                    storeItemList.Add(new KeyValuePair<string, string>("item_id", "boosts_2"));
+                    storeItemList.Add(new KeyValuePair<string, string>("currency_type", "rp"));
+                    storeItemList.Add(new KeyValuePair<string, string>("quantity", "1"));
+                    storeItemList.Add(new KeyValuePair<string, string>("rp", "260"));
+                    storeItemList.Add(new KeyValuePair<string, string>("ip", "null"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration_type", "PURCHASED"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration", "3"));
+                    HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
+                    await httpClient.PostAsync(purchaseURL, httpContent);
+
                     Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
-                    httpClient5.Dispose();
-                    text5 = (string)null;
-                    httpClient5 = (HttpClient)null;
-                    requestUri9 = (string)null;
-                    requestUri10 = (string)null;
-                    content5 = (HttpContent)null;
+                    httpClient.Dispose();
                 }
-                else if (this.region == "RU")
+                else if (region == "RU")
                 {
-                    string str = await this.connection.GetStoreUrl();
-                    string text6 = str;
-                    str = (string)null;
-                    HttpClient httpClient6 = new HttpClient();
-                    Console.WriteLine(text6);
-                    string stringAsync1 = await httpClient6.GetStringAsync(text6);
-                    string requestUri11 = "https://store.ru.lol.riotgames.com/store/tabs/view/boosts/1";
-                    string stringAsync2 = await httpClient6.GetStringAsync(requestUri11);
-                    string requestUri12 = "https://store.ru.lol.riotgames.com/store/purchase/item";
-                    HttpContent content6 = (HttpContent)new FormUrlEncodedContent((IEnumerable<KeyValuePair<string, string>>)new List<KeyValuePair<string, string>>()
-          {
-            new KeyValuePair<string, string>("item_id", "boosts_2"),
-            new KeyValuePair<string, string>("currency_type", "rp"),
-            new KeyValuePair<string, string>("quantity", "1"),
-            new KeyValuePair<string, string>("rp", "260"),
-            new KeyValuePair<string, string>("ip", "null"),
-            new KeyValuePair<string, string>("duration_type", "PURCHASED"),
-            new KeyValuePair<string, string>("duration", "3")
-          });
-                    HttpResponseMessage httpResponseMessage = await httpClient6.PostAsync(requestUri12, content6);
+                    string url = await connection.GetStoreUrl();
+                    HttpClient httpClient = new HttpClient();
+                    Console.WriteLine(url);
+                    await httpClient.GetStringAsync(url);
+
+                    string storeURL = "https://store.ru.lol.riotgames.com/store/tabs/view/boosts/1";
+                    await httpClient.GetStringAsync(storeURL);
+
+                    string purchaseURL = "https://store.ru.lol.riotgames.com/store/purchase/item";
+
+                    List<KeyValuePair<string, string>> storeItemList = new List<KeyValuePair<string, string>>();
+                    storeItemList.Add(new KeyValuePair<string, string>("item_id", "boosts_2"));
+                    storeItemList.Add(new KeyValuePair<string, string>("currency_type", "rp"));
+                    storeItemList.Add(new KeyValuePair<string, string>("quantity", "1"));
+                    storeItemList.Add(new KeyValuePair<string, string>("rp", "260"));
+                    storeItemList.Add(new KeyValuePair<string, string>("ip", "null"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration_type", "PURCHASED"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration", "3"));
+                    HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
+                    await httpClient.PostAsync(purchaseURL, httpContent);
+
                     Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
-                    httpClient6.Dispose();
-                    text6 = (string)null;
-                    httpClient6 = (HttpClient)null;
-                    requestUri11 = (string)null;
-                    requestUri12 = (string)null;
-                    content6 = (HttpContent)null;
+                    httpClient.Dispose();
                 }
-                else if (this.region == "TR")
+                else if (region == "TR")
                 {
-                    string str = await this.connection.GetStoreUrl();
-                    string text7 = str;
-                    str = (string)null;
-                    HttpClient httpClient7 = new HttpClient();
-                    Console.WriteLine(text7);
-                    string stringAsync1 = await httpClient7.GetStringAsync(text7);
-                    string requestUri13 = "https://store.tr.lol.riotgames.com/store/tabs/view/boosts/1";
-                    string stringAsync2 = await httpClient7.GetStringAsync(requestUri13);
-                    string requestUri14 = "https://store.tr.lol.riotgames.com/store/purchase/item";
-                    HttpContent content7 = (HttpContent)new FormUrlEncodedContent((IEnumerable<KeyValuePair<string, string>>)new List<KeyValuePair<string, string>>()
-          {
-            new KeyValuePair<string, string>("item_id", "boosts_2"),
-            new KeyValuePair<string, string>("currency_type", "rp"),
-            new KeyValuePair<string, string>("quantity", "1"),
-            new KeyValuePair<string, string>("rp", "260"),
-            new KeyValuePair<string, string>("ip", "null"),
-            new KeyValuePair<string, string>("duration_type", "PURCHASED"),
-            new KeyValuePair<string, string>("duration", "3")
-          });
-                    HttpResponseMessage httpResponseMessage = await httpClient7.PostAsync(requestUri14, content7);
+                    string url = await connection.GetStoreUrl();
+                    HttpClient httpClient = new HttpClient();
+                    Console.WriteLine(url);
+                    await httpClient.GetStringAsync(url);
+
+                    string storeURL = "https://store.tr.lol.riotgames.com/store/tabs/view/boosts/1";
+                    await httpClient.GetStringAsync(storeURL);
+
+                    string purchaseURL = "https://store.tr.lol.riotgames.com/store/purchase/item";
+
+                    List<KeyValuePair<string, string>> storeItemList = new List<KeyValuePair<string, string>>();
+                    storeItemList.Add(new KeyValuePair<string, string>("item_id", "boosts_2"));
+                    storeItemList.Add(new KeyValuePair<string, string>("currency_type", "rp"));
+                    storeItemList.Add(new KeyValuePair<string, string>("quantity", "1"));
+                    storeItemList.Add(new KeyValuePair<string, string>("rp", "260"));
+                    storeItemList.Add(new KeyValuePair<string, string>("ip", "null"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration_type", "PURCHASED"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration", "3"));
+                    HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
+                    await httpClient.PostAsync(purchaseURL, httpContent);
+
                     Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
-                    httpClient7.Dispose();
-                    text7 = (string)null;
-                    httpClient7 = (HttpClient)null;
-                    requestUri13 = (string)null;
-                    requestUri14 = (string)null;
-                    content7 = (HttpContent)null;
+                    httpClient.Dispose();
                 }
-                else if (this.region == "LAS")
+                else if (region == "LAS")
                 {
-                    string str = await this.connection.GetStoreUrl();
-                    string text8 = str;
-                    str = (string)null;
-                    HttpClient httpClient8 = new HttpClient();
-                    Console.WriteLine(text8);
-                    string stringAsync1 = await httpClient8.GetStringAsync(text8);
-                    string requestUri15 = "https://store.la2.lol.riotgames.com/store/tabs/view/boosts/1";
-                    string stringAsync2 = await httpClient8.GetStringAsync(requestUri15);
-                    string requestUri16 = "https://store.la2.lol.riotgames.com/store/purchase/item";
-                    HttpContent content8 = (HttpContent)new FormUrlEncodedContent((IEnumerable<KeyValuePair<string, string>>)new List<KeyValuePair<string, string>>()
-          {
-            new KeyValuePair<string, string>("item_id", "boosts_2"),
-            new KeyValuePair<string, string>("currency_type", "rp"),
-            new KeyValuePair<string, string>("quantity", "1"),
-            new KeyValuePair<string, string>("rp", "260"),
-            new KeyValuePair<string, string>("ip", "null"),
-            new KeyValuePair<string, string>("duration_type", "PURCHASED"),
-            new KeyValuePair<string, string>("duration", "3")
-          });
-                    HttpResponseMessage httpResponseMessage = await httpClient8.PostAsync(requestUri16, content8);
+                    string url = await connection.GetStoreUrl();
+                    HttpClient httpClient = new HttpClient();
+                    Console.WriteLine(url);
+                    await httpClient.GetStringAsync(url);
+
+                    string storeURL = "https://store.la2.lol.riotgames.com/store/tabs/view/boosts/1";
+                    await httpClient.GetStringAsync(storeURL);
+
+                    string purchaseURL = "https://store.la2.lol.riotgames.com/store/purchase/item";
+
+                    List<KeyValuePair<string, string>> storeItemList = new List<KeyValuePair<string, string>>();
+                    storeItemList.Add(new KeyValuePair<string, string>("item_id", "boosts_2"));
+                    storeItemList.Add(new KeyValuePair<string, string>("currency_type", "rp"));
+                    storeItemList.Add(new KeyValuePair<string, string>("quantity", "1"));
+                    storeItemList.Add(new KeyValuePair<string, string>("rp", "260"));
+                    storeItemList.Add(new KeyValuePair<string, string>("ip", "null"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration_type", "PURCHASED"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration", "3"));
+                    HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
+                    await httpClient.PostAsync(purchaseURL, httpContent);
+
                     Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
-                    httpClient8.Dispose();
-                    text8 = (string)null;
-                    httpClient8 = (HttpClient)null;
-                    requestUri15 = (string)null;
-                    requestUri16 = (string)null;
-                    content8 = (HttpContent)null;
+                    httpClient.Dispose();
                 }
-                else if (this.region == "LAN")
+                else if (region == "LAN")
                 {
-                    string str = await this.connection.GetStoreUrl();
-                    string text9 = str;
-                    str = (string)null;
-                    HttpClient httpClient9 = new HttpClient();
-                    Console.WriteLine(text9);
-                    string stringAsync1 = await httpClient9.GetStringAsync(text9);
-                    string requestUri17 = "https://store.la1.lol.riotgames.com/store/tabs/view/boosts/1";
-                    string stringAsync2 = await httpClient9.GetStringAsync(requestUri17);
-                    string requestUri18 = "https://store.la1.lol.riotgames.com/store/purchase/item";
-                    HttpContent content9 = (HttpContent)new FormUrlEncodedContent((IEnumerable<KeyValuePair<string, string>>)new List<KeyValuePair<string, string>>()
-          {
-            new KeyValuePair<string, string>("item_id", "boosts_2"),
-            new KeyValuePair<string, string>("currency_type", "rp"),
-            new KeyValuePair<string, string>("quantity", "1"),
-            new KeyValuePair<string, string>("rp", "260"),
-            new KeyValuePair<string, string>("ip", "null"),
-            new KeyValuePair<string, string>("duration_type", "PURCHASED"),
-            new KeyValuePair<string, string>("duration", "3")
-          });
-                    HttpResponseMessage httpResponseMessage = await httpClient9.PostAsync(requestUri18, content9);
+                    string url = await connection.GetStoreUrl();
+                    HttpClient httpClient = new HttpClient();
+                    Console.WriteLine(url);
+                    await httpClient.GetStringAsync(url);
+
+                    string storeURL = "https://store.la1.lol.riotgames.com/store/tabs/view/boosts/1";
+                    await httpClient.GetStringAsync(storeURL);
+
+                    string purchaseURL = "https://store.la1.lol.riotgames.com/store/purchase/item";
+
+                    List<KeyValuePair<string, string>> storeItemList = new List<KeyValuePair<string, string>>();
+                    storeItemList.Add(new KeyValuePair<string, string>("item_id", "boosts_2"));
+                    storeItemList.Add(new KeyValuePair<string, string>("currency_type", "rp"));
+                    storeItemList.Add(new KeyValuePair<string, string>("quantity", "1"));
+                    storeItemList.Add(new KeyValuePair<string, string>("rp", "260"));
+                    storeItemList.Add(new KeyValuePair<string, string>("ip", "null"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration_type", "PURCHASED"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration", "3"));
+                    HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
+                    await httpClient.PostAsync(purchaseURL, httpContent);
+
                     Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
-                    httpClient9.Dispose();
-                    text9 = (string)null;
-                    httpClient9 = (HttpClient)null;
-                    requestUri17 = (string)null;
-                    requestUri18 = (string)null;
-                    content9 = (HttpContent)null;
+                    httpClient.Dispose();
                 }
-                else if (this.region == "OCE")
+                else if (region == "OCE")
                 {
-                    string str = await this.connection.GetStoreUrl();
-                    string text10 = str;
-                    str = (string)null;
-                    HttpClient httpClient10 = new HttpClient();
-                    Console.WriteLine(text10);
-                    string stringAsync1 = await httpClient10.GetStringAsync(text10);
-                    string requestUri19 = "https://store.oc1.lol.riotgames.com/store/tabs/view/boosts/1";
-                    string stringAsync2 = await httpClient10.GetStringAsync(requestUri19);
-                    string requestUri20 = "https://store.oc1.lol.riotgames.com/store/purchase/item";
-                    HttpContent content10 = (HttpContent)new FormUrlEncodedContent((IEnumerable<KeyValuePair<string, string>>)new List<KeyValuePair<string, string>>()
-          {
-            new KeyValuePair<string, string>("item_id", "boosts_2"),
-            new KeyValuePair<string, string>("currency_type", "rp"),
-            new KeyValuePair<string, string>("quantity", "1"),
-            new KeyValuePair<string, string>("rp", "260"),
-            new KeyValuePair<string, string>("ip", "null"),
-            new KeyValuePair<string, string>("duration_type", "PURCHASED"),
-            new KeyValuePair<string, string>("duration", "3")
-          });
-                    HttpResponseMessage httpResponseMessage = await httpClient10.PostAsync(requestUri20, content10);
+                    string url = await connection.GetStoreUrl();
+                    HttpClient httpClient = new HttpClient();
+                    Console.WriteLine(url);
+                    await httpClient.GetStringAsync(url);
+
+                    string storeURL = "https://store.oc1.lol.riotgames.com/store/tabs/view/boosts/1";
+                    await httpClient.GetStringAsync(storeURL);
+
+                    string purchaseURL = "https://store.oc1.lol.riotgames.com/store/purchase/item";
+
+                    List<KeyValuePair<string, string>> storeItemList = new List<KeyValuePair<string, string>>();
+                    storeItemList.Add(new KeyValuePair<string, string>("item_id", "boosts_2"));
+                    storeItemList.Add(new KeyValuePair<string, string>("currency_type", "rp"));
+                    storeItemList.Add(new KeyValuePair<string, string>("quantity", "1"));
+                    storeItemList.Add(new KeyValuePair<string, string>("rp", "260"));
+                    storeItemList.Add(new KeyValuePair<string, string>("ip", "null"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration_type", "PURCHASED"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration", "3"));
+                    HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
+                    await httpClient.PostAsync(purchaseURL, httpContent);
+
                     Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
-                    httpClient10.Dispose();
-                    text10 = (string)null;
-                    httpClient10 = (HttpClient)null;
-                    requestUri19 = (string)null;
-                    requestUri20 = (string)null;
-                    content10 = (HttpContent)null;
+                    httpClient.Dispose();
                 }
-                else
+                else if (region == "JP")
                 {
-                    if (!(this.region == "JP"))
-                        return;
-                    string str = await this.connection.GetStoreUrl();
-                    string text11 = str;
-                    str = (string)null;
-                    HttpClient httpClient11 = new HttpClient();
-                    Console.WriteLine(text11);
-                    string stringAsync1 = await httpClient11.GetStringAsync(text11);
-                    string requestUri21 = "https://store.jp1.lol.riotgames.com/store/tabs/view/boosts/1";
-                    string stringAsync2 = await httpClient11.GetStringAsync(requestUri21);
-                    string requestUri22 = "https://store.jp1.lol.riotgames.com/store/purchase/item";
-                    HttpContent content11 = (HttpContent)new FormUrlEncodedContent((IEnumerable<KeyValuePair<string, string>>)new List<KeyValuePair<string, string>>()
-          {
-            new KeyValuePair<string, string>("item_id", "boosts_2"),
-            new KeyValuePair<string, string>("currency_type", "rp"),
-            new KeyValuePair<string, string>("quantity", "1"),
-            new KeyValuePair<string, string>("rp", "260"),
-            new KeyValuePair<string, string>("ip", "null"),
-            new KeyValuePair<string, string>("duration_type", "PURCHASED"),
-            new KeyValuePair<string, string>("duration", "3")
-          });
-                    HttpResponseMessage httpResponseMessage = await httpClient11.PostAsync(requestUri22, content11);
+                    string url = await connection.GetStoreUrl();
+                    HttpClient httpClient = new HttpClient();
+                    Console.WriteLine(url);
+                    await httpClient.GetStringAsync(url);
+
+                    string storeURL = "https://store.jp1.lol.riotgames.com/store/tabs/view/boosts/1";
+                    await httpClient.GetStringAsync(storeURL);
+
+                    string purchaseURL = "https://store.jp1.lol.riotgames.com/store/purchase/item";
+
+                    List<KeyValuePair<string, string>> storeItemList = new List<KeyValuePair<string, string>>();
+                    storeItemList.Add(new KeyValuePair<string, string>("item_id", "boosts_2"));
+                    storeItemList.Add(new KeyValuePair<string, string>("currency_type", "rp"));
+                    storeItemList.Add(new KeyValuePair<string, string>("quantity", "1"));
+                    storeItemList.Add(new KeyValuePair<string, string>("rp", "260"));
+                    storeItemList.Add(new KeyValuePair<string, string>("ip", "null"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration_type", "PURCHASED"));
+                    storeItemList.Add(new KeyValuePair<string, string>("duration", "3"));
+                    HttpContent httpContent = new FormUrlEncodedContent(storeItemList);
+                    await httpClient.PostAsync(purchaseURL, httpContent);
+
                     Tools.ConsoleMessage("Bought 'XP Boost: 3 Days'!", ConsoleColor.White);
-                    httpClient11.Dispose();
-                    text11 = (string)null;
-                    httpClient11 = (HttpClient)null;
-                    requestUri21 = (string)null;
-                    requestUri22 = (string)null;
-                    content11 = (HttpContent)null;
+                    httpClient.Dispose();
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Tools.Log(ex.StackTrace);
-                Console.WriteLine((object)ex);
+                Console.WriteLine(e);
             }
         }
 
         public void levelUp()
         {
-            Tools.ConsoleMessage("Level Up: " + (object)this.sumLevel, ConsoleColor.Yellow);
-            this.rpBalance = this.loginPacket.RpBalance;
-            this.ipBalance = this.loginPacket.IpBalance;
-            Tools.ConsoleMessage("Your Current IP: " + (object)this.ipBalance, ConsoleColor.Yellow);
-            if (this.sumLevel >= (double)Program.maxLevel)
+            Tools.ConsoleMessage("Level Up: " + sumLevel, ConsoleColor.Yellow);
+            rpBalance = loginPacket.RpBalance;
+            ipBalance = loginPacket.IpBalance;
+            Tools.ConsoleMessage("Your Current RP: " + rpBalance, ConsoleColor.Yellow);
+            Tools.ConsoleMessage("Your Current IP: " + ipBalance, ConsoleColor.Yellow);
+            if (sumLevel >= Program.maxLevel)
             {
-                Tools.ConsoleMessage("Your character reached the max level: " + (object)Program.maxLevel, ConsoleColor.Red);
-                this.connection.Disconnect();
+                Tools.ConsoleMessage("Your character reached the max level: " + Program.maxLevel, ConsoleColor.Red);
+                connection.Disconnect();
+                return;
             }
-            else
+            if (rpBalance >= 400.0 && Program.buyExpBoost)
             {
-                if (this.rpBalance != 400.0 || !Program.buyExpBoost)
-                    return;
                 Tools.ConsoleMessage("Buying XP Boost", ConsoleColor.White);
                 try
                 {
-                    new Task(new Action(this.buyBoost)).Start();
+                    Task t = new Task(buyBoost);
+                    t.Start();
                 }
-                catch (Exception ex)
+                catch (Exception exception)
                 {
-                    Tools.Log(ex.StackTrace);
-                    Tools.ConsoleMessage("Couldn't buy RP Boost.\n" + (object)ex, ConsoleColor.Red);
+                    Tools.ConsoleMessage("Couldn't buy RP Boost.\n" + exception, ConsoleColor.Red);
                 }
             }
         }
