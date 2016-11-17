@@ -139,52 +139,65 @@ namespace ezBot
                         if(!exeProcess.Responding)
                         {
                             notRespondingTick++;
-                            if(notRespondingTick == 4)
+                            if(notRespondingTick == 7)
                             {
-                                var processInfo = new ProcessStartInfo()
+                                try
                                 {
-                                    Arguments = "/f /PID " + exeProcess.Id,
-                                    FileName = "taskkill.exe",
-                                    WindowStyle = ProcessWindowStyle.Hidden
-                                };
-                                Process.Start(processInfo);
+                                    var processInfo = new ProcessStartInfo()
+                                    {
+                                        Arguments = "/f /PID " + exeProcess.Id,
+                                        FileName = "taskkill.exe",
+                                        WindowStyle = ProcessWindowStyle.Hidden
+                                    };
+                                    Process.Start(processInfo);
+                                }
+                                catch(Exception ex)
+                                {
+                                    Tools.Log(ex.StackTrace);
+                                }
                             }
                         }else notRespondingTick = 0;
                         foreach (ProcessThread processThread in exeProcess.Threads)
                         {
-                            EnumThreadWindows(processThread.Id,
-                             (hWnd, lParam) =>
-                             {
-                                 //Check if Window is Visible or not.
-                                 if (!IsWindowVisible((int)hWnd))
-                                     return true;
+                            try
+                            {
+                                EnumThreadWindows(processThread.Id, (hWnd, lParam) =>
+                                {
+                                    //Check if Window is Visible or not.
+                                    if (!IsWindowVisible((int)hWnd))
+                                        return true;
 
-                                 //Get the Window's Title.
-                                 StringBuilder title = new StringBuilder(256);
-                                 GetWindowText((int)hWnd, title, 256);
+                                    //Get the Window's Title.
+                                    StringBuilder title = new StringBuilder(256);
+                                    GetWindowText((int)hWnd, title, 256);
 
-                                 //Check if Window has Title.
-                                 if (title.Length == 0)
-                                     return true;
-                                 
-                                 if(title.ToString().ToLower() == "network warning" || title.ToString().ToLower() == "failed to connect")
-                                 {
-                                     exeProcess.Kill();
-                                     Thread.Sleep(1000);
-                                     if (exeProcess.Responding)
-                                     {
-                                         var processInfo = new ProcessStartInfo()
-                                         {
-                                             Arguments = "/f /PID "+ exeProcess.Id,
-                                             FileName = "taskkill.exe",
-                                             WindowStyle = ProcessWindowStyle.Hidden
-                                         };
-                                         Process.Start(processInfo);
-                                     }
-                                 }
+                                    //Check if Window has Title.
+                                    if (title.Length == 0)
+                                        return true;
 
-                                 return true;
-                             }, IntPtr.Zero);
+                                    if (title.ToString().ToLower() == "network warning" || title.ToString().ToLower() == "failed to connect")
+                                    {
+                                        exeProcess.Kill();
+                                        Thread.Sleep(1000);
+                                        if (exeProcess.Responding)
+                                        {
+                                            var processInfo = new ProcessStartInfo()
+                                            {
+                                                Arguments = "/f /PID " + exeProcess.Id,
+                                                FileName = "taskkill.exe",
+                                                WindowStyle = ProcessWindowStyle.Hidden
+                                            };
+                                            Process.Start(processInfo);
+                                        }
+                                    }
+
+                                    return true;
+                                }, IntPtr.Zero);
+                            }
+                            catch(Exception ex)
+                            {
+                                Tools.Log(ex.StackTrace);
+                            }
                         }
                     }
                     Thread.Sleep(10 * 1000);
@@ -477,7 +490,7 @@ namespace ezBot
 
                                         try
                                         {
-                                            SetMasteries(loginPacket.AllSummonerData.SummonerLevel.Level);
+                                            SetMasteries(loginPacket.AllSummonerData.SummonerLevel.Level, UcFirst(championName.Replace("'", "").Replace(" ", "")));
                                         }
                                         catch(Exception e)
                                         {
@@ -494,10 +507,11 @@ namespace ezBot
 
                                     if (queueType == "ARAM" || queueType == "ARAM_UNRANKED_1x1" || queueType == "ARAM_UNRANKED_2x2" || (queueType == "ARAM_UNRANKED_3x3" || queueType == "ARAM_UNRANKED_5x5") || queueType == "ARAM_UNRANKED_6x6")
                                     {
+                                        var championName = "";
                                         var champion = gameDTO.PlayerChampionSelections.FirstOrDefault(x => x.SummonerInternalName.ToLower() == sumName.ToLower().Replace(" ", ""));
                                         if (champion != null)
                                         {
-                                            var championName = Enums.GetChampionById(champion.ChampionId);
+                                            championName = Enums.GetChampionById(champion.ChampionId);
                                             if (!string.IsNullOrEmpty(championName))
                                             {
                                                 Tools.ConsoleMessage("Selected Champion: " + UcFirst(championName.ToLower()), ConsoleColor.DarkYellow);
@@ -549,7 +563,7 @@ namespace ezBot
                                         
                                         try
                                         {
-                                            SetMasteries(loginPacket.AllSummonerData.SummonerLevel.Level);
+                                            SetMasteries(loginPacket.AllSummonerData.SummonerLevel.Level, UcFirst(championName.Replace("'", "").Replace(" ", "")));
                                         }
                                         catch (Exception e)
                                         {
@@ -1901,7 +1915,7 @@ namespace ezBot
             }
         }
 
-        private async void SetMasteries(int level)
+        private async void SetMasteries(int level, string championName)
         {
             Tools.ConsoleMessage("Updating masteries", ConsoleColor.White);
             try
