@@ -80,6 +80,8 @@ namespace ezBot
                 Process.Start("AutoUpdater.exe");
                 Environment.Exit(0);
             }
+            
+            LoadLeagueVersion();
 
             Console.Title = "ezBot";
             Tools.TitleMessage("ezBot - Auto Queue for LOL: " + Program.LoLVersion.Substring(0, 4));
@@ -105,9 +107,7 @@ namespace ezBot
             LoadTranslator();
 
             Tools.ConsoleMessage(Translator.ConfigLoaded, ConsoleColor.White);
-
-            LoadLeagueVersion();
-
+            
             try
             {
                 var dir = Directory.EnumerateDirectories(lolPath + "RADS\\solutions\\lol_game_client_sln\\releases\\").OrderBy(f => new DirectoryInfo(f).CreationTime).Last() + "\\deploy\\";
