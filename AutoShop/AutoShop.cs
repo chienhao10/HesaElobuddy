@@ -12,7 +12,7 @@ namespace AutoShop
 
         public AutoShop()
         {
-            InitializeMenu();
+            //InitializeMenu();
             InitializeEvents();
             Chat.OnInput += Chat_OnInput;
         }
