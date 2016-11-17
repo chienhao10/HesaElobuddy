@@ -81,7 +81,7 @@ namespace ezBot
             if (!IsUserAdministrator())
             {
                 Tools.ConsoleMessage("ezBot must be started with administrator privileges.", ConsoleColor.Red);
-                Console.ReadLine();
+                Console.ReadKey(true);
                 return;
             }
 
@@ -155,13 +155,13 @@ namespace ezBot
                         Tools.ConsoleMessage(ex.Message + " " + ex.StackTrace, ConsoleColor.Green);
                         Tools.ConsoleMessage("You may have an issue in your accounts.txt", ConsoleColor.Red);
                         Tools.ConsoleMessage("Accounts structure ACCOUNT|PASSWORD|REGION|QUEUE_TYPE|IS_LEADER", ConsoleColor.Red);
-                        Console.ReadKey();
+                        Console.ReadKey(true);
                     }
                 }
             }
             
             while(true)
-                Console.ReadKey();
+                Console.ReadKey(true);
         }
 
         public static string LoadEzBotVersion()

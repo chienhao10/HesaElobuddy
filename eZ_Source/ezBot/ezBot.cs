@@ -447,20 +447,9 @@ namespace ezBot
                                         {
                                             Random random = new Random();
                                             List<int> list = new List<int>()
-                                        {
-                                            13,
-                                            6,
-                                            7,
-                                            10,
-                                            1,
-                                            11,
-                                            21,
-                                            12,
-                                            3,
-                                            14,
-                                            2,
-                                            4
-                                        };
+                                            {
+                                                6, 14, 7, 12, 3, 21, 4, 13, 1
+                                            };
                                             int index = random.Next(list.Count);
                                             int index2 = random.Next(list.Count);
                                             int num = list[index];
@@ -514,7 +503,10 @@ namespace ezBot
                                         else
                                         {
                                             var random = new Random();
-                                            var spellList = new List<int> { 13, 6, 7, 10, 1, 11, 21, 12, 3, 14, 2, 4 };
+                                            var spellList = new List<int>
+                                            {
+                                                6, 14, 7, 12, 3, 21, 4, 13, 1
+                                            };
 
                                             int index = random.Next(spellList.Count);
                                             int index2 = random.Next(spellList.Count);

@@ -1,13 +1,5 @@
-// Decompiled with JetBrains decompiler
-// Type: ezBot.Enums
-// Assembly: ezBot, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 3420E614-A4AA-4D46-B920-F86DC62C4464
-// Assembly location: C:\Users\Hesa\Desktop\eZ\ezBot.exe
-
-using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
-using System.Net;
 
 namespace ezBot
 {
@@ -15,40 +7,10 @@ namespace ezBot
     {
         public static string FirstCharToUpper(string input)
         {
-            if (String.IsNullOrEmpty(input))
+            if (string.IsNullOrEmpty(input))
                 throw new ArgumentException("ARGH!");
             return input.First().ToString().ToUpper() + input.Substring(1);
         }
-        /*
-        public static int GetChampion(string name)
-        {
-            string jsonData = "";
-            try
-            {
-                name = FirstCharToUpper(name);
-                WebClient webClient = new WebClient();
-                jsonData = webClient.DownloadString(string.Format("http://ddragon.leagueoflegends.com/cdn/5.14.1/data/en_US/champion/{0}.json", name));
-                if(!string.IsNullOrEmpty(jsonData) && !jsonData.Contains("Not Found"))
-                {
-                    JObject rss = JObject.Parse(jsonData);
-                    string championId = rss.Last.Last.Last[1].Value<string>();
-                    return Convert.ToInt32(championId);
-                }else
-                {
-                    jsonData = "";
-                }
-            }catch(Exception e)
-            {
-
-            }
-            if(!string.IsNullOrEmpty(jsonData))
-            {
-                JObject o2 = (JObject)JToken.Parse(jsonData);
-                var championId = o2.SelectToken("data."+name+ ".key").Value<string>();
-                return Convert.ToInt32(championId);
-            }
-            return 0;
-        }*/
 
         public static int GetChampion(string name)
         {
@@ -612,13 +574,10 @@ namespace ezBot
                 case "IGNITE": return 14;
                 case "HEAL": return 7;
                 case "TELEPORT": return 12;
-                case "GARRISON": return 17;
-                case "CLAIRVOYANCE": return 2;
                 case "EXHAUST": return 3;
                 case "BARRIER": return 21;
-                case "SNOWBALL": return 11;
+                case "SNOWBALL": return 32;
                 case "FLASH": return 4;
-                case "REVIVE": return 10;
                 case "PORORECALL": return 30;
                 case "CLARITY": return 13;
                 case "CLEANSE": return 1;
