@@ -68,7 +68,6 @@ AutoBuddy won't recall if you have less gold than needed for next item.
                 {
                     recallsWithGold++;
                     current.SetLogic(LogicSelector.MainLogics.RecallLogic);
-                    Console.WriteLine("Entering Recall Logic.");
                 }
             }
             Core.DelayAction(ShouldRecall, 500);
