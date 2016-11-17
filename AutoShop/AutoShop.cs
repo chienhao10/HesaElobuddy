@@ -27,6 +27,7 @@ namespace AutoShop
 
         private static void InitializeEvents()
         {
+            Chat.Print("AutoShop Loaded.");
             Game.OnTick += OnTick;
             Drawing.OnEndScene += Drawings;
         }
