@@ -276,20 +276,36 @@ namespace ezBot
 
         public static void LoadLeagueVersion()
         {
-            Program.LoLVersion = File.OpenText(AppDomain.CurrentDomain.BaseDirectory + "configs\\version.txt").ReadLine();
+            LoLVersion = File.OpenText(AppDomain.CurrentDomain.BaseDirectory + "configs\\version.txt").ReadLine();
         }
 
         private static void ChangeGameConfig()
         {
+            if(!string.IsNullOrEmpty(lolPath))
+            {
+                try
+                {
+                    var configFileIni = new IniFile(lolPath + "Config\\game.cfg");
+                    configFileIni.Write("General", "WindowMode", "1");
+                    configFileIni.Write("General", "Height", lolHeight.ToString());
+                    configFileIni.Write("General", "Width", lolWidth.ToString());
+                }
+                catch (Exception ex)
+                {
+                    Tools.Log("Regular League game.cfg Error: If using VMWare Shared Folder, make sure it is not set to Read-Only.\nException:" + ex.Message);
+                }
+            }
+            if (string.IsNullOrEmpty(lolGarenaPath)) return;
             try
             {
-                var configFileIni = new IniFile(lolPath + "Config\\game.cfg");
-                configFileIni.Write("General", "Height", Program.lolHeight.ToString());
-                configFileIni.Write("General", "Width", Program.lolWidth.ToString());
+                var configFileIni = new IniFile(lolGarenaPath + "Game\\Config\\game.cfg");
+                configFileIni.Write("General", "WindowMode", "1");
+                configFileIni.Write("General", "Height", lolHeight.ToString());
+                configFileIni.Write("General", "Width", lolWidth.ToString());
             }
             catch (Exception ex)
             {
-                Tools.ConsoleMessage("game.cfg Error: If using VMWare Shared Folder, make sure it is not set to Read-Only.\nException:" + ex.Message, ConsoleColor.Red);
+                Tools.Log("Garena game.cfg Error: If using VMWare Shared Folder, make sure it is not set to Read-Only.\nException:" + ex.Message);
             }
         }
 
