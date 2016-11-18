@@ -79,6 +79,7 @@ namespace ezBot
                 case "korean":
                 case "kr":
                 {
+                    Console.OutputEncoding = Encoding.Default;
                     Translator = new KoreanTranslator();
                 }
                 break;
@@ -106,7 +107,6 @@ namespace ezBot
 
         private static void Main(string[] args)
         {
-            Console.OutputEncoding = Encoding.Default;
             EzBotVersion = LoadEzBotVersion();
             var remoteVersion = LoadRemoteVersion();
             if (string.IsNullOrEmpty(EzBotVersion) || string.IsNullOrEmpty(remoteVersion) || EzBotVersion != remoteVersion)
@@ -352,6 +352,13 @@ namespace ezBot
                         configFileIni.Write("Performance", "EnableHUDAnimations", "0");
                         configFileIni.Write("Performance", "PerPixelPointLighting", "0");
                         configFileIni.Write("Performance", "EnableParticleOptimizations", "0");
+                        configFileIni.Write("Performance", "BudgetOverdrawAverage", "1");
+                        configFileIni.Write("Performance", "BudgetSkinnedVertexCount", "10000");
+                        configFileIni.Write("Performance", "BudgetSkinnedDrawCallCount", "50");
+                        configFileIni.Write("Performance", "BudgetTextureUsage", "1024");
+                        configFileIni.Write("Performance", "BudgetVertexCount", "15000");
+                        configFileIni.Write("Performance", "BudgetTriangleCount", "5000");
+                        configFileIni.Write("Performance", "BudgetDrawCallCount", "100");
                         configFileIni.Write("Performance", "EnableGrassSwaying", "0");
                         configFileIni.Write("Performance", "EnableFXAA", "0");
                         configFileIni.Write("Performance", "AdvancedShader", "0");
