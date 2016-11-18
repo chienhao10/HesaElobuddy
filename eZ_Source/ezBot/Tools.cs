@@ -5,7 +5,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using System.Web;
 using System.Windows.Forms;
 
 namespace ezBot
@@ -74,7 +73,7 @@ namespace ezBot
             lock(locker)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("[" + DateTime.Now + "] ");
+                Console.Write("[" + DateTime.Now + "]  ");
                 Console.ForegroundColor = color;
                 Console.Write(message + "\n");
             }
