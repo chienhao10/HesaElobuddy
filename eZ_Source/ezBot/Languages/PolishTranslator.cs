@@ -29,7 +29,7 @@ namespace ezBot.Languages
         public string ErrorLeagueGameCfgRegular { get { return "Błąd pliku LoL'a game.cfg: Jeżeli używasz Wspólnego Folderu VMWare (VMWare Shared Folder), upewnij się, że nie jest ustawiony jako Tylko do Odczytu.\nException: {0}"; } }
         public string ErrorLeagueGameCfgGarena { get { return "Błąd pliku LoL'a Garena game.cfg:Jeżeli używasz Wspólnego Folderu VMWare (VMWare Shared Folder), upewnij się, że nie jest ustawiony jako Tylko do Odczytu.\nException: {0}"; } }
         public string NoMoreAccountsToLogin { get { return "Brak kolejnych kont do zalogowania."; } }
-        public string GameModeInvalid { get { return "Nieprawidłowy Tryb Gry, upewnij się, że używasz jednego z następujących trybów ( Z UWZGLĘDNIENIEM WIELKOŚCI LITER )"; } }
+        public string GameModeInvalid { get { return "Nieprawidłowy Tryb Gry, upewnij się, że używasz jednego z następujących trybów."; } }
         public string WillShutdownOnceCurrentMatchEnds { get { return "Wyłączenie nastąpi po zakończeniu rozgrywki."; } }
         public string EzBotGameStatus { get { return "ezBot - {0} Ogólnie - {1} Wygrana - {2} Przegrana"; } }
         public string AcceptingLobbyInvite { get { return "Akceptowanie zaproszenia do lobby."; } }

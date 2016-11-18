@@ -28,7 +28,7 @@
         public string ErrorLeagueGameCfgRegular { get { return "Regular League game.cfg Error: If using VMWare Shared Folder, make sure it is not set to Read-Only.\nException: {0}"; } }
         public string ErrorLeagueGameCfgGarena { get { return "Garena League game.cfg Error: If using VMWare Shared Folder, make sure it is not set to Read-Only.\nException: {0}"; } }
         public string NoMoreAccountsToLogin { get { return "Giriş yapılacak daha fazla hesap yok."; } }
-        public string GameModeInvalid { get { return "Oyun modu geçersiz, Mevcut modlardan birini girdiğinizden emin olun. ( BÜYÜK/KÜÇÜK HARF DUYARLI )"; } }
+        public string GameModeInvalid { get { return "Oyun modu geçersiz, Mevcut modlardan birini girdiğinizden emin olun."; } }
         public string WillShutdownOnceCurrentMatchEnds { get { return "Mevcut maç bitiminde kapatlıacak."; } }
         public string EzBotGameStatus { get { return "ezBot - {0} Toplam - {1} Zafer - {2} Bozgun"; } }
         public string AcceptingLobbyInvite { get { return "Lobi daveti kabul ediliyor."; } }

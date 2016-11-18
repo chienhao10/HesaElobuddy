@@ -28,7 +28,7 @@
         public string ErrorLeagueGameCfgRegular { get { return "Ordinaire League game.cfg Erreur: Si vous utilisez le dossier partagé VMWare, assurez-vous qu'il n'est pas défini sur Lecture seule.\nException: {0}"; } }
         public string ErrorLeagueGameCfgGarena { get { return "Garena League game.cfg Erreur: Si vous utilisez le dossier partagé VMWare, assurez-vous qu'il n'est pas défini sur Lecture seule.\nException: {0}"; } }
         public string NoMoreAccountsToLogin { get { return "Plus de comptes à connecter."; } }
-        public string GameModeInvalid { get { return "Mode de jeu non valide, assurez-vous que vous utilisez l'un des modes suivants ( sensible aux majuscules et minuscules )."; } }
+        public string GameModeInvalid { get { return "Mode de jeu non valide, assurez-vous que vous utilisez l'un des modes suivants."; } }
         public string WillShutdownOnceCurrentMatchEnds { get { return "S'arrêtera une fois le match en cours terminé."; } }
         public string EzBotGameStatus { get { return "ezBot - {0} Totalr - {1} Victoire - {2} Défaite"; } }
         public string AcceptingLobbyInvite { get { return "Accepter l'invitation au lobby."; } }

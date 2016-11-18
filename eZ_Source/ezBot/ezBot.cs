@@ -1313,36 +1313,46 @@ namespace ezBot
                 }
                 
                 Tools.ConsoleMessage(string.Format(Program.Translator.Welcome, loginPacket.AllSummonerData.Summoner.Name, loginPacket.AllSummonerData.SummonerLevel.Level, ipBalance.ToString(), loginPacket.AllSummonerData.SummonerLevelAndPoints.ExpPoints, loginPacket.AllSummonerData.SummonerLevel.ExpToNextLevel), ConsoleColor.White);
-
-                PlayerDto player = await connection.CreatePlayer();
-                if (loginPacket.ReconnectInfo != null && ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).Game != null)
-                    connection_OnMessageReceived(this, ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).PlayerCredentials);
-                else
+                try
                 {
-                    try
+                    PlayerDto player = await connection.CreatePlayer();
+                    
+                    if (loginPacket.ReconnectInfo != null && ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).Game != null)
                     {
-                        await connection.DestroyGroupFinderLobby();
-                    }
-                    catch (Exception ex)
-                    {
-                        Tools.Log(ex.StackTrace);
-                    }
-                    if (Program.queueWithFriends)
-                    {
-                        if (m_isLeader)
-                        {
-                            Tools.ConsoleMessage(Program.Translator.SendingGameInvites, ConsoleColor.Cyan);
-                            sendGameInvites();
-                        }
-                        else
-                        {
-                            Tools.ConsoleMessage(string.Format(Program.Translator.WaitingGameInviteFrom, Program.leaderName), ConsoleColor.Cyan);
-                        }
+                        connection_OnMessageReceived(this, ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).PlayerCredentials);
                     }
                     else
                     {
-                        connection_OnMessageReceived(this, new EndOfGameStats());
+                        try
+                        {
+                            await connection.DestroyGroupFinderLobby();
+                        }
+                        catch (Exception ex)
+                        {
+                            Tools.Log(ex.StackTrace);
+                        }
+                        if (Program.queueWithFriends)
+                        {
+                            if (m_isLeader)
+                            {
+                                Tools.ConsoleMessage(Program.Translator.SendingGameInvites, ConsoleColor.Cyan);
+                                sendGameInvites();
+                            }
+                            else
+                            {
+                                Tools.ConsoleMessage(string.Format(Program.Translator.WaitingGameInviteFrom, Program.leaderName), ConsoleColor.Cyan);
+                            }
+                        }
+                        else
+                        {
+                            connection_OnMessageReceived(this, new EndOfGameStats());
+                        }
                     }
+                }
+                catch(Exception ex)
+                {
+                    Tools.Log(ex.Message);
+                    Tools.ConsoleMessage(ex.Message, ConsoleColor.Red);
                 }
             }
         }

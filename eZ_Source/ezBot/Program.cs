@@ -187,14 +187,14 @@ namespace ezBot
                             }
                             if (IsGameModeValid(queueType))
                             {
-                                ezBot ezBot = new ezBot(strArray[0], password, strArray[2].ToUpper(), queueType, LoLVersion, isLeader);
+                                ezBot ezBot = new ezBot(strArray[0], password, strArray[2].ToUpper(), queueType.ToUpper(), LoLVersion, isLeader);
                             }
                         }
                         else
                         {
                             Generator.CreateRandomThread(delay1, delay2);
                             string queueType = "ARAM";
-                            ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), queueType, LoLVersion, isLeader);
+                            ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), queueType.ToUpper(), LoLVersion, isLeader);
                         }
                         if (num == maxBots)
                         {
@@ -306,6 +306,9 @@ namespace ezBot
                         {
                             throw;
                         }
+                    }catch(Exception ex)
+                    {
+                        Console.WriteLine("Exception:\n" + ex);
                     }
                 }
             } while (!token);
@@ -411,14 +414,14 @@ namespace ezBot
                     string queueType = strArray[3];
                     if (IsGameModeValid(queueType))
                     {
-                        ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), queueType, LoLVersion, isLeader);
+                        ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), queueType.ToUpper(), LoLVersion, isLeader);
                     }
                 }
                 else
                 {
                     Generator.CreateRandomThread(delay1, delay2);
                     string queueType = "ARAM";
-                    ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), queueType, LoLVersion, isLeader);
+                    ezBot ezBot = new ezBot(strArray[0], strArray[1], strArray[2].ToUpper(), queueType.ToUpper(), LoLVersion, isLeader);
                 }
                 if (num == maxBots)
                 {
@@ -430,12 +433,12 @@ namespace ezBot
 
         public static bool IsGameModeValid(string gameMode)
         {
-            switch(gameMode)
+            switch(gameMode.ToUpper())
             {
                 case "INTRO_BOT": return true;
                 case "BEGINNER_BOT": return true;
                 case "MEDIUM_BOT": return true;
-                case "BOT_3x3": return true;
+                case "BOT_3X3": return true;
                 case "NORMAL_5X5": return true;
                 case "NORMAL_3X3": return true;
                 case "ARAM": return true;

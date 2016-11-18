@@ -28,7 +28,7 @@
         public string ErrorLeagueGameCfgRegular { get { return "일반 롤 클라이언트 game.cfg 에러: 만약에 VMWare 공유 폴더 사용시, 읽기 전용으로 설정되어 있지 않은지 확인하세요.\nException: {0}"; } }
         public string ErrorLeagueGameCfgGarena { get { return "가레나 롤 클라이언트 game.cfg 에러: 만약에 VMWare 공유 폴더 사용시, 읽기 전용으로 설정되어 있지 않은지 확인하세요.\nException: {0}"; } }
         public string NoMoreAccountsToLogin { get { return "더이상 로그인 할 계정이 없습니다."; } }
-        public string GameModeInvalid { get { return "게임 모드 에러!, 게임 모드를 제대로 설정해주세요. ( CASE SENSITIVE )"; } }
+        public string GameModeInvalid { get { return "게임 모드 에러!, 게임 모드를 제대로 설정해주세요."; } }
         public string WillShutdownOnceCurrentMatchEnds { get { return "현재 매치가 끝나면 종료됩니다."; } }
         public string EzBotGameStatus { get { return "ezBot - 총 {0} 게임 - {1} 승리 - {2} 패배"; } }
         public string AcceptingLobbyInvite { get { return "로비 초대를 허용합니다."; } }
