@@ -63,21 +63,25 @@ namespace ezBot
             switch(language.ToLower())
             {
                 default:
+                case "english":
                 case "en":
                 {
                     Translator = new EnglishTranslator();
                 }
                 break;
+                case "french":
                 case "fr":
                 {
                     Translator = new FrenchTranslator();
                 }
                 break;
+                case "korean":
                 case "kr":
                 {
                     Translator = new KoreanTranslator();
                 }
                 break;
+                case "turkish":
                 case "tr":
                 {
                     Translator = new TurkishTranslator();
