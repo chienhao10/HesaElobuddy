@@ -60,7 +60,7 @@ namespace ezBot
 
         private static void LoadTranslator()
         {
-            switch(language)
+            switch(language.ToLower())
             {
                 default:
                 case "en":
@@ -71,6 +71,11 @@ namespace ezBot
                 case "fr":
                 {
                     Translator = new FrenchTranslator();
+                }
+                break;
+                case "kr":
+                {
+                    Translator = new KoreanTranslator();
                 }
                 break;
             }
