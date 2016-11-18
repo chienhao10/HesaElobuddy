@@ -93,6 +93,12 @@ namespace ezBot
                     Translator = new PortugueseTranslator();
                 }
                 break;
+                case "polish":
+                case "pl":
+                {
+                    Translator = new PolishTranslator();
+                }
+                break;
             }
         }
 

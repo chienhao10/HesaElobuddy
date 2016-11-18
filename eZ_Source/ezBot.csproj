@@ -274,6 +274,7 @@
     <Compile Include="ezBot\ezBot.cs" />
     <Compile Include="ezBot\IniFile.cs" />
     <Compile Include="ezBot\ITranslator.cs" />
+    <Compile Include="ezBot\Languages\PolishTranslator.cs" />
     <Compile Include="ezBot\Languages\PortugueseTranslator.cs" />
     <Compile Include="ezBot\Languages\TurkishTranslator.cs" />
     <Compile Include="ezBot\Languages\KoreanTranslator.cs" />
