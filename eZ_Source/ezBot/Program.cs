@@ -352,13 +352,6 @@ namespace ezBot
                         configFileIni.Write("Performance", "EnableHUDAnimations", "0");
                         configFileIni.Write("Performance", "PerPixelPointLighting", "0");
                         configFileIni.Write("Performance", "EnableParticleOptimizations", "0");
-                        configFileIni.Write("Performance", "BudgetOverdrawAverage", "1");
-                        configFileIni.Write("Performance", "BudgetSkinnedVertexCount", "10000");
-                        configFileIni.Write("Performance", "BudgetSkinnedDrawCallCount", "50");
-                        configFileIni.Write("Performance", "BudgetTextureUsage", "1024");
-                        configFileIni.Write("Performance", "BudgetVertexCount", "15000");
-                        configFileIni.Write("Performance", "BudgetTriangleCount", "5000");
-                        configFileIni.Write("Performance", "BudgetDrawCallCount", "100");
                         configFileIni.Write("Performance", "EnableGrassSwaying", "0");
                         configFileIni.Write("Performance", "EnableFXAA", "0");
                         configFileIni.Write("Performance", "AdvancedShader", "0");
