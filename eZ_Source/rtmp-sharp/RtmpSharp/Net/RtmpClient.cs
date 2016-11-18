@@ -81,10 +81,16 @@ namespace RtmpSharp.Net
 
         private Task<AcknowledgeMessageExt> QueueCommandAsTask(Command command, int streamId, int messageStreamId, bool requireConnected = true)
         {
-            if (requireConnected && this.IsDisconnected)
-                return RtmpClient.CreateExceptedTask((Exception)new ClientDisconnectedException("disconnected"));
-            Task<AcknowledgeMessageExt> task = this._callbackManager.Create(command.InvokeId);
-            this._writer.Queue((RtmpEvent)command, streamId, messageStreamId);
+            if (requireConnected && IsDisconnected) return CreateExceptedTask(new ClientDisconnectedException("disconnected"));
+            Task<AcknowledgeMessageExt> task = _callbackManager.Create(command.InvokeId);
+            try
+            {
+                _writer.Queue(command, streamId, messageStreamId);
+            }
+            catch(Exception ex)
+            {
+
+            }
             return task;
         }
 
@@ -343,47 +349,47 @@ namespace RtmpSharp.Net
             invokeAmf3.InvokeId = this.GetNextInvokeId();
             invokeAmf3.MethodCall = new Method((string)null, new object[1]
             {
-        (object) message
+         message
             }, 1 != 0, CallStatus.Request);
             return (T)MiniTypeConverter.ConvertTo((await this.QueueCommandAsTask((Command)invokeAmf3, 3, 0, true)).Body, typeof(T));
         }
 
         public async Task<T> InvokeAsync<T>(string endpoint, string destination, string method, object[] arguments)
         {
-            if (this._objectEncoding != ObjectEncoding.Amf3)
-                throw new NotSupportedException("Flex RPC requires AMF3 encoding.");
-            RemotingMessage remotingMessage1 = new RemotingMessage();
-            string clientId = this.ClientId;
-            remotingMessage1.ClientId = clientId;
-            string str1 = destination;
-            remotingMessage1.Destination = str1;
-            string str2 = method;
-            remotingMessage1.Operation = str2;
-            object[] objArray = arguments;
-            remotingMessage1.Body = (object)objArray;
-            remotingMessage1.Headers = new AsObject()
+            try
             {
+                if (_objectEncoding != ObjectEncoding.Amf3) throw new NotSupportedException("Flex RPC requires AMF3 encoding.");
+                RemotingMessage remotingMessage = new RemotingMessage()
                 {
-                  "DSEndpoint",
-                  (object) endpoint
-                },
+                    ClientId = ClientId,
+                    Destination = destination,
+                    Operation = method,
+                    Body = arguments,
+                    Headers = new AsObject()
+                    {
+                        {
+                          "DSEndpoint", endpoint
+                        },
+                        {
+                          "DSId", ClientId ?? "nil"
+                        },
+                        {
+                          "DSRequestTimeout", 60
+                        }
+                    }
+                };
+                InvokeAmf3 invokeAmf3 = new InvokeAmf3()
                 {
-                  "DSId",
-                  (object) (this.ClientId ?? "nil")
-                },
-                {
-                  "DSRequestTimeout",
-                  (object) 60
-                }
-            };
-            RemotingMessage remotingMessage2 = remotingMessage1;
-            InvokeAmf3 invokeAmf3 = new InvokeAmf3();
-            invokeAmf3.InvokeId = this.GetNextInvokeId();
-            invokeAmf3.MethodCall = new Method((string)null, new object[1]
+                    InvokeId = GetNextInvokeId(),
+                    MethodCall = new Method(null, new object[1] { remotingMessage }, 1 != 0, CallStatus.Request)
+                };
+                return (T)MiniTypeConverter.ConvertTo((await QueueCommandAsTask(invokeAmf3, 3, 0, true)).Body, typeof(T));
+            }
+            catch(Exception ex)
             {
-                remotingMessage2
-            }, 1 != 0, CallStatus.Request);
-            return (T)MiniTypeConverter.ConvertTo((await this.QueueCommandAsTask(invokeAmf3, 3, 0, true)).Body, typeof(T));
+                Tools.Log(ex.StackTrace);
+                return default(T);
+            }
         }
 
         private async Task<AsObject> ConnectInvokeAsync(string pageUrl, string swfUrl, string tcUrl)
@@ -391,7 +397,7 @@ namespace RtmpSharp.Net
             InvokeAmf0 invokeAmf0_1 = new InvokeAmf0();
             InvokeAmf0 invokeAmf0_2 = invokeAmf0_1;
             string methodName = "connect";
-            object[] parameters = new object[4] { (object)false, (object)"nil", (object)"", null };
+            object[] parameters = new object[4] { false, "nil", (object)"", null };
             int index = 3;
             CommandMessage commandMessage = new CommandMessage();
             commandMessage.Operation = CommandOperation.ClientPing;
@@ -402,16 +408,14 @@ namespace RtmpSharp.Net
             string str3 = "";
             commandMessage.Destination = str3;
             commandMessage.Headers = new AsObject()
-      {
-        {
-          "DSMessagingVersion",
-          (object) 1.0
-        },
-        {
-          "DSId",
-          (object) "my-rtmps"
-        }
-      };
+            {
+                {
+                    "DSMessagingVersion", 1.0
+                },
+                {
+                    "DSId", "my-rtmps"
+                }
+            };
             parameters[index] = (object)commandMessage;
             int num1 = 1;
             int num2 = 0;
