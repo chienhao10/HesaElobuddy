@@ -20,7 +20,7 @@
         public string LauncherFix4 { get { return "4. Accédez à RADS\\solutions\\lol_game_client_sln\\releases\\"; } }
         public string LauncherFix5 { get { return "5. Supprimer tout les dossiers ici sauf: 0.0.1.152"; } }
         public string ChangingGameConfig { get { return "Modification de la configuration du jeu."; } }
-        public string LoadingAccounts { get { return "Chargement du comptes."; } }
+        public string LoadingAccounts { get { return "Chargement des comptes."; } }
         public string MaximumBotsRunning { get { return "Maximum de bots en cours d'exécution: {0}"; } }
         public string YouMayHaveAnIssueInAccountsFile { get { return "Vous avez probablement rencontrer un problème dans votre accounts.txt"; } }
         public string AccountsStructure { get { return "Structure des comptes: ACCOUNT|PASSWORD|REGION|QUEUE_TYPE|IS_LEADER"; } }
