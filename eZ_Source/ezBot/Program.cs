@@ -83,6 +83,7 @@ namespace ezBot
 
         private static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.UTF8;
             EzBotVersion = LoadEzBotVersion();
             var remoteVersion = LoadRemoteVersion();
             if (string.IsNullOrEmpty(EzBotVersion) || string.IsNullOrEmpty(remoteVersion) || EzBotVersion != remoteVersion)
