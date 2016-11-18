@@ -1,5 +1,6 @@
 ﻿namespace ezBot.Languages
 {
+    //Translated by pexhorse from Discord
     public class KoreanTranslator : ITranslator
     {
         public string EzBot { get { return "ezBot - Auto Queue for LOL: {0}"; } }

@@ -1,5 +1,6 @@
 ﻿namespace ezBot.Languages
 {
+    //Translated by Hesa from Elobuddy.net
     public class EnglishTranslator : ITranslator
     {
         public string EzBot { get { return "ezBot - Auto Queue for LOL: {0}"; } }

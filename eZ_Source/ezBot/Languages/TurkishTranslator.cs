@@ -1,5 +1,6 @@
 ﻿namespace ezBot.Languages
 {
+    //Translated by berkerbey from Elobuddy.net
     public class TurkishTranslator : ITranslator
     {
         public string EzBot { get { return "ezBot - LoL için Otomatik Karşılaşma Arama Aracı: {0}"; } }
