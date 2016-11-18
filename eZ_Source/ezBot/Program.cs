@@ -90,6 +90,7 @@ namespace ezBot
                 case "portuguese":
                 case "pt":
                 {
+                    //Console.OutputEncoding = Encoding.GetEncoding("ISO-8859-1");
                     Translator = new PortugueseTranslator();
                 }
                 break;
