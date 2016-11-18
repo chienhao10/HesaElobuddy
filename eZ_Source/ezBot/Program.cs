@@ -78,6 +78,11 @@ namespace ezBot
                     Translator = new KoreanTranslator();
                 }
                 break;
+                case "tr":
+                {
+                    Translator = new TurkishTranslator();
+                }
+                break;
             }
         }
 
