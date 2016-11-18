@@ -1076,20 +1076,25 @@ namespace ezBot
                         await Task.Delay(TimeSpan.FromMilliseconds(m_leaverBustedPenalty));
                         Dictionary<string, object> lbdic = new Dictionary<string, object>();
                         lbdic.Add("LEAVER_BUSTER_ACCESS_TOKEN", m_accessToken);
-
-                        searchingForMatchNotification = await connection.AttachToQueue(matchMakerParams, new AsObject(lbdic));
-
-                        if (searchingForMatchNotification.PlayerJoinFailures == null)
+                        try
                         {
-                            Tools.ConsoleMessage(string.Format(Program.Translator.JoinedLowPriorityQueue, loginPacket.AllSummonerData.Summoner.Name), ConsoleColor.Cyan);
-                            IsInQueue = true;
+                            searchingForMatchNotification = await connection.AttachToQueue(matchMakerParams, new AsObject(lbdic));
+
+                            if (searchingForMatchNotification.PlayerJoinFailures == null)
+                            {
+                                Tools.ConsoleMessage(string.Format(Program.Translator.JoinedLowPriorityQueue, loginPacket.AllSummonerData.Summoner.Name), ConsoleColor.Cyan);
+                                IsInQueue = true;
+                            }
+                            else
+                            {
+                                Tools.ConsoleMessage(Program.Translator.ErrorJoiningLowPriorityQueue, ConsoleColor.White);
+                                connection.Disconnect();
+                                Thread.Sleep(500);
+                                connection.ConnectAndLogin().Wait();
+                            }
                         }
-                        else
+                        catch(Exception ex)
                         {
-                            Tools.ConsoleMessage(Program.Translator.ErrorJoiningLowPriorityQueue, ConsoleColor.White);
-                            connection.Disconnect();
-                            Thread.Sleep(500);
-                            connection.ConnectAndLogin().Wait();
                         }
                         lbdic = null;
                     }
