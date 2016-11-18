@@ -6,10 +6,10 @@
         public string EzBot { get { return "ezBot - 롤 클라이언트 오토 큐: {0}"; } }
         public string By { get { return "원작자 : Tryller 리메이크 및 최적화 : Hesa."; } }
         public string Version { get { return "버전: {0}"; } }
-        public string Support { get { return "디스코드에서 의견/도움을 청해주세요. : https://discord.gg/Fg2tQGa"; } }
+        public string Support { get { return "디스코드에서 의견/도움을 말해주세요. : https://discord.gg/Fg2tQGa"; } }
         public string Garena { get { return "가레나도 지원합니다!"; } }
         public string SourceCode { get { return "해당 프로그램의 소스 깃 허브 github.com/hesa2020/HesaElobuddy."; } }
-        public string Issues { get { return "이슈(s)/에러는 Elobuddy.net의 hesa의 스레드(작성글)에 말해주세요."; } }
+        public string Issues { get { return "이슈/에러는 Elobuddy.net의 hesa의 스레드(작성글)에 작성해주세요."; } }
         public string AdministratorRequired { get { return "ezBot은 반드시 관리자 권한으로 실행해야합니다."; } }
         public string ConfigLoaded { get { return "설정(Config)을 불러왔습니다."; } }
         public string LauncherPathInvalid { get { return "롤 클라이언트 설치경로(LauncherPath)에 문제가 있습니다."; } }
@@ -33,27 +33,27 @@
         public string EzBotGameStatus { get { return "ezBot - 총 {0} 게임 - {1} 승리 - {2} 패배"; } }
         public string AcceptingLobbyInvite { get { return "로비 초대를 허용합니다."; } }
         public string AllPlayersAccepted { get { return "모든 플레이어가 수락했습니다, 큐를 시작합니다."; } }
-        public string PlayersAcceptedCount { get { return "{0}/{1} 명(s) 수락, 나머지 인원들을 기다리는 중입니다."; } }
+        public string PlayersAcceptedCount { get { return "{0}/{1} 명(s) 수락, 나머지 플레이어를 기다리는 중입니다."; } }
         public string EnteringChampionSelect { get { return "챔피언 선택에 들어갑니다."; } }
         public string YouAreInChampionSelect { get { return "챔피언을 선택합니다."; } }
         public string SelectedChampion { get { return "선택된 챔피언: {0}."; } }
         public string WaitingForOtherPlayersLockin { get { return "다른 플레이어 락인을 기다리는 중입니다."; } }
         public string ChampionNotAvailable { get { return "챔피언 '{0}' 선택하지 못함, 누군가 선택했거나, 챔피언이 없습니다."; } }
-        public string WaitingChampSelectTimer { get { return "챔피언 선택 시간이 0초가 되도록 기다리는 중입니다"; } }
+        public string WaitingChampSelectTimer { get { return "챔피언 선택 시간이 0초가 되도록 기다리는 중입니다."; } }
         public string YouAreInQueue { get { return "큐에 있습니다."; } }
-        public string ReQueued { get { return "다시 큐 잡는 중: {0} as {1}."; } }
-        public string QueuePopped { get { return "큐가 잡혔습니다."; } }
-        public string AcceptedQueue { get { return "큐를 수락했습니다!"; } }
+        public string ReQueued { get { return "게임 대기열 재진입: {0} 소환사 : {1}."; } }
+        public string QueuePopped { get { return "게임이 잡혔습니다."; } }
+        public string AcceptedQueue { get { return "게임이 수락됐습니다!"; } }
         public string YouHaveLeaverBuster { get { return "탈주 패널티를 받았습니다."; } }
         public string LaunchingLeagueOfLegends { get { return "League of Legends를 실행합니다."; } }
         public string ClosingGameClient { get { return "게임 클라이언트를 닫는 중입니다."; } }
-        public string InQueueAs { get { return "큐 들어옴: {0} as {1}."; } }
+        public string InQueueAs { get { return "게임 대기열 진입: {0} 소환사 : {1}."; } }
         public string QueueFailedReason { get { return "큐 실패, 이유: {0}."; } }
         public string LeaverBusterTaintedWarningError { get { return "탈주 패널티 경고 에러:\n{0}"; } }
         public string WaitingDodgeTimer { get { return "닷지 패널티 시간을 기다리는 중입니다: {0} 분 남았습니다!"; } }
         public string WaitingLeaverTimer { get { return "탈주 패널티 시간을 기다리는 중입니다: {0} 분 남았습니다!"; } }
-        public string JoinedLowPriorityQueue { get { return "낮은 우선순위 큐에 들어갔습니다. 표시: {0}."; } }
-        public string ErrorJoiningLowPriorityQueue { get { return "낮은 우선순위 큐에 들어가는데 문제가 생겼습니다.\n연결해제 합니다.."; } }
+        public string JoinedLowPriorityQueue { get { return "낮은 우선순위 대기열에 들어갔습니다. 표시: {0}."; } }
+        public string ErrorJoiningLowPriorityQueue { get { return "낮은 우선순위 대기열에 들어가는데 문제가 생겼습니다.\n연결해제 합니다.."; } }
         public string ErrorOccured { get { return "에러가 발생했습니다:\n{0}"; } }
         public string RestartingLeagueOfLegends { get { return "League of Legends를 재시작합니다."; } }
         public string RestartingLeagueOfLegendsAt { get { return "League of Legends {0} 초 후 재실합니다."; } }
@@ -66,11 +66,11 @@
         public string LogIntoNewAccount { get { return "새 계정에 로그인."; } }
         public string BuyingXpBoost { get { return "XP 부스트 구매."; } }
         public string CouldntBuyBoost { get { return "부스트 구매 실패:\n{0}"; } }
-        public string Normal5Requirements { get { return "레벨 3 필요! NORMAL_5X5 큐."; } }
-        public string JoinCoopBeginnerUntil { get { return "Co-Op vs AI (초급) 큐에 들어갑니다 레벨 {0}까지."; } }
-        public string NeedLevel6BeforeAram { get { return "레벨 6 필요! ARAM 큐."; } }
-        public string NeedLevel7Before3v3 { get { return "레벨 7 필요! NORMAL_3X3 큐."; } }
-        public string Welcome { get { return "환영합니다! {0} - lvl ({1}) IP: ({2}) - XP: ({3} / {4})."; } }
+        public string Normal5Requirements { get { return "소환사의 협곡(NORMAL_5X5)을 하기 위해서는 레벨 3이 필요합니다."; } }
+        public string JoinCoopBeginnerUntil { get { return "초급 봇(Co-Op vs AI BEGINNER_BOT) 를 시작합니다. 레벨 {0} 될때까지."; } }
+        public string NeedLevel6BeforeAram { get { return "칼바람 나락(ARAM)을 하기 위해서는 레벨 6이 필요합니다."; } }
+        public string NeedLevel7Before3v3 { get { return "뒤틀린 숲(NORMAL_3X3)을 하기 위해서는 레벨 7이 필요합니다."; } }
+        public string Welcome { get { return "환영합니다! {0} - 레벨 ({1}) IP: ({2}) - XP: ({3} / {4})."; } }
         public string SendingGameInvites { get { return "게임 초대장 보내기."; } }
         public string WaitingGameInviteFrom { get { return "게임 초대를 기다리는 중입니다 {0}."; } }
         public string LevelUp { get { return "레벨 업!: {0}."; } }

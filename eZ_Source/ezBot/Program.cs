@@ -42,6 +42,7 @@ namespace ezBot
         public static bool LOWPriority = true;
         public static string lolPath;
         public static string lolGarenaPath;
+        public static bool lowGraphics = false;
         //Friends...
         public static bool queueWithFriends = false;
         public static string leaderName = "";
@@ -340,6 +341,33 @@ namespace ezBot
                     configFileIni.Write("General", "WindowMode", "1");
                     configFileIni.Write("General", "Height", lolHeight.ToString());
                     configFileIni.Write("General", "Width", lolWidth.ToString());
+                    if(lowGraphics)
+                    {
+                        configFileIni.Write("Performance", "GraphicsSlider", "0");
+                        configFileIni.Write("Performance", "ShadowsEnabled", "0");
+                        configFileIni.Write("Performance", "CharacterInking", "0");
+                        configFileIni.Write("Performance", "EnableHUDAnimations", "0");
+                        configFileIni.Write("Performance", "PerPixelPointLighting", "0");
+                        configFileIni.Write("Performance", "EnableParticleOptimizations", "0");
+                        configFileIni.Write("Performance", "BudgetOverdrawAverage", "1");
+                        configFileIni.Write("Performance", "BudgetSkinnedVertexCount", "10000");
+                        configFileIni.Write("Performance", "BudgetSkinnedDrawCallCount", "50");
+                        configFileIni.Write("Performance", "BudgetTextureUsage", "1024");
+                        configFileIni.Write("Performance", "BudgetVertexCount", "15000");
+                        configFileIni.Write("Performance", "BudgetTriangleCount", "5000");
+                        configFileIni.Write("Performance", "BudgetDrawCallCount", "100");
+                        configFileIni.Write("Performance", "EnableGrassSwaying", "0");
+                        configFileIni.Write("Performance", "EnableFXAA", "0");
+                        configFileIni.Write("Performance", "AdvancedShader", "0");
+                        configFileIni.Write("Performance", "FrameCapType", "3");
+                        configFileIni.Write("Performance", "ShadowQuality", "0");
+                        configFileIni.Write("Performance", "EffectsQuality", "0");
+                        configFileIni.Write("Performance", "GammaEnabled", "0");
+                        configFileIni.Write("Performance", "Full3DModeEnabled", "0");
+                        configFileIni.Write("Performance", "EnvironmentQuality", "0");
+                        configFileIni.Write("Performance", "CharacterQuality", "0");
+                        configFileIni.Write("Performance", "AutoPerformanceSettings", "0");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -471,6 +499,17 @@ namespace ezBot
                 {
                     Tools.ConsoleMessage(ex.StackTrace, ConsoleColor.Red, false);
                 }
+
+                try
+                {
+                    lowGraphics = Convert.ToBoolean(iniFile.Read("LOLSCREEN", "LOWGraphics"));
+                }
+                catch(Exception ex)
+                {
+                    iniFile.Write("LOLSCREEN", "LOWGraphics", "false");
+                    Tools.Log(ex.StackTrace);
+                }
+
                 try
                 {
                     queueWithFriends = Convert.ToBoolean(iniFile.Read("FRIENDS", "QueueWithFriends"));
