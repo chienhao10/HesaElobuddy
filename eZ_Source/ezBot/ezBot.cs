@@ -310,6 +310,11 @@ namespace ezBot
                                     {
                                         if (pickAtTurn == 0)
                                         {
+                                            lock (Program.FriendsChampions)
+                                            {
+                                                if (Program.FriendsChampions.Count != 0) Program.FriendsChampions.Clear();
+                                            }
+
                                             Tools.ConsoleMessage(string.Format(Program.Translator.YouAreInChampionSelect, sumName), ConsoleColor.White);
 
                                             try
@@ -381,57 +386,118 @@ namespace ezBot
                                         string championName = "Ashe";
                                         string[] strArray = new string[5]
                                         {
-                                            Program.firstChampionPick,
-                                            Program.secondChampionPick,
-                                            Program.thirdChampionPick,
-                                            Program.fourthChampionPick,
-                                            Program.fifthChampionPick
+                                            Program.firstChampionPick.ToLower(),
+                                            Program.secondChampionPick.ToLower(),
+                                            Program.thirdChampionPick.ToLower(),
+                                            Program.fourthChampionPick.ToLower(),
+                                            Program.fifthChampionPick.ToLower()
                                         };
-                                        if (Program.randomChampionPick)
-                                        {
-                                            List<string> champList = new List<string>();
-                                            champList.AddRange(strArray);
-                                            bool found = false;
-                                            while (!found && champList.Count != 0)
-                                            {
-                                                var index = new Random().Next(0, champList.Count - 1);
-                                                var championString = champList[index];
-                                                champList.RemoveAt(index);
 
-                                                int championId = Enums.GetChampion(championString);
-                                                ChampionDTO champDto = ChampList.FirstOrDefault(c => c.ChampionId == championId);
-                                                
-                                                if (champDto != null && (champDto.Owned || champDto.FreeToPlay && !gameDTO.PlayerChampionSelections.Any(c => c.ChampionId == championId)))
+                                        if(Program.queueWithFriends && GetFriendsToInvite().Contains(sumName))
+                                        {
+                                            lock (Program.FriendsChampions)
+                                            {
+                                                var tmp = strArray.ToList();
+                                                foreach(var champion in Program.FriendsChampions)
                                                 {
-                                                    selectedChampionId = championId;
-                                                    championName = UcFirst(Enums.GetChampionById(selectedChampionId));
-                                                    if (string.IsNullOrEmpty(championName)) championName = UcFirst(championString);
-                                                    found = true;
-                                                    break;
+                                                    tmp.Remove(champion);
                                                 }
-                                                champDto = null;
-                                                championString = null;
+                                                strArray = tmp.ToArray();
+
+                                                if (Program.randomChampionPick)
+                                                {
+                                                    List<string> champList = new List<string>();
+                                                    champList.AddRange(strArray);
+                                                    bool found = false;
+                                                    while (!found && champList.Count != 0)
+                                                    {
+                                                        var index = new Random().Next(0, champList.Count - 1);
+                                                        var championString = champList[index];
+                                                        champList.RemoveAt(index);
+
+                                                        int championId = Enums.GetChampion(championString);
+                                                        ChampionDTO champDto = ChampList.FirstOrDefault(c => c.ChampionId == championId);
+
+                                                        if (champDto != null && (champDto.Owned || champDto.FreeToPlay && !gameDTO.PlayerChampionSelections.Any(c => c.ChampionId == championId)))
+                                                        {
+                                                            selectedChampionId = championId;
+                                                            championName = UcFirst(Enums.GetChampionById(selectedChampionId));
+                                                            if (string.IsNullOrEmpty(championName)) championName = UcFirst(championString);
+                                                            found = true;
+                                                            break;
+                                                        }
+                                                        champDto = null;
+                                                        championString = null;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    for (int index = 0; index < strArray.Length; ++index)
+                                                    {
+                                                        string championString = strArray[index];
+                                                        int championId = Enums.GetChampion(championString);
+                                                        ChampionDTO champDto = ChampList.FirstOrDefault(c => c.ChampionId == championId);
+                                                        if (champDto != null && (champDto.Owned || champDto.FreeToPlay && !gameDTO.PlayerChampionSelections.Any(c => c.ChampionId == championId)))
+                                                        {
+                                                            selectedChampionId = championId;
+                                                            championName = UcFirst(Enums.GetChampionById(selectedChampionId));
+                                                            if (string.IsNullOrEmpty(championName)) championName = UcFirst(championString);
+                                                            break;
+                                                        }
+                                                        champDto = null;
+                                                        championString = null;
+                                                    }
+                                                }
+                                                Program.FriendsChampions.Add(championName.ToLower());
+                                            }
+                                        }else
+                                        {
+                                            if (Program.randomChampionPick)
+                                            {
+                                                List<string> champList = new List<string>();
+                                                champList.AddRange(strArray);
+                                                bool found = false;
+                                                while (!found && champList.Count != 0)
+                                                {
+                                                    var index = new Random().Next(0, champList.Count - 1);
+                                                    var championString = champList[index];
+                                                    champList.RemoveAt(index);
+
+                                                    int championId = Enums.GetChampion(championString);
+                                                    ChampionDTO champDto = ChampList.FirstOrDefault(c => c.ChampionId == championId);
+
+                                                    if (champDto != null && (champDto.Owned || champDto.FreeToPlay && !gameDTO.PlayerChampionSelections.Any(c => c.ChampionId == championId)))
+                                                    {
+                                                        selectedChampionId = championId;
+                                                        championName = UcFirst(Enums.GetChampionById(selectedChampionId));
+                                                        if (string.IsNullOrEmpty(championName)) championName = UcFirst(championString);
+                                                        found = true;
+                                                        break;
+                                                    }
+                                                    champDto = null;
+                                                    championString = null;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                for (int index = 0; index < strArray.Length; ++index)
+                                                {
+                                                    string championString = strArray[index];
+                                                    int championId = Enums.GetChampion(championString);
+                                                    ChampionDTO champDto = ChampList.FirstOrDefault(c => c.ChampionId == championId);
+                                                    if (champDto != null && (champDto.Owned || champDto.FreeToPlay && !gameDTO.PlayerChampionSelections.Any(c => c.ChampionId == championId)))
+                                                    {
+                                                        selectedChampionId = championId;
+                                                        championName = UcFirst(Enums.GetChampionById(selectedChampionId));
+                                                        if (string.IsNullOrEmpty(championName)) championName = UcFirst(championString);
+                                                        break;
+                                                    }
+                                                    champDto = null;
+                                                    championString = null;
+                                                }
                                             }
                                         }
-                                        else
-                                        {
-                                            for (int index = 0; index < strArray.Length; ++index)
-                                            {
-                                                string championString = strArray[index];
-                                                int championId = Enums.GetChampion(championString);
-                                                ChampionDTO champDto = ChampList.FirstOrDefault(c => c.ChampionId == championId);
-                                                if (champDto != null && (champDto.Owned || champDto.FreeToPlay && !gameDTO.PlayerChampionSelections.Any(c => c.ChampionId == championId)))
-                                                {
-                                                    selectedChampionId = championId;
-                                                    championName = UcFirst(Enums.GetChampionById(selectedChampionId));
-                                                    if (string.IsNullOrEmpty(championName)) championName = UcFirst(championString);
-                                                    break;
-                                                }
-                                                champDto = null;
-                                                championString = null;
-                                            }
-                                        }
-
+                                        
                                         strArray = null;
                                         try
                                         {

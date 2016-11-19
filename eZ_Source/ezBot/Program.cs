@@ -3,6 +3,7 @@ using ezBot.Languages;
 using ezBot.Utils;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -58,6 +59,7 @@ namespace ezBot
         public static int currentMatchCount = 0;
         public static string language = "en";
         public static ITranslator Translator;
+        public static List<string> FriendsChampions = new List<string>();
 
         private static void LoadTranslator()
         {
