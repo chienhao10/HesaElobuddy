@@ -328,10 +328,13 @@ namespace Hesa_Fizz
             if (UseRECombo && CanKillWithUltCombo(target) && Q.IsReady() && W.IsReady() && E.IsReady() && R.IsReady() && (Player.Instance.Distance(target) < Q.Range + E.Range * 2))
             {
                 SmartRCast(target);
-                E.Cast(Player.Instance.ServerPosition.Extend(target.ServerPosition, E.Range - 1).To3D());
-                E.Cast(Player.Instance.ServerPosition.Extend(target.ServerPosition, E.Range - 1).To3D());
-                W.Cast();
-                Q.Cast(target);
+                Core.DelayAction(() =>
+                {
+                    E.Cast(Player.Instance.ServerPosition.Extend(target.ServerPosition, E.Range - 1).To3D());
+                    E.Cast(Player.Instance.ServerPosition.Extend(target.ServerPosition, E.Range - 1).To3D());
+                    W.Cast();
+                    Q.Cast(target);
+                }, 100);
             }
             else
             {
@@ -354,26 +357,29 @@ namespace Hesa_Fizz
                         SmartRCast(target);
                     }
                 }
-                // Use W Before Q
-                if (UseWCombo && W.IsReady() && UseWMisc == 0 && (Q.IsReady() || Player.Instance.IsInAutoAttackRange(target)))
+                Core.DelayAction(() =>
                 {
-                    W.Cast();
-                }
-                if (UseQCombo && Q.IsReady())
-                {
-                    Q.Cast(target);
-                }
-                if (UseECombo && E.IsReady())
-                {
-                    E.Cast(target);
-                }
+                    // Use W Before Q
+                    if (UseWCombo && W.IsReady() && UseWMisc == 0 && (Q.IsReady() || Player.Instance.IsInAutoAttackRange(target)))
+                    {
+                        W.Cast();
+                    }
+                    if (UseQCombo && Q.IsReady())
+                    {
+                        Q.Cast(target);
+                    }
+                    if (UseECombo && E.IsReady())
+                    {
+                        E.Cast(target);
+                    }
+                }, 100);
             }
         }
 
         private void Killsteal()
         {
             if (!KSQ && !KSE && !KSR && !KSIgnite) return;
-            foreach (var enemy in EntityManager.Enemies.Where(ene => ene.IsInRange(Player.Instance, 1750) && ene.Type == Player.Instance.Type && ene.IsVisible))
+            foreach (var enemy in EntityManager.Enemies.Where(ene => ene.IsInRange(Player.Instance, R.Range) && ene.Type == Player.Instance.Type && ene.IsVisible))
             {
                 if (KSQ && Q.IsReady() && Q.IsInRange(enemy) && enemy.Health <= Q.GetSpellDamage(enemy))
                 {
