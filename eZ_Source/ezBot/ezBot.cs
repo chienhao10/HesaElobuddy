@@ -393,7 +393,7 @@ namespace ezBot
                                             Program.fifthChampionPick.ToLower()
                                         };
 
-                                        if(Program.queueWithFriends && (GetFriendsToInvite().Contains(sumName) || Program.leaderName.ToLower() == sumName.ToLower() ))
+                                        if(Program.queueWithFriends && (GetFriendsToInvite().Contains(sumName.ToLower()) || Program.leaderName.ToLower() == sumName.ToLower() ))
                                         {
                                             lock (Program.FriendsChampions)
                                             {
@@ -1601,19 +1601,19 @@ namespace ezBot
             var list = new List<string>();
             if (!string.IsNullOrEmpty(Program.firstFriend))
             {
-                list.Add(Program.firstFriend);
+                list.Add(Program.firstFriend.ToLower());
             }
             if (!string.IsNullOrEmpty(Program.secondFriend))
             {
-                list.Add(Program.secondFriend);
+                list.Add(Program.secondFriend.ToLower());
             }
             if (!string.IsNullOrEmpty(Program.thirdFriend))
             {
-                list.Add(Program.thirdFriend);
+                list.Add(Program.thirdFriend.ToLower());
             }
             if (!string.IsNullOrEmpty(Program.fourthFriend))
             {
-                list.Add(Program.fourthFriend);
+                list.Add(Program.fourthFriend.ToLower());
             }
             return list;
         }
