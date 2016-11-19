@@ -220,7 +220,7 @@ namespace ezBot
             {
                 if (from.ToLower() == Program.leaderName.ToLower())
                 {
-                    Tools.ConsoleMessage(Program.Translator.AcceptingLobbyInvite, ConsoleColor.Cyan);
+                    Tools.ConsoleMessage(string.Format(Program.Translator.AcceptingLobbyInvite, sumName), ConsoleColor.Cyan);
                     await Task.Delay(new Random().Next(1, 3) * new Random().Next(800, 1200));
                     await connection.AcceptLobbyInvite(inviteId);
                 }
@@ -294,7 +294,7 @@ namespace ezBot
                             case "TEAM_SELECT":
                             if (firstTimeInCustom)
                             {
-                                Tools.ConsoleMessage(Program.Translator.EnteringChampionSelect, ConsoleColor.White);
+                                Tools.ConsoleMessage(string.Format(Program.Translator.EnteringChampionSelect, sumName), ConsoleColor.White);
                                 await connection.StartChampionSelection(gameDTO.Id, gameDTO.OptimisticLock);
                                 firstTimeInCustom = false;
                             }
@@ -310,7 +310,7 @@ namespace ezBot
                                     {
                                         if (pickAtTurn == 0)
                                         {
-                                            Tools.ConsoleMessage(Program.Translator.YouAreInChampionSelect, ConsoleColor.White);
+                                            Tools.ConsoleMessage(string.Format(Program.Translator.YouAreInChampionSelect, sumName), ConsoleColor.White);
 
                                             try
                                             {
@@ -336,7 +336,7 @@ namespace ezBot
                                     }
                                     else
                                     {
-                                        Tools.ConsoleMessage(Program.Translator.YouAreInChampionSelect, ConsoleColor.White);
+                                        Tools.ConsoleMessage(string.Format(Program.Translator.YouAreInChampionSelect, sumName), ConsoleColor.White);
                                         try
                                         {
                                             await connection.SetClientReceivedGameMessage(gameDTO.Id, "CHAMP_SELECT_CLIENT");
@@ -440,13 +440,13 @@ namespace ezBot
                                         catch (InvocationException ex)
                                         {
                                             Tools.Log(ex.StackTrace);
-                                            Tools.ConsoleMessage(string.Format(Program.Translator.ChampionNotAvailable, championName), ConsoleColor.Red);
+                                            Tools.ConsoleMessage(string.Format(Program.Translator.ChampionNotAvailable, championName, sumName), ConsoleColor.Red);
                                             Console.WriteLine(ex.StackTrace);
                                         }
-                                        Tools.ConsoleMessage(string.Format(Program.Translator.SelectedChampion, championName), ConsoleColor.DarkYellow);
+                                        Tools.ConsoleMessage(string.Format(Program.Translator.SelectedChampion, UcFirst(championName.ToLower()), sumName), ConsoleColor.DarkYellow);
                                         await Task.Delay(new Random().Next(1, 9) * new Random().Next(800, 1000));
                                         await connection.ChampionSelectCompleted();
-                                        Tools.ConsoleMessage(Program.Translator.WaitingForOtherPlayersLockin, ConsoleColor.White);
+                                        Tools.ConsoleMessage(string.Format(Program.Translator.WaitingForOtherPlayersLockin, sumName), ConsoleColor.White);
 
                                         //Select Summoners Spell
                                         int spellOneId;
@@ -513,7 +513,7 @@ namespace ezBot
                                             championName = Enums.GetChampionById(champion.ChampionId);
                                             if (!string.IsNullOrEmpty(championName))
                                             {
-                                                Tools.ConsoleMessage(string.Format(Program.Translator.SelectedChampion, UcFirst(championName.ToLower())), ConsoleColor.DarkYellow);
+                                                Tools.ConsoleMessage(string.Format(Program.Translator.SelectedChampion, UcFirst(championName.ToLower()), sumName), ConsoleColor.DarkYellow);
                                             }
                                         }
 
@@ -569,7 +569,7 @@ namespace ezBot
                                             Tools.Log(e.StackTrace);
                                         }
                                         
-                                        Tools.ConsoleMessage(Program.Translator.WaitingForOtherPlayersLockin, ConsoleColor.White);
+                                        Tools.ConsoleMessage(string.Format(Program.Translator.WaitingForOtherPlayersLockin, sumName), ConsoleColor.White);
                                     }
 
                                     #endregion ARAM
@@ -583,7 +583,7 @@ namespace ezBot
                                 if (firstTimeInPostChampSelect)
                                 {
                                     firstTimeInPostChampSelect = false;
-                                    Tools.ConsoleMessage(Program.Translator.WaitingChampSelectTimer, ConsoleColor.White);
+                                    Tools.ConsoleMessage(string.Format(Program.Translator.WaitingChampSelectTimer, sumName), ConsoleColor.White);
                                 }
                             }
                             break;
@@ -608,7 +608,7 @@ namespace ezBot
 
                             case "IN_QUEUE":
                             {
-                                Tools.ConsoleMessage(Program.Translator.YouAreInQueue, ConsoleColor.White);
+                                Tools.ConsoleMessage(string.Format(Program.Translator.YouAreInQueue, sumName), ConsoleColor.White);
                             }
                             break;
 
@@ -663,11 +663,11 @@ namespace ezBot
                                 {
                                     if (gameDTO.StatusOfParticipants.Contains("1"))
                                     {
-                                        Tools.ConsoleMessage(Program.Translator.QueuePopped, ConsoleColor.White);
+                                        Tools.ConsoleMessage(string.Format(Program.Translator.QueuePopped, sumName), ConsoleColor.White);
                                         firstTimeInQueuePop = false;
                                         firstTimeInLobby = true;
                                         await Task.Delay(new Random().Next(1, Program.queueWithFriends ? (GetFriendsToInvite().ToList().Count > 3 ? 2 : 3) : 3) * new Random().Next(800, 1000));
-                                        Tools.ConsoleMessage(Program.Translator.AcceptedQueue, ConsoleColor.White);
+                                        Tools.ConsoleMessage(string.Format(Program.Translator.AcceptedQueue, sumName), ConsoleColor.White);
                                         try
                                         {
                                             await connection.AcceptPoppedGame(true);
@@ -756,7 +756,7 @@ namespace ezBot
                                 Tools.Log(ex.StackTrace);
                             }
                         }).Start();
-                        Tools.ConsoleMessage(Program.Translator.LaunchingLeagueOfLegends, ConsoleColor.White);
+                        Tools.ConsoleMessage(string.Format(Program.Translator.LaunchingLeagueOfLegends, sumName), ConsoleColor.White);
                         playerCredentialsDto = null;
                         ShouldBeInGame = true;
                         IsInQueue = false;
@@ -806,7 +806,7 @@ namespace ezBot
                                 var a = game.Statistics.FirstOrDefault(x => x.StatTypeName == "ASSISTS");
                                 if (a != null) assists = (int)a.Value;
 
-                                Tools.ConsoleMessage(string.Format("{4} - {0} - {1}/{2}/{3}", win ? "Victory" : "Defeat", kills, deaths, assists, sumName), ConsoleColor.Magenta);
+                                Tools.ConsoleMessage(string.Format("{4}: {0} - {1}/{2}/{3}", win ? "Victory" : "Defeat", kills, deaths, assists, sumName), ConsoleColor.Magenta);
                             }
                         }
                         ShouldBeInGame = false;
@@ -875,7 +875,7 @@ namespace ezBot
                 GameStartedAt = null;
                 ShouldBeInGame = false;
                 if (exeProcess == null) return;
-                Tools.ConsoleMessage(Program.Translator.ClosingGameClient, ConsoleColor.White);
+                Tools.ConsoleMessage(string.Format(Program.Translator.ClosingGameClient, sumName), ConsoleColor.White);
                 EndOfGameStats eog = new EndOfGameStats();
                 connection_OnMessageReceived(this, eog);
                 exeProcess.Exited -= new EventHandler(exeProcess_Exited);
@@ -1138,7 +1138,7 @@ namespace ezBot
                         loginPacket = await connection.GetLoginDataPacketForUser();
                         if (loginPacket.ReconnectInfo != null || ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).Game != null)
                         {
-                            Tools.ConsoleMessage(Program.Translator.RestartingLeagueOfLegends, ConsoleColor.White);
+                            Tools.ConsoleMessage(string.Format(Program.Translator.RestartingLeagueOfLegends, sumName), ConsoleColor.White);
                             connection_OnMessageReceived(this, ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).PlayerCredentials);
                         }
                         else
@@ -1185,12 +1185,12 @@ namespace ezBot
 
                     if (ellapsedTime >= 0)
                     {
-                        Tools.ConsoleMessage(Program.Translator.RestartingLeagueOfLegends, ConsoleColor.White);
+                        Tools.ConsoleMessage(string.Format(Program.Translator.RestartingLeagueOfLegends, sumName), ConsoleColor.White);
                         connection_OnMessageReceived(sender, ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).PlayerCredentials);
                     }
                     else
                     {
-                        Tools.ConsoleMessage(string.Format(Program.Translator.RestartingLeagueOfLegendsAt, GameStartedAt.Value.AddMinutes(1).ToLongTimeString()), ConsoleColor.White);
+                        Tools.ConsoleMessage(string.Format(Program.Translator.RestartingLeagueOfLegendsAt, GameStartedAt.Value.AddMinutes(1).ToLongTimeString(), sumName), ConsoleColor.White);
                         new Thread(RestartLeague).Start();
                     }
                 }
@@ -1904,7 +1904,7 @@ namespace ezBot
 
         public void levelUp()
         {
-            Tools.ConsoleMessage(string.Format(Program.Translator.LevelUp, sumLevel), ConsoleColor.Yellow);
+            Tools.ConsoleMessage(string.Format(Program.Translator.LevelUp, sumLevel, sumName), ConsoleColor.Yellow);
             rpBalance = loginPacket.RpBalance;
             ipBalance = loginPacket.IpBalance;
             Tools.ConsoleMessage(string.Format(Program.Translator.CurrentRp, rpBalance), ConsoleColor.Yellow);
@@ -1942,7 +1942,7 @@ namespace ezBot
             bool updatedFromChampionGG = false;
             try
             {
-                Tools.ConsoleMessage(Program.Translator.DownloadingMasteries, ConsoleColor.White);
+                Tools.ConsoleMessage(string.Format(Program.Translator.DownloadingMasteries, sumName), ConsoleColor.White);
                 List<MasteriesTreeGG> masteries = new List<MasteriesTreeGG>();
                 using (WebClient webClient = new WebClient())
                 {
@@ -2150,7 +2150,7 @@ namespace ezBot
                     }
                     firstPage.Current = true;
                     masteryBook.BookPages[0] = firstPage;
-                    Tools.ConsoleMessage(Program.Translator.UpdatingMasteries, ConsoleColor.White);
+                    Tools.ConsoleMessage(string.Format(Program.Translator.UpdatingMasteries, sumName), ConsoleColor.White);
                     //save the page
                     var newBook = await connection.SaveMasteryBook(masteryBook);
                     updatedFromChampionGG = true;
@@ -2162,7 +2162,7 @@ namespace ezBot
             }
 
             if (updatedFromChampionGG) return;
-            Tools.ConsoleMessage(Program.Translator.UpdatingMasteries, ConsoleColor.White);
+            Tools.ConsoleMessage(string.Format(Program.Translator.UpdatingMasteries, sumName), ConsoleColor.White);
             try
             {
                 var masteryBook = await connection.GetMasteryBook(sumId);

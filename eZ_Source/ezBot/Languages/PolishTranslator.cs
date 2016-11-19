@@ -32,23 +32,23 @@ namespace ezBot.Languages
         public string GameModeInvalid { get { return "Nieprawidłowy Tryb Gry, upewnij się, że używasz jednego z następujących trybów."; } }
         public string WillShutdownOnceCurrentMatchEnds { get { return "Wyłączenie nastąpi po zakończeniu rozgrywki."; } }
         public string EzBotGameStatus { get { return "ezBot - {0} Ogólnie - {1} Wygrana - {2} Przegrana"; } }
-        public string AcceptingLobbyInvite { get { return "Akceptowanie zaproszenia do lobby."; } }
+        public string AcceptingLobbyInvite { get { return "{0}: Akceptowanie zaproszenia do lobby."; } }
         public string AllPlayersAccepted { get { return "Wszystkie boty zaakceptowały, następuje wejście do kolejki."; } }
         public string PlayersAcceptedCount { get { return "{0}/{1} Ilość zaakceptowanych kolejek, oczekiwanie na resztę botów."; } }
-        public string EnteringChampionSelect { get { return "Przechodzenie do Wyboru Postaci."; } }
-        public string YouAreInChampionSelect { get { return "Jesteś w wyborze postaci."; } }
-        public string SelectedChampion { get { return "Wybrana postać: {0}."; } }
-        public string WaitingForOtherPlayersLockin { get { return "Oczekiwanie na wybór postaci przez innych graczy."; } }
-        public string ChampionNotAvailable { get { return "Postać '{0}' nie jest w Twoim posiadaniu, nie jest ona w Darmowej Rotacji Bohaterów, bądź została już wybrana."; } }
-        public string WaitingChampSelectTimer { get { return "Oczekiwanie na zakończenie Wyboru Postaci."; } }
-        public string YouAreInQueue { get { return "Jesteś w kolejce."; } }
-        public string ReQueued { get { return "Ponowne dołączanie do kolejki: {0} jako {1}."; } }
-        public string QueuePopped { get { return "Akceptacja gotowości."; } }
-        public string AcceptedQueue { get { return "Zaakceptowano gotowość!"; } }
+        public string EnteringChampionSelect { get { return "{0}: Przechodzenie do Wyboru Postaci."; } }
+        public string YouAreInChampionSelect { get { return "{0}: Jesteś w wyborze postaci."; } }
+        public string SelectedChampion { get { return "{1}: Wybrana postać: {0}."; } }
+        public string WaitingForOtherPlayersLockin { get { return "{0}: Oczekiwanie na wybór postaci przez innych graczy."; } }
+        public string ChampionNotAvailable { get { return "{1}: Postać '{0}' nie jest w Twoim posiadaniu, nie jest ona w Darmowej Rotacji Bohaterów, bądź została już wybrana."; } }
+        public string WaitingChampSelectTimer { get { return "{0}: Oczekiwanie na zakończenie Wyboru Postaci."; } }
+        public string YouAreInQueue { get { return "{0}: Jesteś w kolejce."; } }
+        public string ReQueued { get { return "{1}: Ponowne dołączanie do kolejki: {0}."; } }
+        public string QueuePopped { get { return "{0}: Akceptacja gotowości."; } }
+        public string AcceptedQueue { get { return "{0}: Zaakceptowano gotowość!"; } }
         public string YouHaveLeaverBuster { get { return "Twojo konto zostało oflagowane systemem LeaverBuster."; } }
-        public string LaunchingLeagueOfLegends { get { return "Uruchamianie League of Legends."; } }
-        public string ClosingGameClient { get { return "Zamykanie game client."; } }
-        public string InQueueAs { get { return "W kolejce: {0} jako {1}."; } }
+        public string LaunchingLeagueOfLegends { get { return "{0}: Uruchamianie League of Legends."; } }
+        public string ClosingGameClient { get { return "{0}: Zamykanie game client."; } }
+        public string InQueueAs { get { return "{1}: W kolejce: {0}."; } }
         public string QueueFailedReason { get { return "Kolejkowanie nie powiodło się, powód: {0}."; } }
         public string LeaverBusterTaintedWarningError { get { return "Leaver Buster Tainted Warning error:\n{0}"; } }
         public string WaitingDodgeTimer { get { return "Oczekiwanie na timer wyjścia z Wyboru Postaci: {0} minutes!"; } }
@@ -56,8 +56,8 @@ namespace ezBot.Languages
         public string JoinedLowPriorityQueue { get { return "Dołączono do Kolejki Niskiego Priotytetu, jako {0}!"; } }
         public string ErrorJoiningLowPriorityQueue { get { return "Wystąpił błąd podczas dołączania do Kolejki Niskiego Priorytetu.\nRozłączanie."; } }
         public string ErrorOccured { get { return "Wystąpił błąd:\n{0}"; } }
-        public string RestartingLeagueOfLegends { get { return "Ponowne uruchamianie League of Legends."; } }
-        public string RestartingLeagueOfLegendsAt { get { return "Trwa ponowne uruchamianie League of Legends w {0}, proszę czekać."; } }
+        public string RestartingLeagueOfLegends { get { return "{0}: Ponowne uruchamianie League of Legends."; } }
+        public string RestartingLeagueOfLegendsAt { get { return "{1}: Trwa ponowne uruchamianie League of Legends w {0}, proszę czekać."; } }
         public string PositionInLoginQueue { get { return "Pozycja w kolejce: {0}."; } }
         public string LoggingIntoAccount { get { return "Logowanie do Twojego konta..."; } }
         public string SummonerDoesntExist { get { return "Imię przywoływacza nie zostało ustalone."; } }
@@ -74,12 +74,12 @@ namespace ezBot.Languages
         public string Welcome { get { return "Witaj {0} - Poziom ({1}) PZ: ({2}) - PD: ({3} / {4})."; } }
         public string SendingGameInvites { get { return "Wysyłanie zaproszeń do gry."; } }
         public string WaitingGameInviteFrom { get { return "Oczekiwanie na zaproszenie od {0}."; } }
-        public string LevelUp { get { return "Awans: {0}."; } }
+        public string LevelUp { get { return "{1}: Awans: {0}."; } }
         public string CurrentRp { get { return "Twoja aktualna ilość RP: {0}."; } }
         public string CurrentIp { get { return "Twoja aktualna ilość PZ: {0}."; } }
         public string CharacterReachedMaxLevel { get { return "Twoja postać osiągnęła maksymalny Poziom doświadczenia: {0}."; } }
-        public string DownloadingMasteries { get { return "Pobieranie masterek z champion.gg."; } }
-        public string UpdatingMasteries { get { return "Aktualizowanie masterek."; } }
+        public string DownloadingMasteries { get { return "{0}: Pobieranie masterek z champion.gg."; } }
+        public string UpdatingMasteries { get { return "{0}: Aktualizowanie masterek."; } }
         public string Disconnected { get { return "Rozłączono."; } }
         public string BoughtXpBoost3Days { get { return "Kupiono 'Dopalacz Punktów Doświadczenia: 3 Dni'!"; } }
 

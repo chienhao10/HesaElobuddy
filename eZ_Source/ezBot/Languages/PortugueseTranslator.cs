@@ -31,23 +31,23 @@
         public string GameModeInvalid { get { return "Modo de Jogo Invalido, tenha certeza que voce esta usando um dos seguintes modos."; } }
         public string WillShutdownOnceCurrentMatchEnds { get { return "Ira desligar assim que a partida atual acabar."; } }
         public string EzBotGameStatus { get { return "ezBot - {0} Total - {1} Vitoria - {2} Derrota"; } }
-        public string AcceptingLobbyInvite { get { return "Aceitando convite de grupo."; } }
+        public string AcceptingLobbyInvite { get { return "{0}: Aceitando convite de grupo."; } }
         public string AllPlayersAccepted { get { return "Todos jogadores foram aceitos, começando a fila."; } }
         public string PlayersAcceptedCount { get { return "{0}/{1} jogador(es) aceitos, esperando ate todos serem aceitos."; } }
-        public string EnteringChampionSelect { get { return "Entrando na seleçao de campeões."; } }
-        public string YouAreInChampionSelect { get { return "Voce esta selecionando um campeao."; } }
-        public string SelectedChampion { get { return "Campeao selecionado: {0}."; } }
-        public string WaitingForOtherPlayersLockin { get { return "Esperando por outros jogadores trancarem."; } }
-        public string ChampionNotAvailable { get { return "Campeao '{0}' nao e possuído, nao esta livre para jogar ou ja foi escolhido."; } }
-        public string WaitingChampSelectTimer { get { return "Esperando o tempo de seleçao chegar a 0."; } }
-        public string YouAreInQueue { get { return "Voce esta na fila."; } }
-        public string ReQueued { get { return "Entrando novamente na fila: {0} como {1}."; } }
-        public string QueuePopped { get { return "Jogo encontrado."; } }
-        public string AcceptedQueue { get { return "Jogo aceito!"; } }
+        public string EnteringChampionSelect { get { return "{0}: Entrando na seleçao de campeões."; } }
+        public string YouAreInChampionSelect { get { return "{0}: Voce esta selecionando um campeao."; } }
+        public string SelectedChampion { get { return "{1}: Campeao selecionado: {0}."; } }
+        public string WaitingForOtherPlayersLockin { get { return "{0}: Esperando por outros jogadores trancarem."; } }
+        public string ChampionNotAvailable { get { return "{1}: Campeao '{0}' nao e possuído, nao esta livre para jogar ou ja foi escolhido."; } }
+        public string WaitingChampSelectTimer { get { return "{0}: Esperando o tempo de seleçao chegar a 0."; } }
+        public string YouAreInQueue { get { return "{0}: Voce esta na fila."; } }
+        public string ReQueued { get { return "{1}: Entrando novamente na fila: {0}."; } }
+        public string QueuePopped { get { return "{0}: Jogo encontrado."; } }
+        public string AcceptedQueue { get { return "{0}: Jogo aceito!"; } }
         public string YouHaveLeaverBuster { get { return "Voce foi penalizado por sair."; } }
-        public string LaunchingLeagueOfLegends { get { return "Abrindo League of Legends."; } }
-        public string ClosingGameClient { get { return "Fechando o jogo."; } }
-        public string InQueueAs { get { return "Na Fila: {0} como {1}."; } }
+        public string LaunchingLeagueOfLegends { get { return "{0}: Abrindo League of Legends."; } }
+        public string ClosingGameClient { get { return "{0}: Fechando o jogo."; } }
+        public string InQueueAs { get { return "{1}: Na Fila: {0}."; } }
         public string QueueFailedReason { get { return "Jogo falhou, motivo: {0}."; } }
         public string LeaverBusterTaintedWarningError { get { return "Penalidade por Saída  Tainted Warning error:\n{0}"; } }
         public string WaitingDodgeTimer { get { return "Esperando o tempo para fila apos Esquiva: {0} minutes!"; } }
@@ -55,8 +55,8 @@
         public string JoinedLowPriorityQueue { get { return "Entrou em uma fila de baixa prioridade! as {0}."; } }
         public string ErrorJoiningLowPriorityQueue { get { return "Ocorreu um erro ao entrar na fila de baixa prioridade.\nDisconnecting."; } }
         public string ErrorOccured { get { return "Um erro ocorreu:\n{0}"; } }
-        public string RestartingLeagueOfLegends { get { return "Reiniciando League of Legends."; } }
-        public string RestartingLeagueOfLegendsAt { get { return "Reiniciando League of Legends em {0} favor aguardar."; } }
+        public string RestartingLeagueOfLegends { get { return "{0}: Reiniciando League of Legends."; } }
+        public string RestartingLeagueOfLegendsAt { get { return "{1}: Reiniciando League of Legends em {0} favor aguardar."; } }
         public string PositionInLoginQueue { get { return "Posiçao na fila de acesso: {0}."; } }
         public string LoggingIntoAccount { get { return "Acessando a sua conta..."; } }
         public string SummonerDoesntExist { get { return "Invocador nao encontrado na conta."; } }
@@ -73,12 +73,12 @@
         public string Welcome { get { return "Bem vindo {0} - lvl ({1}) IP: ({2}) - XP: ({3} / {4})."; } }
         public string SendingGameInvites { get { return "Enviando convite de jogo."; } }
         public string WaitingGameInviteFrom { get { return "Esperando convite de jogo de {0}."; } }
-        public string LevelUp { get { return "Subiu de nível: {0}."; } }
+        public string LevelUp { get { return "{1}: Subiu de nível: {0}."; } }
         public string CurrentRp { get { return "Seu RP atual: {0}."; } }
         public string CurrentIp { get { return "Seu IP atual: {0}."; } }
         public string CharacterReachedMaxLevel { get { return "Seu personagem chegou ao nível maximo: {0}."; } }
-        public string DownloadingMasteries { get { return "Baixando masterias de champion.gg."; } }
-        public string UpdatingMasteries { get { return "Atualizando masteiras."; } }
+        public string DownloadingMasteries { get { return "{0}: Baixando masterias de champion.gg."; } }
+        public string UpdatingMasteries { get { return "{0}: Atualizando masteiras."; } }
         public string Disconnected { get { return "Desconectado."; } }
         public string BoughtXpBoost3Days { get { return "Comprou 'Boost de XP: 3 Dias'!"; } }
     }

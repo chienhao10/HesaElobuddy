@@ -31,23 +31,23 @@
         public string GameModeInvalid { get { return "Oyun modu geçersiz, Mevcut modlardan birini girdiğinizden emin olun."; } }
         public string WillShutdownOnceCurrentMatchEnds { get { return "Mevcut maç bitiminde kapatlıacak."; } }
         public string EzBotGameStatus { get { return "ezBot - {0} Toplam - {1} Zafer - {2} Bozgun"; } }
-        public string AcceptingLobbyInvite { get { return "Lobi daveti kabul ediliyor."; } }
+        public string AcceptingLobbyInvite { get { return "{0}: Lobi daveti kabul ediliyor."; } }
         public string AllPlayersAccepted { get { return "Tüm oyuncular kabul etti, karşılaşma aranıyor."; } }
         public string PlayersAcceptedCount { get { return "{0}/{1} oyuncu kabul etti, herkesin kabul etmesi bekleniyor."; } }
-        public string EnteringChampionSelect { get { return "Şampiyon seçimine giriliyor."; } }
-        public string YouAreInChampionSelect { get { return "Şampiyon seçimindesiniz."; } }
-        public string SelectedChampion { get { return "Seçilen şampiyon: {0}."; } }
-        public string WaitingForOtherPlayersLockin { get { return "Diğer oyuncuların seçim yapması bekleniyor."; } }
+        public string EnteringChampionSelect { get { return "{0}: Şampiyon seçimine giriliyor."; } }
+        public string YouAreInChampionSelect { get { return "{0}: Şampiyon seçimindesiniz."; } }
+        public string SelectedChampion { get { return "{1}: Seçilen şampiyon: {0}."; } }
+        public string WaitingForOtherPlayersLockin { get { return "{0}: Diğer oyuncuların seçim yapması bekleniyor."; } }
         public string ChampionNotAvailable { get { return "'{0}' adlı şampiyona sahip değilsiniz, ücretsiz şampiyon rotasyonu içinde dğeil ya da başkası tarafından seçilmiş."; } }
-        public string WaitingChampSelectTimer { get { return "Seçim süresinin bitmesi bekleniyor."; } }
-        public string YouAreInQueue { get { return "Karşılaşma aranıyor."; } }
-        public string ReQueued { get { return "Tekrar sıraya girildi: {1} olarak {0} ."; } }
-        public string QueuePopped { get { return "Karşılaşma bulundu."; } }
-        public string AcceptedQueue { get { return "Karşılaşma kabul edildi!"; } }
+        public string WaitingChampSelectTimer { get { return "{0}: Seçim süresinin bitmesi bekleniyor."; } }
+        public string YouAreInQueue { get { return "{0}: Karşılaşma aranıyor."; } }
+        public string ReQueued { get { return "{1}: Tekrar sıraya girildi: {0} ."; } }
+        public string QueuePopped { get { return "{0}: Karşılaşma bulundu."; } }
+        public string AcceptedQueue { get { return "{0}: Karşılaşma kabul edildi!"; } }
         public string YouHaveLeaverBuster { get { return "Afk cezanız var."; } }
-        public string LaunchingLeagueOfLegends { get { return "League of Legends başlatılıyor."; } }
-        public string ClosingGameClient { get { return "Oyun istemcisi kapatılıyor."; } }
-        public string InQueueAs { get { return "Sıradasınız: {1} olarak {0} ."; } }
+        public string LaunchingLeagueOfLegends { get { return "{0}: League of Legends başlatılıyor."; } }
+        public string ClosingGameClient { get { return "{0}: Oyun istemcisi kapatılıyor."; } }
+        public string InQueueAs { get { return "{1}: Sıradasınız: {0}."; } }
         public string QueueFailedReason { get { return "Karşılaşma arama, sebep: {0}."; } }
         public string LeaverBusterTaintedWarningError { get { return "Leaver Buster Tainted Warning error:\n{0}"; } }
         public string WaitingDodgeTimer { get { return "Sıra bozma cezası bekleniyor: {0} minutes!"; } }
@@ -55,8 +55,8 @@
         public string JoinedLowPriorityQueue { get { return "{0} olarak düşük öncelikli sıraya girildi."; } }
         public string ErrorJoiningLowPriorityQueue { get { return "Düşük öncelikli sıraya girme sırasında hata oluştu.\nBağlantı kopması."; } }
         public string ErrorOccured { get { return "Hata meydana geldi:\n{0}"; } }
-        public string RestartingLeagueOfLegends { get { return "League of Legends yeniden başlatılıyor."; } }
-        public string RestartingLeagueOfLegendsAt { get { return "League of Legends {0} içinde yeniden başlatılacak lütfen bekleyin."; } }
+        public string RestartingLeagueOfLegends { get { return "{0}: League of Legends yeniden başlatılıyor."; } }
+        public string RestartingLeagueOfLegendsAt { get { return "{1}: League of Legends {0} içinde yeniden başlatılacak lütfen bekleyin."; } }
         public string PositionInLoginQueue { get { return "Giriş sırası pozişyonu: {0}."; } }
         public string LoggingIntoAccount { get { return "Hesaba giriş yapılıyor..."; } }
         public string SummonerDoesntExist { get { return "Hesapta sihirdar bulunamadı."; } }
@@ -73,12 +73,12 @@
         public string Welcome { get { return "Hoş geldiniz {0} - Seviye ({1}) IP: ({2}) - XP: ({3} / {4})."; } }
         public string SendingGameInvites { get { return "Oyun daveti gönderiliyor."; } }
         public string WaitingGameInviteFrom { get { return "{0} 'den oyun daveti bekleniyor."; } }
-        public string LevelUp { get { return "Seviye atladınız: {0}."; } }
+        public string LevelUp { get { return "{1}: Seviye atladınız: {0}."; } }
         public string CurrentRp { get { return "Mevcut RP: {0}."; } }
         public string CurrentIp { get { return "Mevcut IP: {0}."; } }
         public string CharacterReachedMaxLevel { get { return "Hesabınız maximum seviyeye ulaştı: {0}."; } }
-        public string DownloadingMasteries { get { return "Champion.gg 'den kabiliyetler indiriliyor."; } }
-        public string UpdatingMasteries { get { return "Kabiliyetler güncelleniyor."; } }
+        public string DownloadingMasteries { get { return "{0}: Champion.gg 'den kabiliyetler indiriliyor."; } }
+        public string UpdatingMasteries { get { return "{0}: Kabiliyetler güncelleniyor."; } }
         public string Disconnected { get { return "Bağlantı Kesildi."; } }
         public string BoughtXpBoost3Days { get { return "XP takviyesi alındı: 3 Günlük!"; } }
     }

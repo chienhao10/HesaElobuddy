@@ -31,23 +31,23 @@
         public string GameModeInvalid { get { return "Mode de jeu non valide, assurez-vous que vous utilisez l'un des modes suivants."; } }
         public string WillShutdownOnceCurrentMatchEnds { get { return "S'arrêtera une fois le match en cours terminé."; } }
         public string EzBotGameStatus { get { return "ezBot - {0} Totalr - {1} Victoire - {2} Défaite"; } }
-        public string AcceptingLobbyInvite { get { return "Accepter l'invitation au lobby."; } }
+        public string AcceptingLobbyInvite { get { return "{0}: Accepter l'invitation au lobby."; } }
         public string AllPlayersAccepted { get { return "Tous les joueurs ont accepté, en commençant la file d'attente."; } }
         public string PlayersAcceptedCount { get { return "{0}/{1} jouer(s) ont accepté, attendant que tout le monde accepte."; } }
-        public string EnteringChampionSelect { get { return "Enterons dans la sélection de champion."; } }
-        public string YouAreInChampionSelect { get { return "Vous êtes dans la sélection de champion."; } }
-        public string SelectedChampion { get { return "Champion sélectionné: {0}."; } }
-        public string WaitingForOtherPlayersLockin { get { return "En attente d'autres joueurs."; } }
-        public string ChampionNotAvailable { get { return "Le champion '{0}' n'est pas possédé, n'est pas libre de jouer ou a déjà été choisi."; } }
-        public string WaitingChampSelectTimer { get { return "En attente pour la minuterie de la sélection de champion pour atteindre 0."; } }
-        public string YouAreInQueue { get { return "Vous êtes en file d'attente."; } }
-        public string ReQueued { get { return "Mis en file d'attente: {0} as {1}."; } }
-        public string QueuePopped { get { return "File d'attente prête."; } }
-        public string AcceptedQueue { get { return "File d'attente acceptée!"; } }
+        public string EnteringChampionSelect { get { return "{0}: Enterons dans la sélection de champion."; } }
+        public string YouAreInChampionSelect { get { return "{0}: Vous êtes dans la sélection de champion."; } }
+        public string SelectedChampion { get { return "{1}: Champion sélectionné: {0}."; } }
+        public string WaitingForOtherPlayersLockin { get { return "{0}: En attente des autres joueurs."; } }
+        public string ChampionNotAvailable { get { return "{1}: Le champion '{0}' n'est pas possédé, n'est pas libre de jouer ou a déjà été choisi."; } }
+        public string WaitingChampSelectTimer { get { return "{0}: En attente pour la minuterie de la sélection de champion pour atteindre 0."; } }
+        public string YouAreInQueue { get { return "{0}: Vous êtes en file d'attente."; } }
+        public string ReQueued { get { return "{1}: Mis en file d'attente: {0}."; } }
+        public string QueuePopped { get { return "{0}: File d'attente prête."; } }
+        public string AcceptedQueue { get { return "{0}: File d'attente acceptée!"; } }
         public string YouHaveLeaverBuster { get { return "Vous avez une probation de type leaverbuster."; } }
-        public string LaunchingLeagueOfLegends { get { return "Lancement de League of Legends."; } }
-        public string ClosingGameClient { get { return "Fermeture du client de jeu."; } }
-        public string InQueueAs { get { return "Dans la file d'attente: {0} en tant que {1}."; } }
+        public string LaunchingLeagueOfLegends { get { return "{0}: Lancement de League of Legends."; } }
+        public string ClosingGameClient { get { return "{0}: Fermeture du client de jeu."; } }
+        public string InQueueAs { get { return "{1}: Dans la file d'attente: {0}."; } }
         public string QueueFailedReason { get { return "Échec de la file d'attente, raison: {0}."; } }
         public string LeaverBusterTaintedWarningError { get { return "Avertissement Leaver Buster, erreur:\n{0}"; } }
         public string WaitingDodgeTimer { get { return "En attente de probation d'esquive: {0} minutes!"; } }
@@ -55,8 +55,8 @@
         public string JoinedLowPriorityQueue { get { return "Rejoint la file d'attente de priorité inférieure! comme {0}."; } }
         public string ErrorJoiningLowPriorityQueue { get { return "Une erreur s'est produite lors de l'ajout à la file d'attente de priorité inférieure.\nDisconnecting."; } }
         public string ErrorOccured { get { return "Erreur est survenue:\n{0}"; } }
-        public string RestartingLeagueOfLegends { get { return "Redémarrage League of Legends."; } }
-        public string RestartingLeagueOfLegendsAt { get { return "Redémarrage League of Legends à {0} s'il vous plaît, attendez."; } }
+        public string RestartingLeagueOfLegends { get { return "{0}: Redémarrage League of Legends."; } }
+        public string RestartingLeagueOfLegendsAt { get { return "{1}: Redémarrage League of Legends à {0} s'il vous plaît, attendez."; } }
         public string PositionInLoginQueue { get { return "Position dans la file d'attente de connexion: {0}."; } }
         public string LoggingIntoAccount { get { return "Connexion à votre compte..."; } }
         public string SummonerDoesntExist { get { return "Invocateur introuvable."; } }
@@ -73,12 +73,12 @@
         public string Welcome { get { return "Bienvenue {0} - lvl ({1}) IP: ({2}) - XP: ({3} / {4})."; } }
         public string SendingGameInvites { get { return "Envoi d'invitations au jeu."; } }
         public string WaitingGameInviteFrom { get { return "En attente d'invitation à jouer la part de {0}."; } }
-        public string LevelUp { get { return "Niveau supérieur: {0}."; } }
+        public string LevelUp { get { return "{1}: Niveau supérieur: {0}."; } }
         public string CurrentRp { get { return "Vos RP: {0}."; } }
         public string CurrentIp { get { return "Vos IP: {0}."; } }
         public string CharacterReachedMaxLevel { get { return "Votre personnage a atteint le niveau maximal: {0}."; } }
-        public string DownloadingMasteries { get { return "Téléchargement de masteries de champion.gg."; } }
-        public string UpdatingMasteries { get { return "Mise à jour des masteries."; } }
+        public string DownloadingMasteries { get { return "{0}: Téléchargement de masteries de champion.gg."; } }
+        public string UpdatingMasteries { get { return "{0}: Mise à jour des masteries."; } }
         public string Disconnected { get { return "Déconnecté."; } }
         public string BoughtXpBoost3Days { get { return "Acheté 'XP Boost: 3 Jours'!"; } }
 

@@ -31,23 +31,23 @@
         public string GameModeInvalid { get { return "게임 모드 에러!, 게임 모드를 제대로 설정해주세요."; } }
         public string WillShutdownOnceCurrentMatchEnds { get { return "현재 매치가 모두 끝나면 프로그램이 종료됩니다."; } }
         public string EzBotGameStatus { get { return "ezBot - 총 {0} 게임 - {1} 승리 - {2} 패배"; } }
-        public string AcceptingLobbyInvite { get { return "로비 초대를 허용합니다."; } }
+        public string AcceptingLobbyInvite { get { return "{0}: 로비 초대를 허용합니다."; } }
         public string AllPlayersAccepted { get { return "모든 플레이어가 수락했습니다, 큐를 시작합니다."; } }
         public string PlayersAcceptedCount { get { return "{0}/{1}명 수락, 나머지 플레이어를 기다리는 중입니다."; } }
-        public string EnteringChampionSelect { get { return "챔피언 선택에 들어갑니다."; } }
-        public string YouAreInChampionSelect { get { return "챔피언을 선택합니다."; } }
-        public string SelectedChampion { get { return "선택된 챔피언: {0}."; } }
-        public string WaitingForOtherPlayersLockin { get { return "다른 플레이어 챔피언 선택을 기다리는 중입니다."; } }
-        public string ChampionNotAvailable { get { return "챔피언 '{0}' 선택하지 못함, 누군가 선택했거나, 챔피언이 없습니다."; } }
-        public string WaitingChampSelectTimer { get { return "챔피언 선택 시간이 0초가 되도록 기다리는 중입니다."; } }
-        public string YouAreInQueue { get { return "큐에 있습니다."; } }
-        public string ReQueued { get { return "게임 대기열 재진입: {0} 소환사 : {1}."; } }
-        public string QueuePopped { get { return "대기열이 잡혔습니다."; } }
-        public string AcceptedQueue { get { return "게임이 수락됐습니다!"; } }
+        public string EnteringChampionSelect { get { return "{0}: 챔피언 선택에 들어갑니다."; } }
+        public string YouAreInChampionSelect { get { return "{0}: 챔피언을 선택합니다."; } }
+        public string SelectedChampion { get { return "{1}: 선택된 챔피언: {0}."; } }
+        public string WaitingForOtherPlayersLockin { get { return "{0}: 다른 플레이어 챔피언 선택을 기다리는 중입니다."; } }
+        public string ChampionNotAvailable { get { return "{1}: 챔피언 '{0}' 선택하지 못함, 누군가 선택했거나, 챔피언이 없습니다."; } }
+        public string WaitingChampSelectTimer { get { return "{0}: 챔피언 선택 시간이 0초가 되도록 기다리는 중입니다."; } }
+        public string YouAreInQueue { get { return "{0}: 큐에 있습니다."; } }
+        public string ReQueued { get { return "{1}: 게임 대기열 재진입: {0} 소환사."; } }
+        public string QueuePopped { get { return "{0}: 대기열이 잡혔습니다."; } }
+        public string AcceptedQueue { get { return "{0}: 게임이 수락됐습니다!"; } }
         public string YouHaveLeaverBuster { get { return "탈주 패널티를 받았습니다."; } }
-        public string LaunchingLeagueOfLegends { get { return "League of Legends를 실행합니다."; } }
-        public string ClosingGameClient { get { return "게임 클라이언트를 닫습니다."; } }
-        public string InQueueAs { get { return "게임 대기열 진입: {0} 소환사명 : {1}."; } }
+        public string LaunchingLeagueOfLegends { get { return "{0}: League of Legends를 실행합니다."; } }
+        public string ClosingGameClient { get { return "{0}: 게임 클라이언트를 닫습니다."; } }
+        public string InQueueAs { get { return "{1}: 게임 대기열 진입: {0}."; } }
         public string QueueFailedReason { get { return "큐 실패, 이유: {0}."; } }
         public string LeaverBusterTaintedWarningError { get { return "탈주 패널티 경고 에러:\n{0}"; } }
         public string WaitingDodgeTimer { get { return "닷지 패널티 시간을 기다리는 중입니다: {0} 분 남았습니다!"; } }
@@ -55,8 +55,8 @@
         public string JoinedLowPriorityQueue { get { return "낮은 우선순위 대기열에 들어갔습니다. 표시: {0}."; } }
         public string ErrorJoiningLowPriorityQueue { get { return "낮은 우선순위 대기열에 들어가는데 문제가 생겼습니다.\n연결해제 합니다.."; } }
         public string ErrorOccured { get { return "에러가 발생했습니다:\n{0}"; } }
-        public string RestartingLeagueOfLegends { get { return "League of Legends를 재시작합니다."; } }
-        public string RestartingLeagueOfLegendsAt { get { return "League of Legends {0} 초 후 재실합니다."; } }
+        public string RestartingLeagueOfLegends { get { return "{0}: League of Legends를 재시작합니다."; } }
+        public string RestartingLeagueOfLegendsAt { get { return "{1}: League of Legends {0} 초 후 재실합니다."; } }
         public string PositionInLoginQueue { get { return "로그인 대기열: {0}."; } }
         public string LoggingIntoAccount { get { return "계정에 로그인합니다..."; } }
         public string SummonerDoesntExist { get { return "소환사 계정이 없습니다."; } }
@@ -73,12 +73,12 @@
         public string Welcome { get { return "환영합니다! 소환사명 : {0} - 레벨 ({1}) IP: ({2}) - XP: ({3} / {4})."; } }
         public string SendingGameInvites { get { return "게임 초대를 보냈습니다."; } }
         public string WaitingGameInviteFrom { get { return "게임 초대를 기다리는 중입니다 {0}."; } }
-        public string LevelUp { get { return "레벨 업!: {0}."; } }
+        public string LevelUp { get { return "{1}: 레벨 업!: {0}."; } }
         public string CurrentRp { get { return "현재 RP: {0}."; } }
         public string CurrentIp { get { return "현재 IP: {0}."; } }
         public string CharacterReachedMaxLevel { get { return "캐릭터가 최대 레벨에 도달했습니다: {0}."; } }
-        public string DownloadingMasteries { get { return "champion.gg에서 마스터리를 가져옵니다."; } }
-        public string UpdatingMasteries { get { return "마스터리를 업데이트했습니다."; } }
+        public string DownloadingMasteries { get { return "{0}: champion.gg에서 마스터리를 가져옵니다."; } }
+        public string UpdatingMasteries { get { return "{0}: 마스터리를 업데이트했습니다."; } }
         public string Disconnected { get { return "연결해제되었습니다."; } }
         public string BoughtXpBoost3Days { get { return "'XP 부스트: 3일 구입'!"; } }
     }
