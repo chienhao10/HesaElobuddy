@@ -170,18 +170,9 @@ namespace Hesa_Fizz
         
         private void DrawingOnOnDraw(EventArgs args)
         {
-            if (DrawQ)
-            {
-                Drawing.DrawCircle(Player.Instance.Position, Q.Range, Q.IsReady() ? Color.Aqua : Color.Red);
-            }
-            if (DrawE)
-            {
-                Drawing.DrawCircle(Player.Instance.Position, E.Range, E.IsReady() ? Color.Aqua : Color.Red);
-            }
-            if (DrawR)
-            {
-                Drawing.DrawCircle(Player.Instance.Position, R.Range, R.IsReady() ? Color.Aqua : Color.Red);
-            }
+            if (DrawQ) Drawing.DrawCircle(Player.Instance.Position, Q.Range, Q.IsReady() ? Color.Aqua : Color.Red);
+            if (DrawE) Drawing.DrawCircle(Player.Instance.Position, E.Range, E.IsReady() ? Color.Aqua : Color.Red);
+            if (DrawR) Drawing.DrawCircle(Player.Instance.Position, R.Range, R.IsReady() ? Color.Aqua : Color.Red);
             //
             var target = TargetSelector.SelectedTarget;
             if (target == null) target = TargetSelector.GetTarget(R.Range, DamageType.Magical);
@@ -196,22 +187,17 @@ namespace Hesa_Fizz
 
         private void ObjAiBaseOnOnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (!sender.IsMe)
-            {
-                return;
-            }
+            if (!sender.IsMe) return;
 
             if (args.SData.Name == "FizzPiercingStrike")
-            {
                 if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
-                {
-                    Core.DelayAction(() => W.Cast(), (int)(sender.Spellbook.CastEndTime - Game.Time) + Game.Ping / 2 + 250);
-                }
+                    Core.DelayAction(() => {
+                        W.Cast();
+                    }, (int)(sender.Spellbook.CastEndTime - Game.Time) + Game.Ping / 2 + 250);
                 else if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass) && UseEHarassMode == 0)
-                {
-                    Core.DelayAction(() => { JumpBack = true; }, (int)(sender.Spellbook.CastEndTime - Game.Time) + Game.Ping / 2 + 250);
-                }
-            }
+                    Core.DelayAction(() => {
+                        JumpBack = true;
+                    }, (int)(sender.Spellbook.CastEndTime - Game.Time) + Game.Ping / 2 + 250);
 
             if (args.SData.Name == "fizzjumptwo" || args.SData.Name == "fizzjumpbuffer")
             {
@@ -222,28 +208,17 @@ namespace Hesa_Fizz
         
         private void Obj_AI_Base_OnSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (sender is Obj_AI_Turret && args.Target.IsMe && E.IsReady() && UseEMisc)
-            {
-                E.Cast(Game.CursorPos);
-            }
+            if (sender is Obj_AI_Turret && args.Target.IsMe && E.IsReady() && UseEMisc) E.Cast(Game.CursorPos);
         }
 
         private void Game_OnUpdate(EventArgs args)
         {
-            if (!Player.Instance.CanCast)
+            if (Player.Instance.CanCast)
             {
-                return;
-            }
+                Killsteal();
 
-            Killsteal();
-
-            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
-            {
-                Combo();
-            }
-            else if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass))
-            {
-                Harass();
+                if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo)) Combo();
+                else if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass)) Harass();
             }
 
             if(SkinEnabled)
@@ -253,7 +228,8 @@ namespace Hesa_Fizz
                     lastSkinSelected = SelectedSkin;
                     Player.SetSkin(Player.Instance.CharData.BaseSkinName, lastSkinSelected);
                 }
-            }else
+            }
+            else
             {
                 if(lastSkinSelected != 0)
                 {
@@ -266,22 +242,10 @@ namespace Hesa_Fizz
         private static float DamageOnPlayer(Obj_AI_Base target)
         {
             var damage = 0f;
-            if (Q.IsReady())
-            {
-                damage += Player.Instance.GetSpellDamage(target, SpellSlot.Q);
-            }
-            if (W.IsReady())
-            {
-                damage += Player.Instance.GetSpellDamage(target, SpellSlot.W);
-            }
-            if (E.IsReady())
-            {
-                damage += Player.Instance.GetSpellDamage(target, SpellSlot.E);
-            }
-            if (R.IsReady())
-            {
-                damage += Player.Instance.GetSpellDamage(target, SpellSlot.R);
-            }
+            if (Q.IsReady()) damage += Player.Instance.GetSpellDamage(target, SpellSlot.Q);
+            if (W.IsReady()) damage += Player.Instance.GetSpellDamage(target, SpellSlot.W);
+            if (E.IsReady()) damage += Player.Instance.GetSpellDamage(target, SpellSlot.E);
+            if (R.IsReady()) damage += Player.Instance.GetSpellDamage(target, SpellSlot.R);
             return damage;
         }
 
@@ -289,41 +253,20 @@ namespace Hesa_Fizz
         {
             var target = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
 
-            if (!target.IsValidTarget())
-            {
-                return;
-            }
-            if (LastHarassPos == null)
-            {
-                LastHarassPos = ObjectManager.Player.ServerPosition;
-            }
-            if (JumpBack)
-            {
-                E.Cast(LastHarassPos);
-            }
+            if (!target.IsValidTarget()) return;
+            if (LastHarassPos == null) LastHarassPos = ObjectManager.Player.ServerPosition;
+            if (JumpBack) E.Cast(LastHarassPos);
             // Use W Before Q
-            if (UseWHarass && W.IsReady() && UseWMisc == 0 && (Q.IsReady() || Player.Instance.IsInAutoAttackRange(target)))
-            {
-                W.Cast();
-            }
-            if (UseQHarass && Q.IsReady())
-            {
-                Q.Cast(target);
-            }
-            if (UseEHarass && E.IsReady() && UseEHarassMode == 1)
-            {
-                E.Cast(target);
-            }
+            if (UseWHarass && W.IsReady() && UseWMisc == 0 && (Q.IsReady() || Player.Instance.IsInAutoAttackRange(target))) W.Cast();
+            if (UseQHarass && Q.IsReady()) Q.Cast(target);
+            if (UseEHarass && E.IsReady() && UseEHarassMode == 1) E.Cast(target);
         }
 
         private void Combo()
         {
             var target = TargetSelector.GetTarget(R.Range, DamageType.Magical);
 
-            if (!target.IsValidTarget())
-            {
-                return;
-            }
+            if (!target.IsValidTarget()) return;
 
             if (UseRECombo && CanKillWithUltCombo(target) && Q.IsReady() && W.IsReady() && E.IsReady() && R.IsReady() && (Player.Instance.Distance(target) < Q.Range + E.Range * 2))
             {
@@ -340,38 +283,17 @@ namespace Hesa_Fizz
             {
                 if (UseRCombo && R.IsReady())
                 {
-                    if (Player.Instance.GetSpellDamage(target, SpellSlot.R) > target.Health)
-                    {
-                        SmartRCast(target);
-                    }
-                    if (DamageOnPlayer(target) > target.Health)
-                    {
-                        SmartRCast(target);
-                    }
-                    if ((Q.IsReady() || E.IsReady()))
-                    {
-                        SmartRCast(target);
-                    }
-                    if (Player.Instance.IsInAutoAttackRange(target))
-                    {
-                        SmartRCast(target);
-                    }
+                    if (Player.Instance.GetSpellDamage(target, SpellSlot.R) > target.Health) SmartRCast(target);
+                    if (DamageOnPlayer(target) > target.Health) SmartRCast(target);
+                    if ((Q.IsReady() || E.IsReady())) SmartRCast(target);
+                    if (Player.Instance.IsInAutoAttackRange(target)) SmartRCast(target);
                 }
                 Core.DelayAction(() =>
                 {
                     // Use W Before Q
-                    if (UseWCombo && W.IsReady() && UseWMisc == 0 && (Q.IsReady() || Player.Instance.IsInAutoAttackRange(target)))
-                    {
-                        W.Cast();
-                    }
-                    if (UseQCombo && Q.IsReady())
-                    {
-                        Q.Cast(target);
-                    }
-                    if (UseECombo && E.IsReady())
-                    {
-                        E.Cast(target);
-                    }
+                    if (UseWCombo && W.IsReady() && UseWMisc == 0 && (Q.IsReady() || Player.Instance.IsInAutoAttackRange(target))) W.Cast();
+                    if (UseQCombo && Q.IsReady()) Q.Cast(target);
+                    if (UseECombo && E.IsReady()) E.Cast(target);
                 }, 100);
             }
         }
@@ -381,29 +303,16 @@ namespace Hesa_Fizz
             if (!KSQ && !KSE && !KSR && !KSIgnite) return;
             foreach (var enemy in EntityManager.Enemies.Where(ene => ene.IsInRange(Player.Instance, R.Range) && ene.Type == Player.Instance.Type && ene.IsVisible))
             {
-                if (KSQ && Q.IsReady() && Q.IsInRange(enemy) && enemy.Health <= Q.GetSpellDamage(enemy))
-                {
-                    Q.Cast(enemy);
-                }else if (KSE && E.IsReady() && E.IsInRange(enemy) && enemy.Health <= E.GetSpellDamage(enemy))
-                {
-                    E.Cast(enemy);
-                }
-                else if (KSR && R.IsReady() && R.IsInRange(enemy) && enemy.Health <= R.GetSpellDamage(enemy))
-                {
-                    SmartRCast(enemy);
-                }else if (KSIgnite && Player.Instance.Spellbook.CanUseSpell(Ignite) == SpellState.Ready && enemy.IsValidTarget(600f, true) && IgniteDamage(enemy) >= enemy.Health)
-                {
-                    Player.Instance.Spellbook.CastSpell(Ignite, enemy);
-                }
+                if (KSQ && Q.IsReady() && Q.IsInRange(enemy) && enemy.Health <= Q.GetSpellDamage(enemy)) Q.Cast(enemy);
+                else if (KSE && E.IsReady() && E.IsInRange(enemy) && enemy.Health <= E.GetSpellDamage(enemy)) E.Cast(enemy);
+                else if (KSR && R.IsReady() && R.IsInRange(enemy) && enemy.Health <= R.GetSpellDamage(enemy)) SmartRCast(enemy);
+                else if (KSIgnite && Player.Instance.Spellbook.CanUseSpell(Ignite) == SpellState.Ready && enemy.IsValidTarget(600f, true) && IgniteDamage(enemy) >= enemy.Health) Player.Instance.Spellbook.CastSpell(Ignite, enemy);
             }
         }
 
         public static float IgniteDamage(Obj_AI_Base target)
         {
-            if (Ignite == SpellSlot.Unknown || Player.Instance.Spellbook.CanUseSpell(Ignite) != SpellState.Ready)
-            {
-                return 0f;
-            }
+            if (Ignite == SpellSlot.Unknown || Player.Instance.Spellbook.CanUseSpell(Ignite) != SpellState.Ready) return 0f;
             return Player.Instance.GetSummonerSpellDamage(target, DamageLibrary.SummonerSpells.Ignite);
         }
 
@@ -414,7 +323,7 @@ namespace Hesa_Fizz
             {
                 case 0:
                 {
-                    if(prediction.HitChance == HitChance.Low)
+                    if(prediction.HitChance == HitChance.Low || prediction.HitChance == HitChance.Medium || prediction.HitChance == HitChance.High)
                     {
                         var castPosition = Player.Instance.ServerPosition.Extend(prediction.CastPosition, R.Range).To3D();
                         R.Cast(castPosition);
@@ -423,7 +332,7 @@ namespace Hesa_Fizz
                 break;
                 case 1:
                 {
-                    if (prediction.HitChance == HitChance.Medium)
+                    if (prediction.HitChance == HitChance.Medium || prediction.HitChance == HitChance.High)
                     {
                         var castPosition = Player.Instance.ServerPosition.Extend(prediction.CastPosition, R.Range).To3D();
                         R.Cast(castPosition);
@@ -444,7 +353,7 @@ namespace Hesa_Fizz
 
         public static bool CanKillWithUltCombo(AIHeroClient target)
         {
-            return Player.Instance.GetSpellDamage(target, SpellSlot.Q) + Player.Instance.GetSpellDamage(target, SpellSlot.W) + Player.Instance.GetSpellDamage(target, SpellSlot.R) > target.Health;
+            return target.Health <= (Player.Instance.GetSpellDamage(target, SpellSlot.Q) + Player.Instance.GetSpellDamage(target, SpellSlot.W) + Player.Instance.GetSpellDamage(target, SpellSlot.R));
         }
         #endregion
     }
