@@ -47,7 +47,7 @@ namespace ezBot.Languages
         public string AcceptedQueue { get { return "{0}: Zaakceptowano gotowość!"; } }
         public string YouHaveLeaverBuster { get { return "Twojo konto zostało oflagowane systemem LeaverBuster."; } }
         public string LaunchingLeagueOfLegends { get { return "{0}: Uruchamianie League of Legends."; } }
-        public string ClosingGameClient { get { return "{0}: Zamykanie game client."; } }
+        public string ClosingGameClient { get { return "{0}: Zamykanie klienta gry."; } }
         public string InQueueAs { get { return "{1}: W kolejce: {0}."; } }
         public string QueueFailedReason { get { return "Kolejkowanie nie powiodło się, powód: {0}."; } }
         public string LeaverBusterTaintedWarningError { get { return "Leaver Buster Tainted Warning error:\n{0}"; } }

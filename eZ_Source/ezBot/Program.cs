@@ -442,16 +442,40 @@ namespace ezBot
                 case "NORMAL_5X5": return true;
                 case "NORMAL_3X3": return true;
                 case "ARAM": return true;
+
+                case "ASCENSION_5X5": return true;
+                case "HEXAKILL": return true;
+                case "BOT_URF_5X5": return true;
+                case "URF_5X5": return true;
+                case "ONEFORALL_MIRRORMODE_5X5": return true;
+                case "BILGEWATER_ARAM_5X5": return true;
+                case "KING_PORO_5X5": return true;
+                case "BILGEWATER_5X5": return true;
+                case "SIEGE": return true;
+                case "DEFINITELY_NOT_DOMINION_5X5": return true;
+                case "ARURF_5X5": return true;
             }
 
             Tools.ConsoleMessage(Translator.GameModeInvalid, ConsoleColor.Red);
             Tools.ConsoleMessage("INTRO_BOT", ConsoleColor.Red);
             Tools.ConsoleMessage("BEGINNER_BOT", ConsoleColor.Red);
             Tools.ConsoleMessage("MEDIUM_BOT", ConsoleColor.Red);
-            Tools.ConsoleMessage("BOT_3x3", ConsoleColor.Red);
+            Tools.ConsoleMessage("BOT_3X3", ConsoleColor.Red);
             Tools.ConsoleMessage("NORMAL_5X5", ConsoleColor.Red);
             Tools.ConsoleMessage("NORMAL_3X3", ConsoleColor.Red);
             Tools.ConsoleMessage("ARAM", ConsoleColor.Red);
+
+            Tools.ConsoleMessage("ASCENSION_5X5", ConsoleColor.Red);
+            Tools.ConsoleMessage("HEXAKILL", ConsoleColor.Red);
+            Tools.ConsoleMessage("BOT_URF_5X5", ConsoleColor.Red);
+            Tools.ConsoleMessage("URF_5X5", ConsoleColor.Red);
+            Tools.ConsoleMessage("ONEFORALL_MIRRORMODE_5X5", ConsoleColor.Red);
+            Tools.ConsoleMessage("BILGEWATER_ARAM_5X5", ConsoleColor.Red);
+            Tools.ConsoleMessage("KING_PORO_5X5", ConsoleColor.Red);
+            Tools.ConsoleMessage("BILGEWATER_5X5", ConsoleColor.Red);
+            Tools.ConsoleMessage("SIEGE", ConsoleColor.Red);
+            Tools.ConsoleMessage("DEFINITELY_NOT_DOMINION_5X5", ConsoleColor.Red);
+            Tools.ConsoleMessage("ARURF_5X5", ConsoleColor.Red);
 
             return false;
         }

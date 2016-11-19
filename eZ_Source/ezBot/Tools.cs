@@ -73,7 +73,7 @@ namespace ezBot
             lock(locker)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("[" + DateTime.Now + "]  ");
+                Console.Write("[" + DateTime.Now + "] ");
                 Console.ForegroundColor = color;
                 Console.Write(message + "\n");
             }
