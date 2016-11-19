@@ -48,6 +48,7 @@ namespace Hesa_Fizz
         public static bool UseRCombo => FizzMenuCombo["UseRCombo"].Cast<CheckBox>().CurrentValue;
         public static bool UseRECombo => FizzMenuCombo["UseRECombo"].Cast<CheckBox>().CurrentValue;
         public static int UseRChanceCombo => FizzMenuCombo["UseRChanceCombo"].Cast<ComboBox>().CurrentValue;
+        public static bool UseFCombo => FizzMenuCombo["UseFCombo"].Cast<CheckBox>().CurrentValue;
         #endregion
 
         #region Harass
@@ -99,6 +100,7 @@ namespace Hesa_Fizz
             FizzMenuCombo.Add("UseRCombo", new CheckBox("Use R", true));
             FizzMenuCombo.Add("UseRECombo", new CheckBox("Use R then E if killable", true));
             FizzMenuCombo.Add("UseRChanceCombo", new ComboBox("Minimum R Hit Chance", 2, new string[] { "Low", "Medium", "High" }));
+            FizzMenuCombo.Add("UseFCombo", new CheckBox("Use F if killable", false));
             //Harass
             FizzMenuHarass = FizzMenu.AddSubMenu("Harass", "hesaFizzHarass");
             FizzMenuHarass.Add("UseQHarass", new CheckBox("Use Q", true));
@@ -268,16 +270,34 @@ namespace Hesa_Fizz
 
             if (!target.IsValidTarget()) return;
 
-            if (UseRECombo && CanKillWithUltCombo(target) && Q.IsReady() && W.IsReady() && E.IsReady() && R.IsReady() && (Player.Instance.Distance(target) < Q.Range + E.Range * 2))
+            if (UseRECombo && CanKillWithUltCombo(target) && Q.IsReady() && W.IsReady() && E.IsReady() && R.IsReady() && ((!UseFCombo && Player.Instance.Distance(target) < Q.Range + E.Range * 2) || (UseFCombo && Player.Instance.Spellbook.CanUseSpell(Flash) == SpellState.Ready && Player.Instance.Distance(target) < Q.Range + E.Range + 625 * 2)))
             {
-                SmartRCast(target);
-                Core.DelayAction(() =>
+                if(Player.Instance.Distance(target) < Q.Range + E.Range * 2)
                 {
-                    E.Cast(Player.Instance.ServerPosition.Extend(target.ServerPosition, E.Range - 1).To3D());
-                    E.Cast(Player.Instance.ServerPosition.Extend(target.ServerPosition, E.Range - 1).To3D());
-                    W.Cast();
-                    Q.Cast(target);
-                }, 100);
+                    SmartRCast(target);
+                    Core.DelayAction(() =>
+                    {
+                        E.Cast(Player.Instance.ServerPosition.Extend(target.ServerPosition, E.Range - 1).To3D());
+                        E.Cast(Player.Instance.ServerPosition.Extend(target.ServerPosition, E.Range - 1).To3D());
+                        W.Cast();
+                        Q.Cast(target);
+                    }, 100);
+                }
+                else
+                {
+                    Player.Instance.Spellbook.CastSpell(Flash, target);
+                    Core.DelayAction(() =>
+                    {
+                        SmartRCast(target);
+                        Core.DelayAction(() =>
+                        {
+                            E.Cast(Player.Instance.ServerPosition.Extend(target.ServerPosition, E.Range - 1).To3D());
+                            E.Cast(Player.Instance.ServerPosition.Extend(target.ServerPosition, E.Range - 1).To3D());
+                            W.Cast();
+                            Q.Cast(target);
+                        }, 100);
+                    }, 100);
+                }
             }
             else
             {
