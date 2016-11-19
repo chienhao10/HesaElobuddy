@@ -144,14 +144,6 @@ namespace Hesa_Fizz
             Drawing.OnDraw += DrawingOnOnDraw;
             Drawing.OnEndScene += DrawingOnEndScene;
         }
-
-        private void Obj_AI_Base_OnSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
-        {
-            if (sender is Obj_AI_Turret && args.Target.IsMe && E.IsReady() && UseEMisc)
-            {
-                E.Cast(Game.CursorPos);
-            }
-        }
         #endregion
 
         #region Functions
@@ -225,6 +217,14 @@ namespace Hesa_Fizz
             {
                 LastHarassPos = Vector3.Zero;
                 JumpBack = false;
+            }
+        }
+        
+        private void Obj_AI_Base_OnSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        {
+            if (sender is Obj_AI_Turret && args.Target.IsMe && E.IsReady() && UseEMisc)
+            {
+                E.Cast(Game.CursorPos);
             }
         }
 
@@ -398,7 +398,7 @@ namespace Hesa_Fizz
             {
                 return 0f;
             }
-            return (float)Player.Instance.GetSummonerSpellDamage(target, DamageLibrary.SummonerSpells.Ignite);
+            return Player.Instance.GetSummonerSpellDamage(target, DamageLibrary.SummonerSpells.Ignite);
         }
 
         public static void SmartRCast(Obj_AI_Base target)
