@@ -393,7 +393,7 @@ namespace ezBot
                                             Program.fifthChampionPick.ToLower()
                                         };
 
-                                        if(Program.queueWithFriends && GetFriendsToInvite().Contains(sumName))
+                                        if(Program.queueWithFriends && (GetFriendsToInvite().Contains(sumName) || Program.leaderName.ToLower() == sumName.ToLower() ))
                                         {
                                             lock (Program.FriendsChampions)
                                             {
