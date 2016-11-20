@@ -1247,17 +1247,24 @@ namespace ezBot
                 loginPacket = await connection.GetLoginDataPacketForUser();
                 if (loginPacket.ReconnectInfo != null || ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).Game != null)
                 {
-                    var ellapsedTime = DateTime.Now.Subtract(GameStartedAt.Value).Minutes;
+                    if(GameStartedAt.HasValue)
+                    {
+                        var ellapsedTime = DateTime.Now.Subtract(GameStartedAt.Value).Minutes;
 
-                    if (ellapsedTime >= 0)
+                        if (ellapsedTime >= 0)
+                        {
+                            Tools.ConsoleMessage(string.Format(Program.Translator.RestartingLeagueOfLegends, sumName), ConsoleColor.White);
+                            connection_OnMessageReceived(sender, ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).PlayerCredentials);
+                        }
+                        else
+                        {
+                            Tools.ConsoleMessage(string.Format(Program.Translator.RestartingLeagueOfLegendsAt, GameStartedAt.Value.AddMinutes(1).ToLongTimeString(), sumName), ConsoleColor.White);
+                            new Thread(RestartLeague).Start();
+                        }
+                    }else
                     {
                         Tools.ConsoleMessage(string.Format(Program.Translator.RestartingLeagueOfLegends, sumName), ConsoleColor.White);
                         connection_OnMessageReceived(sender, ((PlatformGameLifecycleDTO)loginPacket.ReconnectInfo).PlayerCredentials);
-                    }
-                    else
-                    {
-                        Tools.ConsoleMessage(string.Format(Program.Translator.RestartingLeagueOfLegendsAt, GameStartedAt.Value.AddMinutes(1).ToLongTimeString(), sumName), ConsoleColor.White);
-                        new Thread(RestartLeague).Start();
                     }
                 }
                 else
